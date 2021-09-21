@@ -6,3 +6,9 @@ src/media/
 postgres_data/
 aiogram-bot-template/
 dron_server.pem
+.env.dev
+.env.prod
+.env.prod.db
+poetry.lock
+pyproject.toml
+src/log.log
