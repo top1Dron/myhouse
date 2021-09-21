@@ -1,27 +1,17 @@
-import { updateURLParameter, deleteObject, getCookie } from '../../services.js'
+import { init_datatable, deleteObject, getCookie } from '../../services.js'
 
 $(document).ready(function(){
     $('tr[data-href]').on("click", function() {
         document.location = $(this).data('href');
     });
 
-    // $('#id_house_name_search_field').on('keydown', function(e){
-    //     if (e.key == 'Enter'){
-    //         document.location.href = updateURLParameter(
-    //             window.location.search, 
-    //             'name', 
-    //             document.getElementById('id_house_name_search_field').value);
-    //     }
-    // });
+    init_datatable('id_meter_table', [2], [0, 1, 3], []);
 
-    // $('#id_house_address_search_field').on('keydown', function(e){
-    //     if (e.key == 'Enter'){
-    //         document.location.href = updateURLParameter(
-    //             window.location.search, 
-    //             'address', 
-    //             document.getElementById('id_house_address_search_field').value);
-    //     }
-    // });
+    $('#id_meter_table_filter').hide();
+
+    init_datatable('id_meter_reading_table', [0, 2, 6], [4, 5, 7], [1]);
+
+    $('#id_meter_reading_table_filter').hide();
 
     $('.delete-meter-button').click(function(e){
         deleteObject(this, getCookie('csrftoken'), 

@@ -69,6 +69,14 @@
                 </tbody>
             </table>
         </div>
+        {% if houses %}
+        <div class="card-footer">
+            <div class="row"></div>
+            <div class="row">
+                Количество домов: <span><strong>{{houses.count}}</strong></span>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock main_content %}

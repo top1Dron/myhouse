@@ -25,6 +25,12 @@ class CashboxListView(PermissionRequiredMixin, ListView):
     template_name = 'cashbox/cb_list.html'
     permission_required = '2'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['sum_in'] = db_utils.get_cashbox_in()
+        context['sum_out'] = db_utils.get_cashbox_out()
+        return context
+
 
 class CashboxRecordCreateView(PermissionRequiredMixin, CreateView):
     model = CashboxRecord

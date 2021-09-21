@@ -2,6 +2,7 @@ from typing import Iterable, Optional
 import logging
 
 from django.db.models import Q
+from django.db.models.aggregates import Sum
 from django.shortcuts import get_object_or_404
 
 from myhouse_admin.models import Block, AboutUsPageImage, AboutUsPageAdditionalImage, CashboxRecord, Flat, Floor, House, MeterReading, PaymentType, Section, PersonalAccount, Service, Tariff, TariffService, Ticket, Unit
@@ -281,6 +282,14 @@ def get_personal_accounts() -> Iterable[PersonalAccount]:
 
 def get_cashbox_records() -> Iterable[CashboxRecord]:
     return CashboxRecord.objects.all()
+
+
+def get_cashbox_in() -> int:
+    return CashboxRecord.objects.filter(payment_type__type='0').aggregate(Sum('summary'))['summary__sum']
+
+
+def get_cashbox_out() -> int:
+    return CashboxRecord.objects.filter(payment_type__type='1').aggregate(Sum('summary'))['summary__sum']
 
 
 def get_owner_accounts(owner_id: int) -> Iterable[PersonalAccount]:

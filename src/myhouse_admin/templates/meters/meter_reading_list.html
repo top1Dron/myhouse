@@ -30,7 +30,7 @@
         </div>
         <div class="card-body table-responsive p-0">
             {% csrf_token %}
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-hover" id="id_meter_reading_table">
                 <thead>
                     <tr>
                         <th>№</th>
@@ -45,14 +45,21 @@
                         <th>Ед. изм.</th>
                         <th></th>
                     </tr>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        {% comment %} <td></td>
-                        <td>{% render_field house_search_form.house_name_search_field class="form-control"%}</td>
-                        <td>{% render_field house_search_form.house_address_search_field class="form-control" %}</td>
-                        <td></td> {% endcomment %}
-                    </tr>
                 {% for meter in meters %}
                     <tr data-href="{% url 'myhouse_admin:meter_reading_detail' meter.pk %}?flat_id={{meter.flat.pk}}&service_id={{meter.service.pk}}">
                         <td>{{meter.number}}</td>
@@ -96,5 +103,6 @@
 {% endblock main_content %}
 
 {% block extra_js %}
+    <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
     <script src="{% static 'js/admin/meters/meter_reading_list.js' %}" type="module"></script>
 {% endblock extra_js %}

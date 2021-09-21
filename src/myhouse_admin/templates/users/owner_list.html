@@ -39,7 +39,7 @@
             </div>
             <div class="card-body table-responsive p-0">
                 {% csrf_token %}
-                <table class="table table-bordered table-hover">
+                <table class="table table-bordered table-hover" id="id_owner_table">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -53,12 +53,24 @@
                             <th>Есть долг</th>
                             <th></th>
                         </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
                     </thead>
                     <tbody>
                         {% for owner in users %}
                             <tr data-href="{% url 'myhouse_admin:owner_detail' owner.pk %}">
                                 <td>{{owner.ID}}</td>
-                                <td>{{owner.user.get_full_name}}</td>
+                                <td>{{owner}}</td>
                                 <td>{{owner.user.phone_number}}</td>
                                 <td>{{owner.user.email}}</td>
                                 <td>
@@ -76,7 +88,7 @@
                                         </div>
                                     {% endfor %}
                                 </td>
-                                <td>{{owner.user.date_joined}}</td>
+                                <td>{{owner.user.date_joined|date:"d.m.Y"}}</td>
                                 <td>
                                     {% if owner.user.status == '0' %}
                                         <span class="badge badge-danger">{{owner.user.get_status_display}}</span>
@@ -86,6 +98,7 @@
                                         <span class="badge badge-success">{{owner.user.get_status_display}}</span>
                                     {% endif %}
                                 </td>
+                                <td></td>
                                 <td>
                                     <div class="btn-group">
                                         <a href="#" class="btn btn-default">
@@ -102,15 +115,28 @@
                                     </div>
                                 </td>
                             </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="10">На данный момент пока нету владельцев</td>
+                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
+            {% if users %}
+            <div class="card-footer">
+                <div class="row"></div>
+                <div class="row">
+                    Количество владельцев: <span><strong>{{users.count}}</strong></span>
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>
 {% endblock main_content %}
 
 {% block extra_js %}
+    <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
     <script src="{% static 'js/admin/users/owner_list.js' %}" type="module"></script>
 {% endblock extra_js %}

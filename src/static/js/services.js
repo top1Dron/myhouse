@@ -113,3 +113,69 @@ export function add_form(totalFormsId, factoryBlockId, emptyFormId, ){
     var totalForms = parseInt(form_idx) + 1;
     $(`#${totalFormsId}`).val(totalForms);
 }
+
+export function extractContent(s) {
+    var span = document.createElement('span');
+    span.innerHTML = s;
+    return span.textContent || span.innerText;
+}
+
+export function init_datatable(table_id, search_text_array, simple_select_array, html_values_select_array){
+    $(`#${table_id}`).DataTable( {
+        initComplete: function () {
+            this.api().columns(simple_select_array).every( function () {
+                var column = this;
+                var select = $('<select class="form-control"><option value=""></option></select>')
+                    .appendTo( $(column.header()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+ 
+                column.data().unique().sort().each( function ( data, index ) {
+                    select.append("<option value='" + data + "'>" + data + "</option>")
+                });
+            });
+            this.api().columns(html_values_select_array).every( function () {
+                var column = this;
+                var select = $("<select class='form-control'><option value=''></option></select>")
+                    .appendTo( $(column.header()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+ 
+                column.data().unique().sort().each( function ( data, index ) {
+                    var val = extractContent(data);
+                    select.append("<option value='" + val + "'>" + val + "</option>")
+                });
+            });
+            this.api().columns(search_text_array).every( function () {
+                var column = this;
+                var input = $('<input type="text" class="form-control" />')
+                    .appendTo( $(column.header()).empty() )
+                    .on('keyup change', function () {
+                        column
+                            .search( this.value )
+                            .draw();
+                });
+            });
+        },
+        info: false,
+        lengthChange: false,
+        searching: true,
+        ordering: false,
+        paging: false,
+        responsive: true,
+    });
+}
