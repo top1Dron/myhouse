@@ -1,0 +1,110 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Владельцы квартир{% endblock title %}
+
+{% block owners %}bg-light{% endblock owners %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1>Владельцы квартир</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Владельцы квартир</li>
+            </ol>
+        </nav>
+    </section>
+    <div class="dropdown-divider"></div>
+    <div class="content">
+        <div class="row d-flex justify-content-end my-3 mr-3">
+            <div class="dropdown">
+                <a class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Выберите действие
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a href="{% url 'myhouse_admin:owner_create' %}" class="dropdown-item">Добавить владельца квартиры</a>
+                    <a class="dropdown-item" href="#">Отправить сообщение должникам</a>
+                    <a class="dropdown-item" href="#">Отправить приглашение</a>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <div class="row d-flex justify-content-end mr-3">
+                    <a href="{% url 'myhouse_admin:owner_list' %}" class="btn btn-default">Очистить</a>
+                </div>
+            </div>
+            <div class="card-body table-responsive p-0">
+                {% csrf_token %}
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>ФИО</th>
+                            <th>Телефон</th>
+                            <th>Email</th>
+                            <th>Дом</th>
+                            <th>Квартира</th>
+                            <th>Добавлен</th>
+                            <th>Статус</th>
+                            <th>Есть долг</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for owner in users %}
+                            <tr data-href="{% url 'myhouse_admin:owner_detail' owner.pk %}">
+                                <td>{{owner.ID}}</td>
+                                <td>{{owner.user.get_full_name}}</td>
+                                <td>{{owner.user.phone_number}}</td>
+                                <td>{{owner.user.email}}</td>
+                                <td>
+                                    {% for house in owner.houses %}
+                                        <a href="{% url 'myhouse_admin:house_detail' house.pk %}" class="text-decoration-none">{{house.name}}</a>
+                                        {% if not forloop.last %}
+                                            ,</br>
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>{{owner.flats_to_str|safe}}</td>
+                                <td>{{owner.user.date_joined}}</td>
+                                <td>
+                                    {% if owner.user.status == '0' %}
+                                        <span class="badge badge-danger">{{owner.user.get_status_display}}</span>
+                                    {% elif owner.user.status == '1' %}
+                                        <span class="badge badge-warning">{{owner.user.get_status_display}}</span>
+                                    {% elif owner.user.status == '2' %}
+                                        <span class="badge badge-success">{{owner.user.get_status_display}}</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="btn btn-default">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                                                <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                                            </svg>
+                                        </a>
+                                        <a href="{% url 'myhouse_admin:owner_update' owner.pk %}" class="btn btn-default">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                                            </svg>
+                                        </a>
+                                        <button type="button" class="btn btn-default delete-owner-button" delete-url="{% url 'myhouse_admin:owner_delete' owner.pk %}"><i class="fa fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}
+
+{% block extra_js %}
+    <script src="{% static 'js/admin/users/owner_list.js' %}" type="module"></script>
+{% endblock extra_js %}

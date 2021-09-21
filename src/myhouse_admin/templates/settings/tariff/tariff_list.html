@@ -1,0 +1,70 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Тарифы{% endblock title %}
+
+{% block settings %}bg-light{% endblock settings %}
+{% block tariffs %}text-dark{% endblock tariffs %}
+
+{% block main_content %}
+    <section class="content-header d-flex justify-content-between">
+        <h1>Тарифы</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Тарифы</li>
+            </ol>
+        </nav>
+    </section>
+    <div class="dropdown-divider"></div>
+    <div class="content">
+        <div class="row d-flex justify-content-end my-3 mr-3">
+            <a href="{% url 'myhouse_admin:tariff_create' %}" class="btn btn-success">Добавить тариф</a>
+        </div>
+        <div class="card mr-2 ml-2">
+            <div class="card-body table-responsive p-0">
+                {% csrf_token %}
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Название тарифа</th>
+                            <th>Описание тарифа</th>
+                            <th>Дата редактирования</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for tariff in tariffs %}
+                        <tr data-href="{% url 'myhouse_admin:tariff_detail' tariff.pk %}">
+                            <td>{{tariff.name}}</td>
+                            <td>{{tariff.description}}</td>
+                            <td>{{tariff.edit_date|date:"d.m.Y-H:i"}}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{% url 'myhouse_admin:tariff_create' %}?tariff_id={{tariff.pk}}" title="Копировать" class="btn btn-default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+                                        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                                        <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                                    </svg></a>
+                                    <a href="{% url 'myhouse_admin:tariff_update' tariff.pk %}" title="Редактировать" class="btn btn-default">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                            <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                                        </svg>
+                                    </a>
+                                    <button type="button" class="btn btn-default delete-tariff-button" title="Удалить" delete-url="{% url 'myhouse_admin:tariff_delete' tariff.pk %}"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="4">Тарифов не обнаружено</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock main_content %}
+
+{% block extra_js %}
+    <script src="{% static 'js/admin/settings/tariff_list.js' %}" type="module"></script>
+{% endblock extra_js %}

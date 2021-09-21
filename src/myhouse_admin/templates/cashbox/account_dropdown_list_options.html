@@ -1,0 +1,4 @@
+<option value="">Выберите...</option>
+{% for account in accounts %}
+<option value="{{ account.pk }}">{{ account.uid }}</option>
+{% endfor %}

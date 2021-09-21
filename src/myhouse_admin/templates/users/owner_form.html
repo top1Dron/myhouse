@@ -1,0 +1,114 @@
+{% load static widget_tweaks %}
+
+<section class="content">
+    <div class="card">
+        <div class="card-body">
+            <form action="" method="POST" class="was-validated" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for error in user_form.errors.values %}
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    {{ error|striptags }}
+                </div>
+                {% endfor %}
+                {% for error in form.errors.values %}
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    {{ error|striptags }}
+                </div>
+                {% endfor %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group g-3">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {% if update and form.instance.avatar %}
+                                            <img src="{{MEDIA_URL}}{{form.instance.avatar.url}}" alt="{{form.instance.ID}}_avatar" class="rounded-circle w-100">
+                                    {% else %}
+                                        <img src="{% static 'img/default-image.jpeg' %}" alt="..." class="rounded-circle w-100">
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{form.avatar.auto_id}}">Сменить изображение</label></br>
+                                    <input type="file" name="avatar" accept="image/*" id="id_avatar">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{user_form.last_name.auto_id}}" class="form-label">Фамилия</label>
+                            {% render_field user_form.last_name class='form-control is-invalid'%}
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{user_form.first_name.auto_id}}" class="form-label">Имя</label>
+                            {% render_field user_form.first_name class='form-control is-invalid'%}
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{form.second_name.auto_id}}" class="form-label">Отчество</label>
+                            {% render_field form.second_name class='form-control is-invalid'%}
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{form.birth_date.auto_id}}" class="form-label">Дата рождения</label>
+                            <div class="input-group date" id="birthdate" data-target-input="nearest">
+                                {% render_field form.birth_date class='form-control bg-light datetimepicker-input' data-target="#birthdate"%}
+                                <div class="input-group-append" data-target="#birthdate" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="page-header mt-4">
+                            <h4>Контактные данные</h4>
+                            <div class="dropdown-divider mb-4"></div>
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{user_form.phone_number.auto_id}}" class="form-label">Телефон</label>
+                            {% render_field user_form.phone_number class='form-control is-invalid'%}
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{form.viber.auto_id}}" class="form-label">Viber</label>
+                            {% render_field form.viber class='form-control'%}
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{form.telegram.auto_id}}" class="form-label">Telegram</label>
+                            {% render_field form.telegram class='form-control'%}
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{user_form.email.auto_id}}" class="form-label">Email (логин)</label>
+                            {% render_field user_form.email class='form-control is-invalid'%}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group g-3">
+                            <label for="{{user_form.status.auto_id}}" class="form-label">Статус</label>
+                            {% render_field user_form.status class='form-control is-invalid'%}
+                        </div>
+                        <div class="form-group g-3 mb-5">
+                            <label for="{{form.ID.auto_id}}" class="form-label">ID</label>
+                            {% render_field form.ID class='form-control is-invalid'%}
+                        </div>
+                        <div class="form-group g-3 mt-5">
+                            <label for="{{form.about.auto_id}}" class="form-label">О владельце (заметки)</label>
+                            {% render_field form.about class='form-control' style="margin-top: 0px; margin-bottom: 0px; height: 300px;" %}
+                        </div>
+                        <div class="page-header mt-4">
+                            <h4>Изменить пароль</h4>
+                            <div class="dropdown-divider mb-4"></div>
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{user_form.password1.auto_id}}" class="form-label">{{user_form.password1.label}}</label>
+                            {% render_field user_form.password1 class='form-control' type="password" %}
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{user_form.password2.auto_id}}" class="form-label">{{user_form.password2.label}}</label>
+                            {% render_field user_form.password2 class='form-control' type="password" %}
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-end mr-2">
+                    <a href="myhouse_admin:worker_list" class="btn btn-default mr-1">Отменить</a>
+                    <button class="btn btn-success" type="submit">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

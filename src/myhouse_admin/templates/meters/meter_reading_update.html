@@ -1,0 +1,35 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Показание счетчикa{% endblock title %}
+
+{% block meters %}bg-light{% endblock meters %}
+
+{% block extra_css %}{% endblock extra_css %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1>Показание счетчикa</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:meter_list' %}" class="text-dark">Счетчики</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:meter_reading_list' %}?flat_id={{form.instance.flat.pk}}&service_id={{form.instance.service.pk}}" class="text-dark">Показание счетчиков, кв.{{form.instance.flat.number}}</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:meter_reading_detail' form.instance.pk %}" class="text-dark">Показание счетчика №{{form.instance.number}}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Редактирование</li>
+            </ol>
+        </nav>
+    </section>
+    <div class="dropdown-divider"></div>
+    {% include 'meters/meter_reading_form.html' %}
+</div>
+{% endblock main_content %}
+
+{% block extra_js %}
+    <script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
+    <script src="{% static 'plugins/moment/moment-with-locales.min.js' %}"></script>
+    <script src="{% static 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+    <script src="{% static 'js/admin/meters/meter_reading_create_update.js' %}" type="module"></script>
+{% endblock extra_js %}

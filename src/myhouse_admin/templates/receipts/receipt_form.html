@@ -1,0 +1,168 @@
+{% load static widget_tweaks %}
+<section class="content">
+    <form action="" method="POST" class="was-validated">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="form-group g-3 mt-2 ml-2">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="number-addon1">№</span>
+                        </div>
+                        {% render_field form.number class="form-control w-60" aria-describedby="number-addon1"%}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1 text-center mt-3">от</div>
+            <div class="col-lg-3">
+                <div class="form-group g-3 mt-2">
+                    <div class="input-group date" id="creationdate" data-target-input="nearest">
+                        <div class="input-group-prepend" data-target="#creationdate" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                        {% render_field form.creation_date class="form-control w-60 datetimepicker-input" data-target="#creationdate" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                {% for error_name, error in form.errors.items %}
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    {{error_name}}:{{ error|striptags }}
+                </div>
+                {% endfor %}
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <div class="form-group g-3">
+                            {% render_field form.is_made %}
+                            <label for="{{form.is_made.auto_id}}">Проведен</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group g-3">
+                            <label for="{{form.house.auto_id}}" class="form-label">Дом</label>
+                            {% render_field form.house class='form-control is-invalid' data-house-sections-url=load_house_sections_url data-empty-flats=load_empty_flats_url %}
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{form.section.auto_id}}" class="form-label">Секция</label>
+                            {% if not update %}
+                                {% render_field form.section class='form-control is-invalid' data-section-flat-url=load_section_flats_url %}
+                            {% else %}
+                                {% render_field form.section class='form-control is-invalid' data-section-flat-update-url=load_section_flats_on_update_url %}
+                            {% endif %}
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{form.flat.auto_id}}" class="form-label">Квартира</label>
+                            {% render_field form.flat class='form-control is-invalid' data-flat-details-url=load_flat_details %}
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{form.personal_account.auto_id}}" class="form-label mt-4">Лицевой счет</label>
+                            {% render_field form.personal_account class='form-control is-invalid' %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group g-3">
+                            <label for="{{form.status.auto_id}}" class="form-label">Статус</label>
+                            {% render_field form.status class='form-control is-invalid' %}
+                        </div>
+                        <div class="form-group g-3 mt-2">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="{{form.start_date.auto_id}}" class="form-label mt-4">Период с</label>
+                                    <div class="input-group date" id="fromdate" data-target-input="nearest">
+                                        <div class="input-group-prepend" data-target="#fromdate" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                        {% render_field form.start_date class="form-control w-60 datetimepicker-input" data-target="#fromdate" %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{form.end_date.auto_id}}" class="form-label mt-4">Период по</label>
+                                    <div class="input-group date" id="todate" data-target-input="nearest">
+                                        <div class="input-group-prepend" data-target="#todate" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                        {% render_field form.end_date class="form-control w-60 datetimepicker-input" data-target="#todate" %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p>
+                            <strong>Владелец: </strong>
+                            <span id="id_flat_owner">
+                                {% if form.instance.pk is not None %}
+                                    <a href="{% url 'myhouse_admin:owner_detail' form.instance.flat.owner.pk %}" class="text-ecoration-none">{{form.instance.flat.owner}}</a>
+                                {% else %}
+                                    не выбран
+                                {% endif %}
+                            </span>    
+                        </p>
+                        <p>
+                            <strong>Телефон: </strong>
+                            <span id="id_flat_owner_phone">
+                                {% if form.instance.pk is not None %}
+                                    <a href="tel:{{form.instance.flat.owner.user.phone_number}}" class="text-decoration-none">{{form.instance.flat.owner.user.phone_number}}</a>
+                                {% else %}
+                                    не выбран
+                                {% endif %}
+                            </span>    
+                        </p>
+                        <p>
+                            <strong>Тариф: </strong>
+                            <span id="id_flat_tariff">
+                                {% if form.instance.pk is not None %}
+                                    <a href="myhouse_admin:tariff_detail {{form.instance.flat.tariff.pk}}" class="text-decoration-none">{{form.instance.flat.tariff}}</a>
+                                {% else %}
+                                    не выбран
+                                {% endif %}
+                            </span>    
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Услуга</th>
+                                <th>Расход</th>
+                                <th>Ед. изм.</th>
+                                <th>Цена за ед., грн.</th>
+                                <th>Стоимость, грн.</th>
+                            </tr>
+                        </thead>
+                        <tbody id="id_receipt_services_body">
+                        {% for rs in receipt_services %}
+                            <tr>
+                                <td>{{rs.number}}</td>
+                                <td>{{rs.reading_date|date:"d.m.Y"}}</td>
+                                <td>{{rs.reading_date|date:"F Y"}}</td>
+                                <td>{{rs.flat.floor.section.house}}</td>
+                                <td>{{rs.flat.floor.section}}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td colspan="4">
+                                <button class="btn btn-default" type="button">Добавить услугу</button>
+                                <button class="btn btn-default" type="button">Установить все услуги согласно тарифу</button>
+                                <button class="btn btn-default" type="button">Добавить показания счетчиков</button>
+                            </td>
+                            <td>
+                                Итого: <strong><span id="id_summary">0.00</span> грн</strong>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-end mr-2">
+                    <a href="myhouse_admin:receipt_list" class="btn btn-default mr-1">Отменить</a>
+                    <button class="btn btn-success" type="submit">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

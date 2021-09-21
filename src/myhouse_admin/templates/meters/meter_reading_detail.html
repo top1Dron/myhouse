@@ -1,0 +1,113 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Показание счетчикa{% endblock title %}
+
+{% block meters %}bg-light{% endblock meters %}
+
+{% block main_content %}
+    <div class="content-fluid">
+        <section class="content-header d-flex justify-content-between">
+            <h1 class="ml-3">Показание счетчикa</h1>
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:meter_list' %}?" class="text-dark">Счетчики</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:meter_reading_list' %}?flat_id={{meter_reading.flat.pk}}&service_id={{meter_reading.service.pk}}" class="text-dark">Показание счетчиков, кв.{{meter_reading.flat.number}}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Показание счетчикa №{{meter_reading.number}}</li>
+                </ol>
+            </nav>
+        </section>
+        <div class="dropdown-divider"></div>
+        <section class="content">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group g-3 mt-2 ml-3">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="number-addon1">№</span>
+                            </div>
+                            <input type="text" class="form-control w-60" aria-describedby="number-addon1" value="{{ meter_reading.number }}" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1 text-center mt-3">от</div>
+                <div class="col-lg-3">
+                    <div class="form-group g-3 mt-2">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="reading_date-addon1"><i class="fa fa-calendar"></i></span>
+                            </div>
+                            <input type="text" class="form-control w-60" aria-describedby="reading_date-addon1" value="{{ meter_reading.reading_date|date:"d.m.Y" }}" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mr-3 ml-3">
+                <div class="card-header row d-flex justify-content-end">
+                    {% csrf_token %}
+                    <a href="{% url 'myhouse_admin:meter_reading_update' meter_reading.pk %}" class="btn btn-primary">Редактировать показание</a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-lg-4">
+                            <table class="table table-bordered table-striped mr-2 ml-2">
+                                <tbody>
+                                    <tr>
+                                        <td class="font-weight-bold">Счетчик</td>
+                                        <td>{{meter_reading.service.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Дом</td>
+                                        <td><a href="{% url 'myhouse_admin:house_detail' meter_reading.flat.floor.section.house.pk %}" class="text-decoration-none">{{meter_reading.flat.floor.section.house.name}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Секция</td>
+                                        <td>{{meter_reading.flat.floor.section.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Квартира</td>
+                                        <td><a href="{% url 'myhouse_admin:flat_detail' meter_reading.flat.pk %}" class="text-decoration-none">{{meter_reading.flat.number}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Пользователь</td>
+                                        <td><a href="{% url 'myhouse_admin:owner_detail' meter_reading.flat.owner.pk %}" class="text-decoration-none">{{meter_reading.flat.owner}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Текущие показания</td>
+                                        <td>{{meter_reading.testimony|stringformat:".1f"}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Ед. изм.</td>
+                                        <td>{{meter_reading.service.unit.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Статус</td>
+                                        <td>
+                                            {% if meter_reading.status == '1' %}
+                                            <span class="badge badge-warning">
+                                            {% elif meter_reading.status == '4' %}
+                                                <span class="badge badge-primary">
+                                            {% elif meter_reading.status == '2' or meter_reading.status == '3' %}
+                                                <span class="badge badge-success">
+                                            {% endif %}
+                                            {{ meter_reading.get_status_display }}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock main_content %}
+
+{% block extra_js %}
+    <script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
+    <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+    <script src="{% static 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+    <script src="{% static 'js/admin/cashbox/cashbox_record_create_update.js' %}" type="module"></script>
+{% endblock extra_js %}

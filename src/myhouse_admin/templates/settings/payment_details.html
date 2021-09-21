@@ -1,0 +1,42 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Платежные реквизиты{% endblock title %}
+
+
+{% block settings %}bg-light{% endblock settings %}
+{% block payment_details %}text-dark{% endblock payment_details %}
+
+{% block main_content %}
+<div class="conteiner-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1>Платежные реквизиты</h1>
+    </section>
+    <div class="dropdown-divider"></div>
+    <section class="content">
+        <div class="card">
+            <div class="card-body">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="col-12 col-lg-7">
+                        <div class="form-group">
+                            <label for="{{form.company_name.auto_id}}">Название компании</label>
+                            {% render_field form.company_name class="form-control" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{form.details.auto_id}}">Информация</label>
+                            {% render_field form.details class="form-control" %}
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="row d-flex justify-content-end">
+                            <a href="{% url 'myhouse_admin:payment_details' %}" class="btn btn-default">Отменить</a>
+                            <button class="btn btn-success ml-1" type="submit">Сохранить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock main_content %}

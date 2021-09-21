@@ -1,0 +1,129 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Редактирование страницы{% endblock title %}
+
+
+{% block site_management %}bg-light{% endblock site_management %}
+{% block contacts %}text-dark{% endblock contacts %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'plugins/summernote/summernote-bs4.min.css' %}">
+{% endblock extra_css %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1>Редактирование страницы</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Редактирование страницы</li>
+            </ol>
+        </nav>
+    </section>
+    {% for error in form.errors.values %}
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        {{ error|striptags }}
+    </div>
+    {% endfor %}
+    <div class="dropdown-divider"></div>
+    <section class="content">
+        <div class="card">
+            <div class="card-header">
+                <h4>Редактирование страницы "Контакты"</h4>
+            </div>
+            <div class="card-body">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-xs-12 col-md-8">
+                            <div class="page-header">
+                                <h4>Контактная информация</h4>
+                                <div class="dropdown-divider mb-4"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="{{form.heading.auto_id}}">Заголовок</label>
+                                {% render_field form.heading class="form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{form.short_text.auto_id}}">Краткий текст</label>
+                                {% render_field form.short_text class="form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{form.commercial_site_link.auto_id}}">Ссылка на коммерческий сайт</label>
+                                {% render_field form.commercial_site_link class="form-control" %}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <div class="page-header">
+                                <h4>Контакты</h4>
+                                <div class="dropdown-divider mb-4"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="{{form.fio.auto_id}}">ФИО</label>
+                                {% render_field form.fio class="form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{form.location.auto_id}}">Локация</label>
+                                {% render_field form.location class="form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{form.address.auto_id}}">Адрес</label>
+                                {% render_field form.address class="form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{form.phone_number.auto_id}}">Телефон</label>
+                                {% render_field form.phone_number class="form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{form.email.auto_id}}">E-mail</label>
+                                {% render_field form.email class="form-control" %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-header">
+                        <h4>Карта</h4>
+                        <div class="dropdown-divider"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.map.auto_id}}">Код карты</label>
+                        {% render_field form.map class="form-control" %}
+                    </div>
+                    <div class="page-header">
+                        <h4>Настройки SEO</h4>
+                        <div class="dropdown-divider"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.seo_title.auto_id}}">Title</label>
+                        {% render_field form.seo_title class="form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.seo_description.auto_id}}">Description</label>
+                        {% render_field form.seo_description class="form-control" style="height:150px;" %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.seo_keywords.auto_id}}">Keywords</label>
+                        {% render_field form.seo_keywords class="form-control" style="height:150px;" %}
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <a href="{% url 'myhouse_admin:contacts_page' %}" class="btn btn-default">Отменить</a>
+                        <button class="btn btn-success ml-1" type="submit">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock main_content %}
+
+{% block extra_js %}
+<script src="{% static 'plugins/summernote/summernote-bs4.min.js' %}"></script>
+<script>
+    $(`#id_short_text`).summernote({
+        height: '156px',
+    });
+</script>
+{% endblock extra_js %}

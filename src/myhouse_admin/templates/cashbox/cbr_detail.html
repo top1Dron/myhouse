@@ -1,0 +1,131 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Приходная ведомость{% endblock title %}
+
+{% block cashbox %}bg-light{% endblock cashbox %}
+
+{% block main_content %}
+    <div class="content-fluid">
+        <section class="content-header d-flex justify-content-between">
+            <h1 class="ml-3">Приходная ведомость</h1>
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:cashbox_list' %}" class="text-dark">Платежи</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Приходная ведомость №{{cashbox_record.number}}</li>
+                </ol>
+            </nav>
+        </section>
+        <div class="dropdown-divider"></div>
+        <section class="content">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group g-3 mt-2 ml-3">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="number-addon1">№</span>
+                            </div>
+                            <input type="text" class="form-control w-60" aria-describedby="number-addon1" value="{{ cashbox_record.number }}" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1 text-center mt-3">от</div>
+                <div class="col-lg-3">
+                    <div class="form-group g-3 mt-2">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="date-addon1"><i class="fa fa-calendar"></i></span>
+                            </div>
+                            <input type="text" class="form-control w-60" aria-describedby="date-addon1" value="{{ cashbox_record.date|date:"d.m.Y" }}" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mr-3 ml-3">
+                <div class="card-header row d-flex">
+                    {% csrf_token %}
+                    <h3 class="mr-auto">Приходная ведомость</h3>
+                    <a href="{% url 'myhouse_admin:cashbox_record_create' %}?cbr_id={{cashbox_record.pk}}" class="btn btn-default mr-1">Копировать</a>
+                    <button type="button" class="btn btn-default mr-1 delete-cb_record-button" delete-url="{% url 'myhouse_admin:cbr_delete' cashbox_record.pk %}">Удалить</button>
+                    <a href="{% url 'myhouse_admin:cashbox_record_update' cashbox_record.pk %}" class="btn btn-primary mr-1">Редактировать ведомость</a>
+                    <a href="#" class="btn btn-default justify-content-end">Выгрузить в Excel</a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-bordered table-striped mr-2 ml-2">
+                                <tbody>
+                                    <tr>
+                                        <td class="font-weight-bold">Владелец квартиры</td>
+                                        <td>
+                                            {% if cashbox_record.personal_account is not None %}
+                                                <a href="{% url 'myhouse_admin:owner_detail' cashbox_record.personal_account.flat.owner.pk %}" class="text-decoration-none">{{cashbox_record.personal_account.flat.owner}}</a>
+                                            {% else %}
+                                                не указано
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Лицевой счет</td>
+                                        <td>
+                                            {% if cashbox_record.personal_account is not None %}
+                                                <a href="{% url 'myhouse_admin:personal_account_detail' cashbox_record.personal_account.pk %}" class="text-decoration-none">{{cashbox_record.personal_account}}</a>
+                                            {% else %}
+                                                не указано
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Статья</td>
+                                        <td>{{cashbox_record.payment_type.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Квитанция</td>
+                                        <td>не указано</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Услуга</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Менеджер</td>
+                                        <td>
+                                            {% if cashbox_record.manager is not None %}
+                                                <a href="{% url 'myhouse_admin:worker_detail' cashbox_record.manager.pk %}" class="text-decoration-none">{{cashbox_record.manager.user.get_full_name}}</a>
+                                            {% else %}
+                                                не указано
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Сумма</td>
+                                        <td>
+                                            {% if cashbox_record.payment_type.type == '0' %}
+                                                <span class="text-success">{{cashbox_record.summary|stringformat:".2f"}}</span>
+                                            {% else %}
+                                                <span class="text-danger">{{cashbox_record.summary|stringformat:".2f"}}</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Комментарий</td>
+                                        <td>{{cashbox_record.comment}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock main_content %}
+
+{% block extra_js %}
+    <script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
+    <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+    <script src="{% static 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+    <script src="{% static 'js/admin/cashbox/cashbox_record_create_update.js' %}" type="module"></script>
+{% endblock extra_js %}

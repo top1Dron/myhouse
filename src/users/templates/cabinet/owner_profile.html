@@ -1,0 +1,127 @@
+{% extends 'cabinet_layout/base.html' %}
+
+{% load static %}
+
+{% block title %}Профиль{% endblock title %}
+
+{% block main_content %}
+    <div class="container-fluid">
+        <section class="content-header d-flex justify-content-between">
+            <h1 class="ml-3">Профиль</h1>
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Профиль</li>
+                </ol>
+            </nav>
+        </section>
+        <div class="dropdown-divider"></div>
+        <section class="content">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="card ml-2 mb-3">
+                        <div class="card-body">
+                            <div class="row d-flex justify-content-center">
+                                {% if owner.avatar %}
+                                    <img src="{{MEDIA_URL}}{{owner.avatar.url}}" alt="avatar" class="rounded-circle mb-2" width=160 height="160">
+                                {% else %}
+                                    <img src="{% static 'img/default-image.jpeg' %}" alt="" class="rounded-circle mb-2" width=160 height="160">
+                                {% endif %}
+                            </div>
+                            <div class="row d-flex justify-content-center">
+                                <h5 class="text-center">{{ owner.user.email }}</h5>
+                            </div>
+                            <div class="row d-flex justify-content-center">
+                                <p class="text-muted text-center">Владелец квартиры</p>
+                            </div>
+                            <div class="row d-flex justify-content-center">
+                                <ul class="list-group w-100">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">Телефон<span>{{owner.user.phone_number}}</span></li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">Viber<span>{{owner.viber}}</span></li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">Telegram<span>{{owner.telegram}}</span></li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">Email<span>{{owner.user.email}}</span></li>
+                                </ul>
+                            </div>
+                            <div class="row d-flex justify-content-center mt-2">
+                                <a href="{% url 'users:profile_update' %}{% if owner_ID is not None %}?owner_ID={{owner_ID}}{% endif %}" class="btn btn-primary w-100">Изменить</a>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="ml-2">Обо мне (заметки)</h4>
+                    <textarea name="about" id="id_about" rows="5" class="form-control bg-white" disabled>{{owner.about|default_if_none:"Нет заметок"}}</textarea>
+                </div>
+                <div class="col-lg-9">
+                    <h4 class="mb-3">Мои квартиры</h4>
+                    {% for flat in flats %}
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Описание квартиры</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <p>{{flat.floor.section.house}}.{{flat.floor.section.house.address}}, кв.{{flat.number}}</p>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img class="img-fluid" src="{{MEDIA_URL}}{{flat.floor.section.house.image1.url}}" style="height:350px; margin-bottom:30px">
+                                    </div>
+                                    <div class="row col-md-6">
+                                        <div class="col-md-6">
+                                            <img class="img-fluid" src="{{MEDIA_URL}}{{flat.floor.section.house.image2.url}}" style="height:160px;">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <img class="img-fluid" src="{{MEDIA_URL}}{{flat.floor.section.house.image3.url}}" style="height:160px;">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <img class="img-fluid" src="{{MEDIA_URL}}{{flat.floor.section.house.image4.url}}" style="height:160px;">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <img class="img-fluid" src="{{MEDIA_URL}}{{flat.floor.section.house.image5.url}}" style="height:160px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <table class="table table-bordered table-striped mr-2 ml-2">
+                                    <tbody>
+                                        <tr>
+                                            <td class="font-weight-bold" colspan="2">Описание</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Название дома</td>
+                                            <td>{{flat.floor.section.house.name}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Адрес</td>
+                                            <td>{{flat.floor.section.house.address}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>№ квартиры</td>
+                                            <td>{{flat.number}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Площадь</td>
+                                            <td>{{flat.square}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Этаж</td>
+                                            <td>{{flat.floor}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Секция</td>
+                                            <td>{{flat.floor.section}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Лицевой счет</td>
+                                            <td>{{flat.personal_account|default_if_none:"нет лицевого счета"}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <input type="text" class="form-control bg-white" value="Квартиры пока не добавлены" disabled>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock main_content %}

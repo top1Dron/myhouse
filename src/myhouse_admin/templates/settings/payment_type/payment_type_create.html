@@ -1,0 +1,31 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Новая статья{% endblock title %}
+
+{% block settings %}bg-light{% endblock settings %}
+{% block payment_types %}text-dark{% endblock payment_types %}
+
+{% block main_content %}
+<div class="conteiner-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1>Новая статья</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:payment_type_list' %}" class="text-dark"><i class="fa fa-home"></i>Статьи приходов/расходов</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Новая статья</li>
+            </ol>
+        </nav>
+    </section>
+    <div class="dropdown-divider"></div>
+    <section class="content">
+        <div class="card">
+            <div class="card-body">
+                {% include "settings/payment_type/payment_type_form.html" %}
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock main_content %}

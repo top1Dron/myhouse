@@ -1,0 +1,4 @@
+<option value="">Выберите...</option>
+{% for floor in floors %}
+<option value="{{ floor.pk }}">{{ floor.name }}</option>
+{% endfor %}

@@ -1,0 +1,88 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Счетчики{% endblock title %}
+
+{% block meters %}bg-light{% endblock meters %}
+
+{% block main_content %}
+<section class="content-header d-flex justify-content-between">
+    <h1>Счетчики</h1>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Счетчики</li>
+        </ol>
+    </nav>
+</section>
+<div class="dropdown-divider"></div>
+<div class="content">
+    <div class="row d-flex justify-content-end my-3 mr-3">
+        <a href="{% url 'myhouse_admin:meter_create' %}" class="btn btn-success">Добавить показания</a>
+    </div>
+    <div class="card mr-2 ml-2">
+        <div class="card-header">
+            <div class="row d-flex justify-content-end mr-3">
+                <a href="{% url 'myhouse_admin:meter_list' %}" class="btn btn-default">Очистить</a>
+            </div>
+        </div>
+        <div class="card-body table-responsive p-0">
+            {% csrf_token %}
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Дом</th>
+                        <th>Секция</th>
+                        <th>№ квартиры</th>
+                        <th>Счетчик</th>
+                        <th>Текущие показания</th>
+                        <th>Ед. изм.</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% comment %} <td></td>
+                        <td>{% render_field house_search_form.house_name_search_field class="form-control"%}</td>
+                        <td>{% render_field house_search_form.house_address_search_field class="form-control" %}</td>
+                        <td></td> {% endcomment %}
+                    </tr>
+                {% for meter in meters %}
+                    <tr data-href="{% url 'myhouse_admin:meter_reading_list' %}?flat_id={{meter.flat.pk}}&service_id={{meter.service.pk}}">
+                        <td>{{meter.flat.floor.section.house}}</td>
+                        <td>{{meter.flat.floor.section}}</td>
+                        <td>{{meter.flat.number}}</td>
+                        <td>{{meter.service.name}}</td>
+                        <td>{{meter.testimony|stringformat:".1f"}}</td>
+                        <td>{{meter.service.unit.name}}</td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="{% url 'myhouse_admin:meter_create' %}?meter_id={{meter.pk}}" class="btn btn-default">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-speedometer" viewBox="0 0 16 16">
+                                        <path d="M8 2a.5.5 0 0 1 .5.5V4a.5.5 0 0 1-1 0V2.5A.5.5 0 0 1 8 2zM3.732 3.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 8a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 8zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 7.31A.91.91 0 1 0 8.85 8.569l3.434-4.297a.389.389 0 0 0-.029-.518z"/>
+                                        <path fill-rule="evenodd" d="M6.664 15.889A8 8 0 1 1 9.336.11a8 8 0 0 1-2.672 15.78zm-4.665-4.283A11.945 11.945 0 0 1 8 10c2.186 0 4.236.585 6.001 1.606a7 7 0 1 0-12.002 0z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                            <a href="{% url 'myhouse_admin:meter_reading_list' %}?flat_id={{meter.flat.pk}}&service_id={{meter.service.pk}}" title="Открыть историю показаний для счетчика" class="btn btn-default">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                </svg>
+                            </a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="7">Показаний счетчиков не обнаружено</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}
+
+{% block extra_js %}
+    <script src="{% static 'js/admin/personal_accounts/personal_account_list.js' %}" type="module"></script>
+{% endblock extra_js %}

@@ -1,0 +1,93 @@
+{% load static widget_tweaks %}
+
+<form action="" method="POST" class="was-validated">
+    {% csrf_token %}
+    <div class="col-12 col-lg-7">
+        <div class="form-group">
+            <label for="{{form.name.auto_id}}">Название тарифа</label>
+            {% render_field form.name class="form-control is-invalid" %}
+        </div>
+        <div class="form-group">
+            <label for="{{form.description.auto_id}}">Описание тарифа</label>
+            {% render_field form.description class="form-control is-invalid" rows="5" %}
+        </div>
+        {{ service_formset.management_form }}
+        <div id="tariff_services">
+            {% if update %}
+                {% for service_form in service_formset %}
+                    <div class="row d-flex align-items-center">
+                        <div class="col-12">
+                            <div class="form-group g-3 mt-2">
+                                <div class="row">
+                                    <div class="col-6 col-md-4">
+                                        <label for="{{service_form.service.auto_id}}">Услуга</label>
+                                        {% render_field service_form.service class="form-control" get-service-unit-url=get_service_unit_url %}
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <label for="{{service_form.price.auto_id}}">Цена</label>
+                                        <div class="input-group">
+                                            {% render_field service_form.price class="form-control" min="0" %}
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-2">
+                                        <label for="{{forloop.counter0}}-currence-code">Валюта</label>
+                                        <input type="text" class="form-control" id="{{forloop.counter0}}-currence-code" value="грн" disabled>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <label for="{{forloop.counter0}}-serviceunit-name">Ед. изм.</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="{{forloop.counter0}}-serviceunit-name" value="{{service_form.instance.service.unit.name}}" disabled>
+                                            {% if form.instance.pk is not None%}
+                                                <button class="btn btn-default text-center align-self-end mb-2" type='button' delete-url="{% url 'myhouse_admin:tariff_service_delete' form.instance.pk service_form.instance.pk %}" onclick="deleteService(this, 'id_service-TOTAL_FORMS', true)"><i class="fa fa-trash"></i></button>
+                                            {% else %}
+                                                <button class="btn btn-default text-center align-self-end mb-2" type='button' onclick="deleteService(this, 'id_service-TOTAL_FORMS')"><i class="fa fa-trash"></i></button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="row d-flex ml-1">
+            <button class="btn btn-default" type="button" id="add_service">Добавить услугу</button>
+        </div>
+        <div class="row d-flex justify-content-end">
+            <a href="{% url 'myhouse_admin:tariff_list' %}" class="btn btn-default">Отменить</a>
+            <button class="btn btn-success ml-1" type="submit">Сохранить</button>
+        </div>
+    </div>
+</form>
+<div id="empty_service_form" style="display:none">
+    <div class="row d-flex align-items-center">
+        <div class="col-12">
+            <div class="form-group g-3 mt-2">
+                <div class="row">
+                    <div class="col-6 col-md-4">
+                        <label for="{{service_formset.empty_form.service.auto_id}}">Услуга</label>
+                        {% render_field service_formset.empty_form.service class="form-control" get-service-unit-url=get_service_unit_url %}
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <label for="{{service_formset.empty_form.price.auto_id}}">Цена</label>
+                        <div class="input-group">
+                            {% render_field service_formset.empty_form.price class="form-control" min="0" %}
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-2">
+                        <label for="__prefix__-currence-code">Валюта</label>
+                        <input type="text" class="form-control" id="__prefix__-currence-code" value="грн" disabled>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <label for="__prefix__-serviceunit-name">Ед. изм.</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="__prefix__-serviceunit-name" value="Выберите..." disabled>
+                            <button class="btn btn-default text-center align-self-end mb-2" type='button' onclick="deleteService(this, 'id_service-TOTAL_FORMS')"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

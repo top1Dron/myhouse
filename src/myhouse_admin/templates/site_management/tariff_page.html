@@ -1,0 +1,165 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Редактирование страницы{% endblock title %}
+
+
+{% block site_management %}bg-light{% endblock site_management %}
+{% block tariffs_page %}text-dark{% endblock tariffs_page %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'plugins/summernote/summernote-bs4.min.css' %}">
+<style>
+@media only screen and (min-width : 481px) {
+    .flex-row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .flex-row > [class*='col-'] {
+        display: flex;
+        flex-direction: column;
+    }
+    .flex-row.row:after, 
+    .flex-row.row:before {
+        display: flex;
+    }
+}
+</style>
+{% endblock extra_css %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1>Редактирование страницы</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Редактирование страницы</li>
+            </ol>
+        </nav>
+    </section>
+    {% if form.errors.values or blocks.errors.values %}
+        {% for error in form.errors.values %}
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ error|striptags }}
+        </div>
+        {% endfor %}
+        {% for error in blocks.errors.values %}
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ error|striptags }}
+        </div>
+        {% endfor %} 
+    {% endif %} 
+    <div class="dropdown-divider"></div>
+    <section class="content">
+        <div class="card">
+            <div class="card-header">
+                <h4>Редактирование страницы "Тарифы"</h4>
+            </div>
+            <div class="card-body">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="page-header">
+                        <h4>Информация</h4>
+                        <div class="dropdown-divider mb-4"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="{{form.heading.auto_id}}">Заголовок</label>
+                                {% render_field form.heading class="form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{form.short_text.auto_id}}">Краткий текст</label>
+                                {% render_field form.short_text class="form-control" %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-header">
+                        <h4>Изображения</h4>
+                        <div class="dropdown-divider mb-4"></div>
+                    </div>
+                    <div class="form-group g-3">
+                        {{ blocks.management_form }}
+                        <div class="row flex-row" id="blocks">
+                            {% for block in blocks %}
+                            {% for hidden in block.hidden_fields %}
+                                {{ hidden }}
+                            {% endfor %}
+                            <div class="col-md-4 mt-4">
+                                <div class="row d-flex justify-content-between">
+                                    <h4>Тариф {{ forloop.counter }}</h4>
+                                    {% render_field block.DELETE class="d-none"%}
+                                    <button class="col-2 text-red text-center align-self-end mb-2 btn btn-green" delete="true" type='button' onclick="deleteBlock(this, {{forloop.counter0}})"><i class="fa fa-trash"></i></button>
+                                </div>
+                                {% if block.image.value.url is not None %}
+                                    <img id="block_image_{{forloop.counter0}}" class="img-thumbnail slide text-center mb-3" image-start-src='{{MEDIA_URL}}{{block.image.value.url}}' src="{{MEDIA_URL}}{{block.image.value.url}}" alt="...">
+                                {% else %}
+                                    <img id="block_image_{{forloop.counter0}}" class="img-thumbnail slide text-center mb-3" image-start-src='...' src="{% static 'img/default-image.jpeg' %}" alt="...">
+                                {% endif %}
+                                <label>Файл</label>
+                                <span class="border">
+                                    <input type="file" name="blocks-{{forloop.counter0}}-image" accept="image/*" id="id_blocks-{{forloop.counter0}}-image">
+                                </span>
+                                <div class="form-group">
+                                    <label for="{{block.signature.auto_id}}">Подпись</label>
+                                    {% render_field block.signature class="form-control" %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div id="empty_form" style="display:none">
+                            <div class="col-md-4 mt-4">
+                                {% csrf_token %}
+                                <div class="row d-flex justify-content-between">
+                                    <h4>Тариф __prefix1__</h4>
+                                    <a class="col-2 text-red text-center align-self-end mb-2" type='button' onclick="deleteBlock(this)"><i class="fa fa-trash"></i></a>
+                                </div>
+                                <img id="{{blocks.empty_form.image.auto_id}}" class="img-thumbnail slide text-center mb-3" image-start-src='...' src="{% static 'img/default-image.jpeg' %}" alt="...">
+                                <label>Рекомендуемый размер: (650x300)</label>
+                                <span class="border">
+                                    <input type="file" name="blocks-__prefix__-image" accept="image/*" id="{{blocks.empty_form.image.auto_id}}">
+                                </span>
+                                <div class="form-group">
+                                    <label for="{{blocks.empty_form.signature.auto_id}}">Подпись</label>
+                                    {% render_field blocks.empty_form.signature class="form-control" %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-header">
+                        <h4>Настройки SEO</h4>
+                        <div class="dropdown-divider"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.seo_title.auto_id}}">Title</label>
+                        {% render_field form.seo_title class="form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.seo_description.auto_id}}">Description</label>
+                        {% render_field form.seo_description class="form-control" style="height:150px;" %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.seo_keywords.auto_id}}">Keywords</label>
+                        {% render_field form.seo_keywords class="form-control" style="height:150px;" %}
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <a href="{% url 'myhouse_admin:tariff_page' %}" class="btn btn-default">Отменить</a>
+                        <button class="btn btn-success ml-1" type="button" id="add_more">Добавить тариф</button>
+                        <button class="btn btn-success ml-1" type="submit">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock main_content %}
+
+{% block extra_js %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
+    <script src="{% static 'plugins/summernote/summernote-bs4.min.js' %}"></script>
+    <script src="{% static 'js/admin/site_management/tariff_page.js' %}" type="module"></script>
+{% endblock extra_js %}

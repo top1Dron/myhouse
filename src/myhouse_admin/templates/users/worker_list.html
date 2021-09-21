@@ -1,0 +1,109 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Пользователи{% endblock title %}
+
+
+{% block settings %}bg-light{% endblock settings %}
+{% block workers %}text-dark{% endblock workers %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1>Пользователь</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Пользователи</li>
+            </ol>
+        </nav>
+    </section>
+    <div class="dropdown-divider"></div>
+    <div class="content">
+        <div class="row d-flex justify-content-end my-3 mr-3">
+            <a href="{% url 'myhouse_admin:worker_create' %}" class="btn btn-success">Создать пользователя</a>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <div class="row d-flex justify-content-end mr-3">
+                    <a href="{% url 'myhouse_admin:worker_list' %}" class="btn btn-default">Очистить</a>
+                </div>
+            </div>
+            <div class="card-body table-responsive p-0">
+                {% csrf_token %}
+                <input type="hidden" id="id_filtered_role" value="{{filtered_role|default_if_none:"0"}}">
+                <input type="hidden" id="id_filtered_status" value="{{filtered_status|default_if_none:"0"}}">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Пользователь</th>
+                            <th>Роль</th>
+                            <th>Телефон</th>
+                            <th>Email (логин)</th>
+                            <th>Статус</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>{% render_field user_search_form.full_name_search_field class="form-control"%}</td>
+                            <td>{% render_field employee_filter_form.role class="form-control"%}</td>
+                            <td>{% render_field user_search_form.phone_number_search_field class="form-control" %}</td>
+                            <td>{% render_field user_search_form.email_search_field class="form-control" %}</td>
+                            <td>{% render_field user_filter_form.status class="form-control" %}</td>
+                            <td></td>
+                        </tr>
+                    {% for employee in users %}
+                        <tr data-href="{% url 'myhouse_admin:worker_detail' employee.pk %}">
+                            <th scope="row">{{forloop.counter}}</td>
+                            <td>{{employee.user.get_full_name}}</td>
+                            <td>{{employee.role.name}}</td>
+                            <td>{{employee.user.phone_number}}</td>
+                            <td>{{employee.user.email}}</td>
+                            <td>
+                                {% if employee.user.status == '0' %}
+                                    <span class="badge badge-danger">{{employee.user.get_status_display}}</span>
+                                {% elif employee.user.status == '1' %}
+                                    <span class="badge badge-warning">{{employee.user.get_status_display}}</span>
+                                {% elif employee.user.status == '2' %}
+                                    <span class="badge badge-success">{{employee.user.get_status_display}}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-default">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                                            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                                            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                                        </svg>
+                                    </a>
+                                    <a href="{% url 'myhouse_admin:worker_update' employee.pk %}" class="btn btn-default">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                            <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                                        </svg>
+                                    </a>
+                                    {% if user.employee.pk is not employee.pk %}
+                                        <button type="button" class="btn btn-default delete-employee-button" delete-url="{% url 'myhouse_admin:employee_delete' employee.pk %}"><i class="fa fa-trash"></i></button>
+                                    {% else %}
+                                        <button type="button" class="btn btn-default disabled" disabled><i class="fa fa-trash"></i></button>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="7">Пользователей не обнаружено</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}
+
+{% block extra_js %}
+    <script src="{% static 'js/admin/users/worker_list.js' %}" type="module"></script>
+{% endblock extra_js %}

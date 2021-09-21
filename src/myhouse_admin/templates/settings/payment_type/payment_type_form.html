@@ -1,0 +1,19 @@
+{% load static widget_tweaks %}
+
+<form action="" method="POST" class="was-validated">
+    {% csrf_token %}
+    <div class="col-12 col-lg-7">
+        <div class="form-group">
+            <label for="{{form.name.auto_id}}">Название</label>
+            {% render_field form.name class="form-control is-invalid" %}
+        </div>
+        <div class="form-group">
+            <label for="{{form.type.auto_id}}">Приход/расход</label>
+            {% render_field form.type class="form-control is-invalid" %}
+        </div>
+    </div>
+    <div class="row d-flex justify-content-end">
+        <a href="{% url 'myhouse_admin:payment_type_list' %}" class="btn btn-default">Отменить</a>
+        <button class="btn btn-success ml-1" type="submit">Сохранить</button>
+    </div>
+</form>

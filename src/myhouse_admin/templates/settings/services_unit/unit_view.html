@@ -1,0 +1,34 @@
+{% load static widget_tweaks %}
+
+{{ unit_formset.management_form }}
+<div id="all_unit">
+    {% for form in unit_formset %}
+        <div class="row d-flex align-items-center">
+            {% csrf_token %}
+            <div class="col-12">
+                <div class="form-group g-3 mt-2">
+                    {% render_field form.id %}
+                    <label for="{{form.name.auto_id}}">Ед. изм.</label>
+                    <div class="input-group">
+                        {% render_field form.name class="form-control" %}
+                        <button class="btn btn-default text-center align-self-end mb-2" delete-url="{% url 'myhouse_admin:unit_delete' form.instance.pk %}" type='button' onclick="deleteUnit(this, 'id_unit-TOTAL_FORMS', true)"><i class="fa fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<button class="btn btn-default my-2" type="button" id="add_unit">Добавить</button>
+<div id="empty_unit_form" style="display:none">
+    <div class="row d-flex align-items-center">
+        <div class="col-12">
+            <div class="form-group g-3 mt-2">
+                <label for="{{unit_formset.empty_form.name.auto_id}}">Ед. изм.</label>
+                <div class="input-group">
+                    {% render_field unit_formset.empty_form.name class="form-control" %}
+                    <button class="btn btn-default text-center align-self-end mb-2" type='button' onclick="deleteUnit(this, 'id_unit-TOTAL_FORMS')"><i class="fa fa-trash"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

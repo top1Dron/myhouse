@@ -1,0 +1,75 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Тариф: {{tariff}}{% endblock title %}
+
+{% block settings %}bg-light{% endblock settings %}
+{% block tariffs %}text-dark{% endblock tariffs %}
+
+{% block main_content %}
+    <div class="content-fluid">
+        <section class="content-header d-flex justify-content-between">
+            <h1>Тариф: {{tariff}}</h1>
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:tariff_list' %}" class="text-dark">Тарифы</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Тариф: {{tariff}}</li>
+                </ol>
+            </nav>
+        </section>
+        <div class="dropdown-divider"></div>
+        <section class="content">
+            <div class="card">
+                <div class="card-header row d-flex justify-content-end">
+                    <a href="{% url 'myhouse_admin:tariff_update' tariff.pk %}" class="btn btn-primary">Редактировать тариф</a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-bordered table-striped mr-2 ml-2">
+                                <tbody>
+                                    <tr>
+                                        <td class="font-weight-bold">Название тарифа</td>
+                                        <td>{{tariff.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Описание</td>
+                                        <td>{{tariff.description}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Дата редактирования</td>
+                                        <td>{{tariff.edit_date|date:"d.m.Y-H:i"}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-bordered table-striped mr-2 ml-2 mt-2">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Услуга</th>
+                                        <th>Ед. изм.</th>
+                                        <th>Цена за ед., грн</th>
+                                        <th>Валюта</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for t_service in tariff.tariff_services.all %}
+                                        <tr>
+                                            <td>{{forloop.counter}}</td>
+                                            <td>{{t_service.service.name}}</td>
+                                            <td>{{t_service.service.unit.name}}</td>
+                                            <td>{{ t_service.price|stringformat:".2f" }}</td>
+                                            <td>грн</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock main_content %}

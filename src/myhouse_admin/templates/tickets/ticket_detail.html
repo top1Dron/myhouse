@@ -1,0 +1,120 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Заявка №{{ticket.pk}}{% endblock title %}
+
+{% block tickets %}bg-light{% endblock tickets %}
+
+{% block main_content %}
+    <div class="content-fluid">
+        <section class="content-header d-flex justify-content-between">
+            <h1 class="ml-3">Заявка №{{ticket.pk}}</h1>
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:master_request_list' %}" class="text-dark">Заявки вызова мастера</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Заявка №{{ticket.pk}}</li>
+                </ol>
+            </nav>
+        </section>
+        <div class="dropdown-divider"></div>
+        <section class="content">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group g-3 mt-2">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="date-addon1"><i class="fa fa-calendar"></i></span>
+                            </div>
+                            <input type="text" class="form-control w-60" aria-describedby="date-addon1" value="{{ ticket.convenient_time|date:"d.m.Y" }}" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1 text-center mt-3">от</div>
+                <div class="col-lg-3">
+                    <div class="form-group g-3 mt-2">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="time-addon1"><i class="fa fa-calendar"></i></span>
+                            </div>
+                            <input type="text" class="form-control w-60" aria-describedby="time-addon1" value="{{ ticket.convenient_time|date:"H:i" }}" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mr-3 ml-3">
+                <div class="card-header row d-flex justify-content-end">
+                    {% csrf_token %}
+                    <a href="{% url 'myhouse_admin:master_request_update' ticket.pk %}" class="btn btn-primary mr-1">Редактировать заявку</a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-bordered table-striped mr-2 ml-2">
+                                <tbody>
+                                    <tr>
+                                        <td class="font-weight-bold">Статус</td>
+                                        <td>
+                                            {% if ticket.status == '1' %}
+                                                <span class="badge badge-primary">
+                                            {% elif ticket.status == '2' %}
+                                                <span class="badge badge-warning">
+                                            {% elif ticket.status == '3' %}
+                                                <span class="badge badge-success">
+                                            {% endif %}
+                                                    {{ticket.get_status_display}}
+                                                </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Владелец квартиры</td>
+                                        <td>
+                                            <a href="{% url 'myhouse_admin:owner_detail' ticket.flat.owner.pk %}" class="text-decoration-none">{{ticket.flat.owner}}</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Телефон</td>
+                                        <td>{{ticket.flat.owner.user.phone_number}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Квартира</td>
+                                        <td>
+                                            <a href="{% url 'myhouse_admin:flat_detail' ticket.flat.pk %}" class="text-decoration-none">{{ticket.flat.to_string}}</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Тип мастера</td>
+                                        <td>{{ticket.master_type|default_if_none:"Любой специалист"}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Мастер</td>
+                                        <td>
+                                            {% if ticket.master is not None %}
+                                                <a href="{% url 'myhouse_admin:worker_detail' ticket.master.pk %}" class="text-decoration-none">{{ticket.master.user.get_full_name}}</a>
+                                            {% else %}
+                                                не указано
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Описание</td>
+                                        <td>{{ticket.description}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Добавлено</td>
+                                        <td>{{ticket.added_time|date:"d.m.Y - H:i"}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Комментарий</td>
+                                        <td>{{ticket.comment|safe}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock main_content %}

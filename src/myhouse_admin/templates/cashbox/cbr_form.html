@@ -1,0 +1,94 @@
+{% load static widget_tweaks %}
+<section class="content">
+    <form action="" method="POST" class="was-validated">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="form-group g-3 mt-2 ml-2">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="number-addon1">№</span>
+                        </div>
+                        {% render_field form.number class="form-control w-60" aria-describedby="number-addon1"%}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1 text-center mt-3">от</div>
+            <div class="col-lg-3">
+                <div class="form-group g-3 mt-2">
+                    <div class="input-group date" id="recorddate" data-target-input="nearest">
+                        <div class="input-group-prepend" data-target="#recorddate" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                        {% render_field form.date class="form-control w-60 datetimepicker-input" data-target="#recorddate" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card ml-2 mr-2">
+            {% if update %}
+            <div class="card-header">
+                <div class="row d-flex justify-content-end">
+                    <a href="{% url 'myhouse_admin:cashbox_record_create' %}?cbr_id={{form.instance.pk}}" class="btn btn-default">Копировать</a>
+                    <button class="btn btn-default delete-cb_record-button ml-1" type="button" delete-url="{% url 'myhouse_admin:cbr_delete' form.instance.pk %}">Удалить</button>
+                </div>
+            </div>
+            {% endif %}
+            <div class="card-body">
+                {% for error_name, error in form.errors.items %}
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    {{error_name}}:{{ error|striptags }}
+                </div>
+                {% endfor %}
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <div class="form-group g-3">
+                            {% render_field form.is_made %}
+                            <label for="{{form.is_made.auto_id}}">Проведен</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        {% if coming %}
+                            <div class="form-group g-3">
+                                <label for="{{form.owner.auto_id}}" class="form-label">Владелец квартиры</label>
+                                {% render_field form.owner class='form-control is-invalid' data-owner-paccounts-url=load_owner_accounts_url %}
+                            </div>
+                            <div class="form-group g-3">
+                                <label for="{{form.personal_account.auto_id}}" class="form-label">Лицевой счет</label>
+                                {% render_field form.personal_account class='form-control is-invalid' %}
+                            </div>
+                        {% endif %}
+                        <div class="form-group g-3">
+                            <label for="{{form.payment_type.auto_id}}" class="form-label">Статья</label>
+                            {% render_field form.payment_type class='form-control is-invalid' %}
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{form.summary.auto_id}}" class="form-label">Сумма</label>
+                            {% render_field form.summary class='form-control is-invalid' min="0" %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group g-3">
+                            <label for="{{form.manager.auto_id}}" class="form-label">Менеджер</label>
+                            {% render_field form.manager class='form-control is-invalid'%}
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-end mr-2">
+                    <a href="myhouse_admin:worker_list" class="btn btn-default mr-1">Отменить</a>
+                    <button class="btn btn-success" type="submit">Сохранить</button>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                         <div class="form-group g-3">
+                            <label for="{{form.comment.auto_id}}" class="form-label">Комментарий</label>
+                            {% render_field form.comment class='form-control is-invalid' rows="5" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

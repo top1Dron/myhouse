@@ -1,0 +1,725 @@
+INFO 2021-08-01 19:26:02,354 views [True, True, True, True, True]
+INFO 2021-08-01 19:27:41,584 views <django.forms.fields.MultipleChoiceField object at 0x7fed91821970>
+INFO 2021-08-01 19:27:41,584 views <django.forms.fields.MultipleChoiceField object at 0x7fed915f19a0>
+INFO 2021-08-01 19:27:41,584 views <django.forms.fields.MultipleChoiceField object at 0x7fed915f15e0>
+INFO 2021-08-01 19:27:41,584 views <django.forms.fields.MultipleChoiceField object at 0x7fed915f15b0>
+INFO 2021-08-01 19:27:41,584 views <django.forms.fields.MultipleChoiceField object at 0x7fed915f17c0>
+INFO 2021-08-01 19:28:39,960 views ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16']
+INFO 2021-08-01 19:28:39,961 views ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '15', '16']
+INFO 2021-08-01 19:28:39,961 views ['2', '3', '4', '5', '6', '7', '8', '10', '12', '13', '16']
+INFO 2021-08-01 19:28:39,965 views ['9', '10']
+INFO 2021-08-01 19:28:39,966 views ['1', '2', '15']
+INFO 2021-08-01 19:29:21,653 views ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16']
+INFO 2021-08-01 19:29:21,653 views ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '15', '16']
+INFO 2021-08-01 19:29:21,653 views ['2', '3', '4', '5', '6', '7', '8', '10', '12', '13', '16']
+INFO 2021-08-01 19:29:21,653 views ['1', '9', '10']
+INFO 2021-08-01 19:29:21,653 views ['1', '15']
+INFO 2021-08-01 19:30:24,483 views 0
+INFO 2021-08-01 19:30:24,484 views 1
+INFO 2021-08-01 19:30:24,485 views 2
+INFO 2021-08-01 19:30:24,485 views 3
+INFO 2021-08-01 19:30:24,486 views 4
+INFO 2021-08-02 13:36:02,468 db_utils 1
+INFO 2021-08-02 13:40:52,062 db_utils {1: 'Директор', 2: 'Управляющий', 3: 'Бухгалтер', 4: 'Электрик', 5: 'Сантехник'}
+INFO 2021-08-02 13:40:52,919 db_utils {1: 'Директор', 2: 'Управляющий', 3: 'Бухгалтер', 4: 'Электрик', 5: 'Сантехник'}
+INFO 2021-08-02 13:41:34,902 db_utils {'1': 'Директор', '2': 'Управляющий', '3': 'Бухгалтер', '4': 'Электрик', '5': 'Сантехник'}
+INFO 2021-08-02 14:26:07,776 db_utils  38(093)135-02-39
+INFO 2021-08-02 17:56:23,883 views True
+INFO 2021-08-02 17:57:48,730 views True
+INFO 2021-08-02 18:00:03,259 views True
+INFO 2021-08-02 18:03:14,967 views True
+INFO 2021-08-02 18:08:53,151 views True
+INFO 2021-08-02 18:10:45,247 views True
+INFO 2021-08-02 18:33:02,896 views True
+INFO 2021-08-02 18:33:29,798 views True
+INFO 2021-08-02 18:34:46,607 views True
+INFO 2021-08-02 18:34:55,519 views True
+INFO 2021-08-02 18:35:53,305 views True
+INFO 2021-08-04 01:39:08,166 views <tr><th><label for="id_seo_title">Seo title:</label></th><td><input type="text" name="seo_title" value="СRM система для ОСМД - &quot;МОЙ ДОМ 24&quot;" maxlength="255" required id="id_seo_title"></td></tr>
+<tr><th><label for="id_seo_description">Seo description:</label></th><td><textarea name="seo_description" cols="40" rows="10" required id="id_seo_description">
+Все возможности системы для ОСМД или управляющей компании ЖКХ: учет квартир, жильцов, показаний счетчиков, выставление счетов. Мобильные приложения для оплаты коммунальных услуг для жильцов многоквартиных домов.</textarea></td></tr>
+<tr><th><label for="id_seo_keywords">Seo keywords:</label></th><td><textarea name="seo_keywords" cols="40" rows="10" required id="id_seo_keywords">
+црм для осмд, мобильное приложение для оплаты коммунальных услуг, срм для управляющей компании жкх</textarea></td></tr>
+INFO 2021-08-04 01:39:08,192 views <input type="hidden" name="blocks-TOTAL_FORMS" value="3" id="id_blocks-TOTAL_FORMS"><input type="hidden" name="blocks-INITIAL_FORMS" value="2" id="id_blocks-INITIAL_FORMS"><input type="hidden" name="blocks-MIN_NUM_FORMS" value="0" id="id_blocks-MIN_NUM_FORMS"><input type="hidden" name="blocks-MAX_NUM_FORMS" value="1000" id="id_blocks-MAX_NUM_FORMS">
+<tr><th><label for="id_blocks-0-poster">Poster:</label></th><td>На данный момент: <a href="/media/uploads/2021/08-04/service1.jpeg">uploads/2021/08-04/service1.jpeg</a><br>
+Изменить:
+<input type="file" name="blocks-0-poster" accept="image/*" id="id_blocks-0-poster"></td></tr>
+<tr><th><label for="id_blocks-0-heading">Heading:</label></th><td><input type="text" name="blocks-0-heading" value="Уборка комплекса (парадных) и территории, вывоз мусора" maxlength="255" id="id_blocks-0-heading"></td></tr>
+<tr><th><label for="id_blocks-0-description">Description:</label></th><td><textarea name="blocks-0-description" cols="40" rows="10" id="id_blocks-0-description">
+Управляющая компания осуществляет весь комплекс работ по уборке комплекса, придомовой территории и набережной . В зимнее время года территория жилого комплекса своевременно очищается от снега и льда, пешеходные пандусы, дорожки и проезжая часть обрабатываются анти скользящими составами. Специалисты управляющей компании осуществляют регулярный уход за зелеными насаждениям.</textarea></td></tr>
+<tr><th><label for="id_blocks-0-DELETE">Удалить:</label></th><td><input type="checkbox" name="blocks-0-DELETE" id="id_blocks-0-DELETE"><input type="hidden" name="blocks-0-id" value="7" id="id_blocks-0-id"></td></tr> <tr><th><label for="id_blocks-1-poster">Poster:</label></th><td>На данный момент: <a href="/media/uploads/2021/08-04/service2_GxdBjg6.jpeg">uploads/2021/08-04/service2_GxdBjg6.jpeg</a><br>
+Изменить:
+<input type="file" name="blocks-1-poster" accept="image/*" id="id_blocks-1-poster"></td></tr>
+<tr><th><label for="id_blocks-1-heading">Heading:</label></th><td><input type="text" name="blocks-1-heading" value="Обслуживание паркинга" maxlength="255" id="id_blocks-1-heading"></td></tr>
+<tr><th><label for="id_blocks-1-description">Description:</label></th><td><textarea name="blocks-1-description" cols="40" rows="10" id="id_blocks-1-description">
+Жилой комплекс  имеет собственный четырехуровневый надземный паркинг, обслуживание которого осуществляет управляющая компания.
+Обслуживание паркинга включает в себя следующие работы и услуги: Уборка территории,  Поддержание функционирования инженерных сетей паркинга,  Обслуживание системы выезда-въезда в паркинг, Обеспечение функционирования пропускного режима для въезда на территорию паркинга,  Охрана и обеспечение безопасности жильцов и автомобильного транспорта.</textarea></td></tr>
+<tr><th><label for="id_blocks-1-DELETE">Удалить:</label></th><td><input type="checkbox" name="blocks-1-DELETE" id="id_blocks-1-DELETE"><input type="hidden" name="blocks-1-id" value="9" id="id_blocks-1-id"></td></tr> <tr><th><label for="id_blocks-2-poster">Poster:</label></th><td><ul class="errorlist"><li>Обязательное поле.</li></ul><input type="file" name="blocks-2-poster" accept="image/*" id="id_blocks-2-poster"></td></tr>
+<tr><th><label for="id_blocks-2-heading">Heading:</label></th><td><input type="text" name="blocks-2-heading" value="sadsadsads" maxlength="255" id="id_blocks-2-heading"></td></tr>
+<tr><th><label for="id_blocks-2-description">Description:</label></th><td><textarea name="blocks-2-description" cols="40" rows="10" id="id_blocks-2-description">
+&lt;p&gt;adsadsad&lt;/p&gt;</textarea></td></tr>
+<tr><th><label for="id_blocks-2-DELETE">Удалить:</label></th><td><input type="checkbox" name="blocks-2-DELETE" id="id_blocks-2-DELETE"><input type="hidden" name="blocks-2-id" id="id_blocks-2-id"></td></tr>
+INFO 2021-08-04 01:39:59,024 views dict_items([])
+INFO 2021-08-04 01:40:32,616 views dict_items([])
+INFO 2021-08-04 01:40:32,617 views [{}, {}, {'poster': ['Обязательное поле.']}]
+INFO 2021-08-04 01:41:05,453 views dict_items([])
+INFO 2021-08-04 01:41:05,454 views []
+INFO 2021-08-04 01:41:42,559 views dict_items([])
+INFO 2021-08-04 01:41:42,565 views []
+INFO 2021-08-04 01:42:36,557 views dict_items([])
+INFO 2021-08-04 01:42:36,563 views []
+INFO 2021-08-04 01:43:14,583 views dict_items([])
+INFO 2021-08-04 01:43:14,586 views [{}, {'poster': ['Обязательное поле.']}]
+INFO 2021-08-04 01:43:40,151 views dict_items([])
+INFO 2021-08-04 01:43:40,159 views [{}, {'id': ['Выберите корректный вариант. Вашего варианта нет среди допустимых значений.']}, {'poster': ['Обязательное поле.']}]
+INFO 2021-08-04 01:44:26,684 views dict_items([])
+INFO 2021-08-04 01:44:26,684 views [{}, {'poster': ['Обязательное поле.'], 'id': ['Выберите корректный вариант. Вашего варианта нет среди допустимых значений.']}, {'poster': ['Обязательное поле.']}]
+INFO 2021-08-04 01:44:56,971 views dict_items([])
+INFO 2021-08-04 01:44:56,972 views [{}, {'poster': ['Обязательное поле.'], 'id': ['Выберите корректный вариант. Вашего варианта нет среди допустимых значений.']}, {'poster': ['Обязательное поле.']}]
+INFO 2021-08-04 01:45:47,927 views dict_items([])
+INFO 2021-08-04 01:45:47,928 views []
+INFO 2021-08-04 01:46:19,762 views dict_items([])
+INFO 2021-08-04 01:46:19,774 views [{}, {'poster': ['Обязательное поле.']}]
+INFO 2021-08-04 01:47:56,149 views dict_items([])
+INFO 2021-08-04 01:47:56,150 views [{}, {'poster': ['Обязательное поле.']}]
+INFO 2021-08-04 01:50:56,976 views dict_items([])
+INFO 2021-08-04 01:50:56,987 views []
+INFO 2021-08-04 01:51:18,945 views dict_items([])
+INFO 2021-08-04 01:51:18,945 views []
+INFO 2021-08-04 01:51:44,190 views dict_items([])
+INFO 2021-08-04 01:51:44,190 views []
+INFO 2021-08-04 01:52:16,620 views dict_items([])
+INFO 2021-08-04 01:52:16,620 views []
+INFO 2021-08-04 01:53:12,270 views dict_items([])
+INFO 2021-08-04 01:53:12,270 views []
+INFO 2021-08-04 01:53:57,007 views dict_items([])
+INFO 2021-08-04 01:53:57,009 views []
+INFO 2021-08-04 01:56:11,291 views dict_items([])
+INFO 2021-08-04 01:56:11,300 views []
+INFO 2021-08-04 01:57:47,356 views dict_items([])
+INFO 2021-08-04 01:57:47,357 views []
+INFO 2021-08-04 02:00:23,256 views dict_items([])
+INFO 2021-08-04 02:00:23,256 views []
+INFO 2021-08-04 02:00:53,050 views dict_items([])
+INFO 2021-08-04 02:00:53,050 views []
+INFO 2021-08-04 02:01:17,587 views dict_items([])
+INFO 2021-08-04 02:01:17,587 views []
+INFO 2021-08-04 05:55:58,544 views dict_items([])
+INFO 2021-08-04 05:56:12,015 views dict_items([])
+INFO 2021-08-04 05:56:12,015 views []
+INFO 2021-08-04 05:56:23,593 views dict_items([])
+INFO 2021-08-04 05:56:23,596 views [{}, {}]
+INFO 2021-08-04 05:56:23,660 views dict_items([])
+INFO 2021-08-04 05:56:23,661 views []
+INFO 2021-08-04 05:56:34,176 views dict_items([])
+INFO 2021-08-04 05:56:34,176 views [{}, {'signature': ['Обязательное поле.']}]
+INFO 2021-08-04 05:56:59,484 views dict_items([])
+INFO 2021-08-04 05:56:59,484 views [{}, {}]
+INFO 2021-08-04 05:56:59,535 views dict_items([])
+INFO 2021-08-04 05:56:59,535 views []
+INFO 2021-08-04 05:57:12,233 views dict_items([])
+INFO 2021-08-04 05:57:12,233 views [{}, {'signature': ['Обязательное поле.']}]
+INFO 2021-08-04 05:57:30,435 views dict_items([])
+INFO 2021-08-04 05:57:30,436 views []
+INFO 2021-08-04 06:08:24,791 views dict_items([])
+INFO 2021-08-04 06:08:24,812 views []
+INFO 2021-08-04 06:09:44,903 views dict_items([])
+INFO 2021-08-04 06:09:44,904 views []
+INFO 2021-08-04 06:09:51,882 views dict_items([])
+INFO 2021-08-04 06:09:51,882 views [{}, {'signature': ['Обязательное поле.']}]
+INFO 2021-08-04 06:11:14,040 views dict_items([])
+INFO 2021-08-04 06:11:14,045 views [{}, {'signature': ['Обязательное поле.']}]
+INFO 2021-08-04 06:13:59,734 views dict_items([])
+INFO 2021-08-04 06:13:59,734 views [{}, {'signature': ['Обязательное поле.']}]
+INFO 2021-08-04 06:14:10,416 views dict_items([])
+INFO 2021-08-04 06:14:10,416 views []
+INFO 2021-08-04 06:14:24,303 views dict_items([])
+INFO 2021-08-04 06:14:24,303 views [{}, {}]
+INFO 2021-08-04 06:14:24,359 views dict_items([])
+INFO 2021-08-04 06:14:24,368 views []
+INFO 2021-08-04 06:14:34,399 views dict_items([])
+INFO 2021-08-04 06:14:34,399 views [{}, {'signature': ['Обязательное поле.']}]
+INFO 2021-08-04 06:16:07,258 views dict_items([])
+INFO 2021-08-04 06:16:07,259 views [{}, {'signature': ['Обязательное поле.']}]
+INFO 2021-08-04 06:17:04,792 views dict_items([])
+INFO 2021-08-04 06:17:04,792 views []
+INFO 2021-08-04 06:17:12,891 views dict_items([])
+INFO 2021-08-04 06:17:12,891 views [{}]
+INFO 2021-08-04 06:17:12,972 views dict_items([])
+INFO 2021-08-04 06:17:12,973 views []
+INFO 2021-08-04 16:07:21,853 process_singleton <class 'myhouse_admin.models.AboutUsPageImage'>
+INFO 2021-08-05 01:22:38,838 process_singleton []
+INFO 2021-08-05 01:23:21,537 process_singleton [{}, {}]
+INFO 2021-08-05 01:24:27,094 process_singleton []
+INFO 2021-08-05 01:25:04,346 process_singleton []
+INFO 2021-08-05 01:25:37,565 process_singleton [{'file': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'file': ['Этот формат не поддерживается']}, {'file': ['Этот формат не поддерживается']}]
+INFO 2021-08-05 01:27:12,066 process_singleton [{}, {}]
+INFO 2021-08-05 01:31:43,698 process_singleton []
+INFO 2021-08-05 01:32:28,562 process_singleton [{'file': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {}]
+INFO 2021-08-05 01:33:47,270 process_singleton []
+INFO 2021-08-05 01:34:36,828 process_singleton []
+INFO 2021-08-05 01:35:01,533 process_singleton [{}]
+INFO 2021-08-05 01:35:42,520 process_singleton []
+INFO 2021-08-05 01:36:16,968 process_singleton []
+INFO 2021-08-05 01:42:34,281 process_singleton []
+INFO 2021-08-05 01:42:34,281 process_singleton here
+INFO 2021-08-05 01:46:57,943 process_singleton []
+INFO 2021-08-05 01:49:06,084 process_singleton []
+INFO 2021-08-05 01:49:26,892 process_singleton []
+INFO 2021-08-05 01:49:37,111 process_singleton []
+INFO 2021-08-05 01:50:12,111 process_singleton [{'file': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'file': ['Обязательное поле.'], 'id': ['Обязательное поле.']}]
+INFO 2021-08-05 01:50:33,279 process_singleton []
+INFO 2021-08-05 01:53:27,632 process_singleton []
+INFO 2021-08-05 01:53:51,545 process_singleton []
+INFO 2021-08-05 01:54:45,120 process_singleton [{'file': ['Обязательное поле.'], 'id': ['Обязательное поле.']}]
+INFO 2021-08-05 01:54:55,224 process_singleton [{'file': ['Обязательное поле.'], 'id': ['Обязательное поле.']}]
+INFO 2021-08-05 01:56:32,671 process_singleton [{'file': ['Обязательное поле.'], 'id': ['Обязательное поле.']}]
+INFO 2021-08-05 01:57:43,732 process_singleton []
+INFO 2021-08-05 01:58:22,519 process_singleton [{'file': ['Обязательное поле.'], 'id': ['Обязательное поле.']}]
+INFO 2021-08-05 01:58:34,043 process_singleton []
+INFO 2021-08-05 02:03:27,105 process_singleton []
+INFO 2021-08-05 02:03:36,774 process_singleton [{'file': ['Обязательное поле.'], 'id': ['Обязательное поле.']}]
+INFO 2021-08-05 02:03:45,468 process_singleton []
+INFO 2021-08-05 02:08:06,476 process_singleton [{'file': ['Обязательное поле.'], 'id': ['Обязательное поле.']}]
+INFO 2021-08-05 02:13:54,184 process_singleton []
+INFO 2021-08-05 02:14:23,681 process_singleton [{'file': ['Обязательное поле.'], 'id': ['Обязательное поле.']}]
+INFO 2021-08-05 02:24:43,303 process_singleton [{}]
+INFO 2021-08-05 02:27:26,248 process_singleton [{}, {}]
+INFO 2021-08-05 02:27:40,479 process_singleton [{}]
+INFO 2021-08-05 02:29:18,156 process_singleton []
+INFO 2021-08-05 02:29:35,757 process_singleton [{}]
+INFO 2021-08-05 02:30:40,042 process_singleton [{}, {}]
+INFO 2021-08-05 02:33:55,690 process_singleton [{'file': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'file': ['Обязательное поле.'], 'id': ['Обязательное поле.']}]
+INFO 2021-08-05 10:25:30,112 process_singleton [{}]
+INFO 2021-08-05 10:25:40,965 process_singleton [{}]
+INFO 2021-08-05 10:25:57,481 process_singleton [{}]
+INFO 2021-08-19 00:52:42,796 views <tr><td colspan="2"><ul class="errorlist nonfield"><li>(Скрытое поле TOTAL_FORMS) Обязательное поле.</li><li>(Скрытое поле INITIAL_FORMS) Обязательное поле.</li></ul><input type="hidden" name="form-TOTAL_FORMS" id="id_form-TOTAL_FORMS"><input type="hidden" name="form-INITIAL_FORMS" id="id_form-INITIAL_FORMS"><input type="hidden" name="form-MIN_NUM_FORMS" id="id_form-MIN_NUM_FORMS"><input type="hidden" name="form-MAX_NUM_FORMS" id="id_form-MAX_NUM_FORMS"></td></tr>
+
+INFO 2021-08-19 00:54:24,044 views <input type="hidden" name="employee_set-TOTAL_FORMS" value="5" id="id_employee_set-TOTAL_FORMS"><input type="hidden" name="employee_set-INITIAL_FORMS" value="0" id="id_employee_set-INITIAL_FORMS"><input type="hidden" name="employee_set-MIN_NUM_FORMS" value="0" id="id_employee_set-MIN_NUM_FORMS"><input type="hidden" name="employee_set-MAX_NUM_FORMS" value="1000" id="id_employee_set-MAX_NUM_FORMS">
+<tr><th><label for="id_employee_set-0-worker">Worker:</label></th><td><select name="employee_set-0-worker" id="id_employee_set-0-worker">
+  <option value="0" selected>Выберите</option>
+
+  <option value="1">Андрей Мошко</option>
+
+  <option value="7">user test</option>
+
+</select></td></tr> <tr><th><label for="id_employee_set-1-worker">Worker:</label></th><td><select name="employee_set-1-worker" id="id_employee_set-1-worker">
+  <option value="0">Выберите</option>
+
+  <option value="1" selected>Андрей Мошко</option>
+
+  <option value="7">user test</option>
+
+</select></td></tr> <tr><th><label for="id_employee_set-2-worker">Worker:</label></th><td><select name="employee_set-2-worker" id="id_employee_set-2-worker">
+  <option value="0">Выберите</option>
+
+  <option value="1">Андрей Мошко</option>
+
+  <option value="7" selected>user test</option>
+
+</select></td></tr> <tr><th><label for="id_employee_set-3-worker">Worker:</label></th><td><select name="employee_set-3-worker" id="id_employee_set-3-worker">
+  <option value="0" selected>Выберите</option>
+
+  <option value="1">Андрей Мошко</option>
+
+  <option value="7">user test</option>
+
+</select></td></tr> <tr><th><label for="id_employee_set-4-worker">Worker:</label></th><td><select name="employee_set-4-worker" id="id_employee_set-4-worker">
+  <option value="0">Выберите</option>
+
+  <option value="1" selected>Андрей Мошко</option>
+
+  <option value="7">user test</option>
+
+</select></td></tr>
+INFO 2021-08-19 00:54:24,134 views {'worker': '0'}
+INFO 2021-08-19 00:54:24,134 views {'worker': '1'}
+INFO 2021-08-19 00:54:24,135 views {'worker': '7'}
+INFO 2021-08-19 00:54:24,135 views {'worker': '0'}
+INFO 2021-08-19 00:54:24,135 views {'worker': '1'}
+ERROR 2021-08-28 17:04:44,523 views [{'name': ['Обязательное поле.'], 'floors': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'name': ['Обязательное поле.'], 'floors': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'name': ['Обязательное поле.'], 'floors': ['Обязательное поле.'], 'id': ['Обязательное поле.']}]
+ERROR 2021-08-28 17:05:35,196 views [{'id': ['Обязательное поле.'], '__all__': ['Section с такими значениями полей Name и House уже существует.']}, {'id': ['Обязательное поле.'], '__all__': ['Section с такими значениями полей Name и House уже существует.']}, {'id': ['Обязательное поле.'], '__all__': ['Section с такими значениями полей Name и House уже существует.']}, {'id': ['Обязательное поле.'], '__all__': ['Section с такими значениями полей Name и House уже существует.']}]
+ERROR 2021-08-28 17:07:05,720 views [{}, {}, {}, {}]
+ERROR 2021-08-28 17:10:39,407 views []
+ERROR 2021-08-28 17:11:26,937 views []
+ERROR 2021-08-28 17:11:54,775 views []
+ERROR 2021-08-28 17:14:21,173 views []
+ERROR 2021-08-28 17:16:10,502 views []
+INFO 2021-08-28 17:19:26,700 views ['__bool__', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__html__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_construct_form', '_errors', '_existing_object', '_get_to_python', '_non_form_errors', '_should_delete_form', 'absolute_max', 'add_fields', 'add_prefix', 'as_p', 'as_table', 'as_ul', 'auto_id', 'can_delete', 'can_delete_extra', 'can_order', 'clean', 'cleaned_data', 'data', 'default_error_messages', 'delete_existing', 'deleted_forms', 'empty_form', 'error_class', 'error_messages', 'errors', 'extra', 'extra_forms', 'files', 'fk', 'form', 'form_kwargs', 'forms', 'full_clean', 'get_date_error_message', 'get_default_prefix', 'get_form_error', 'get_form_kwargs', 'get_ordering_widget', 'get_queryset', 'get_unique_error_message', 'has_changed', 'initial', 'initial_extra', 'initial_form_count', 'initial_forms', 'instance', 'is_bound', 'is_multipart', 'is_valid', 'management_form', 'max_num', 'media', 'min_num', 'model', 'non_form_errors', 'ordered_forms', 'ordering_widget', 'prefix', 'queryset', 'save', 'save_as_new', 'save_existing', 'save_existing_objects', 'save_new', 'save_new_objects', 'total_error_count', 'total_form_count', 'unique_fields', 'validate_max', 'validate_min', 'validate_unique']
+INFO 2021-08-28 17:25:55,454 views []
+INFO 2021-08-28 17:27:57,333 views {'name': 'Секция №1', 'floors': 47, 'id': <Section: Section object (37)>, 'DELETE': True, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-28 17:27:57,696 views {'name': 'Секция №2', 'floors': 48, 'id': <Section: Section object (38)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-28 17:27:57,956 views {'name': 'Секция №3', 'floors': 48, 'id': <Section: Section object (42)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-28 17:30:08,367 views {'name': 'Секция №1', 'floors': 95, 'id': <Section: Section object (37)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-28 17:30:08,865 views {'name': 'Секция №2', 'floors': 96, 'id': <Section: Section object (38)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-28 17:30:09,326 views {'name': 'Секция №3', 'floors': 96, 'id': <Section: Section object (42)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-28 17:31:26,548 views {'name': 'Секция №1', 'floors': 1, 'id': <Section: Section object (37)>, 'DELETE': True, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-28 17:35:48,048 views []
+INFO 2021-08-28 17:35:48,049 views []
+INFO 2021-08-29 09:30:03,456 views []
+INFO 2021-08-29 09:30:03,483 views {'name': 'Секция №1', 'floors': 191, 'id': <Section: Section object (37)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:30:03,510 views {'name': 'Секция №2', 'floors': 192, 'id': <Section: Section object (38)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:30:03,536 views {'name': 'Секция №3', 'floors': 192, 'id': <Section: Section object (42)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:30:03,562 views {'name': 'Секция №4', 'floors': 50, 'id': <Section: Section object (43)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:30:03,575 views {'name': 'Секция №5', 'floors': 24, 'id': None, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:30:03,586 views []
+INFO 2021-08-29 09:38:18,148 views []
+INFO 2021-08-29 09:38:18,157 views {'name': 'Секция №1', 'floors': 24, 'id': None, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:38:18,376 views {'name': 'Секция №2', 'floors': 24, 'id': None, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:38:18,503 views {'name': 'Секция №3', 'floors': 24, 'id': None, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:38:18,618 views []
+INFO 2021-08-29 09:38:37,387 views []
+INFO 2021-08-29 09:38:37,408 views {'name': 'Секция №1', 'floors': 24, 'id': <Section: Section object (45)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:38:37,439 views {'name': 'Секция №2', 'floors': 24, 'id': <Section: Section object (46)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:38:37,457 views {'name': 'Секция №3', 'floors': 24, 'id': <Section: Section object (47)>, 'DELETE': True, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:38:37,468 views [<SectionForm bound=True, valid=True, fields=(name;floors;id;DELETE;house)>]
+INFO 2021-08-29 09:38:51,065 views []
+INFO 2021-08-29 09:38:51,097 views {'name': 'Секция №1', 'floors': 24, 'id': <Section: Section object (45)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:38:51,133 views {'name': 'Секция №2', 'floors': 24, 'id': <Section: Section object (46)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:38:51,164 views {'name': 'Секция №3', 'floors': 24, 'id': <Section: Section object (47)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:38:51,210 views {'name': 'Секция №4', 'floors': 24, 'id': None, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:38:51,412 views []
+INFO 2021-08-29 09:39:02,861 views []
+INFO 2021-08-29 09:39:02,878 views {'name': 'Секция №1', 'floors': 24, 'id': <Section: Section object (45)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:39:02,898 views {'name': 'Секция №2', 'floors': 24, 'id': <Section: Section object (46)>, 'DELETE': True, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:39:02,912 views [<SectionForm bound=True, valid=True, fields=(name;floors;id;DELETE;house)>]
+INFO 2021-08-29 09:40:47,447 views []
+INFO 2021-08-29 09:40:47,467 views {'name': 'Секция №1', 'floors': 24, 'id': <Section: Section object (45)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:40:47,497 views {'name': 'Секция №2', 'floors': 24, 'id': <Section: Section object (46)>, 'DELETE': True, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:41:32,393 views []
+INFO 2021-08-29 09:41:32,406 views {'name': 'Секция №1', 'floors': 24, 'id': <Section: Section object (45)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:41:42,701 views []
+INFO 2021-08-29 09:41:42,721 views {'name': 'Секция №1', 'floors': 24, 'id': <Section: Section object (45)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:41:42,741 views {'name': 'Секция №3', 'floors': 24, 'id': <Section: Section object (47)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:41:52,472 views []
+INFO 2021-08-29 09:41:52,490 views {'name': 'Секция №1', 'floors': 24, 'id': <Section: Section object (45)>, 'DELETE': True, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:41:52,520 views {'name': 'Секция №3', 'floors': 24, 'id': <Section: Section object (47)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:42:05,692 views []
+INFO 2021-08-29 09:42:05,704 views {'name': 'Секция №1', 'floors': 24, 'id': <Section: Section object (47)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:42:05,732 views {'name': 'Секция №2', 'floors': 24, 'id': <Section: Section object (48)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:42:15,522 views []
+INFO 2021-08-29 09:44:05,587 views []
+INFO 2021-08-29 09:44:05,617 views {'name': 'Секция №3', 'floors': 24, 'id': <Section: Section object (47)>, 'DELETE': True, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:44:05,653 views {'name': 'Секция №2', 'floors': 24, 'id': <Section: Section object (48)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:45:04,769 views []
+INFO 2021-08-29 09:46:07,491 views []
+INFO 2021-08-29 09:46:26,014 views []
+INFO 2021-08-29 09:46:26,034 views {'name': 'Секция №2', 'floors': 24, 'id': <Section: Section object (48)>, 'DELETE': True, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:47:32,167 views []
+INFO 2021-08-29 09:47:32,178 views {'name': 'Секция №1', 'floors': 24, 'id': None, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:47:32,335 views {'name': 'Секция №2', 'floors': 24, 'id': None, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 09:47:32,493 views {'name': 'Секция №3', 'floors': 24, 'id': None, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 10:39:22,493 views []
+INFO 2021-08-29 10:40:46,010 views []
+INFO 2021-08-29 10:42:17,562 views []
+INFO 2021-08-29 10:42:31,909 views []
+INFO 2021-08-29 10:43:08,197 views []
+INFO 2021-08-29 10:43:26,981 views []
+INFO 2021-08-29 10:44:12,053 views []
+INFO 2021-08-29 10:44:22,011 views []
+INFO 2021-08-29 10:44:42,161 views []
+INFO 2021-08-29 10:44:42,172 views {'name': 'Секция №1', 'floors': 24, 'id': None, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 10:44:42,342 views {'name': 'Секция №2', 'floors': 24, 'id': None, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 10:44:42,479 views {'name': 'Секция №3', 'floors': 24, 'id': None, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 10:45:00,078 views []
+INFO 2021-08-29 10:45:00,096 views {'name': 'Секция №1', 'floors': 24, 'id': <Section: Section object (52)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 10:45:00,120 views {'name': 'Секция №4', 'floors': 24, 'id': <Section: Section object (53)>, 'DELETE': True, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 10:45:16,924 views []
+INFO 2021-08-29 10:45:16,952 views {'name': 'Секция №1', 'floors': 24, 'id': <Section: Section object (52)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 10:45:16,972 views {'name': 'Секция №4', 'floors': 24, 'id': None, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 10:45:41,694 views []
+INFO 2021-08-29 10:45:41,745 views {'name': 'Секция №1', 'floors': 24, 'id': <Section: Section object (52)>, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 10:45:41,771 views {'name': 'Секция №2', 'floors': 24, 'id': <Section: Section object (55)>, 'DELETE': True, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 10:46:26,946 views []
+INFO 2021-08-29 10:46:45,710 views []
+INFO 2021-08-29 10:46:45,721 views {'name': 'Секция №1', 'floors': 24, 'id': None, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 10:46:45,908 views {'name': 'Секция №2', 'floors': 24, 'id': None, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 10:47:03,544 views []
+INFO 2021-08-29 10:48:00,179 views []
+INFO 2021-08-29 10:48:00,188 views {'name': 'Секция №1', 'floors': 24, 'id': None, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 10:48:00,345 views {'name': 'Секция №2', 'floors': 24, 'id': None, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 10:48:00,496 views {'name': 'Секция №3', 'floors': 24, 'id': None, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 10:48:21,841 views []
+INFO 2021-08-29 10:48:47,190 views []
+INFO 2021-08-29 10:48:47,200 views {'name': 'Секция №1', 'floors': 24, 'id': None, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 10:48:47,376 views {'name': 'Секция №2', 'floors': 24, 'id': None, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+INFO 2021-08-29 10:48:47,513 views {'name': 'Секция №3', 'floors': 24, 'id': None, 'DELETE': False, 'house': <House: ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55>}
+ERROR 2021-08-29 16:58:00,868 owner_views dict_items([])
+ERROR 2021-08-29 16:58:00,879 owner_views dict_items([('ID', ['Это поле не может иметь значение NULL.'])])
+ERROR 2021-08-29 16:58:41,353 owner_views dict_items([])
+ERROR 2021-08-29 16:58:41,357 owner_views dict_items([('ID', ['Это поле не может иметь значение NULL.'])])
+ERROR 2021-08-29 16:59:25,791 owner_views {'birth_date': datetime.date(2000, 7, 30), 'avatar': None, 'about': 'Главный разработчик данной системы', 'viber': '+38(093)135-02-39', 'telegram': '@last1war', 'second_name': 'Викторович'}
+ERROR 2021-08-29 17:05:32,374 owner_views {'birth_date': datetime.date(2000, 7, 30), 'avatar': None, 'about': 'Главный разработчик данной системы', 'viber': '+38(093)135-02-39', 'telegram': '@last1war', 'second_name': 'Викторович'}
+ERROR 2021-08-29 17:05:47,870 owner_views {'birth_date': datetime.date(2000, 7, 30), 'avatar': None, 'about': 'Главный разработчик данной системы', 'viber': '+38(093)135-02-39', 'telegram': '@last1war', 'second_name': 'Викторович'}
+ERROR 2021-08-29 17:08:35,566 owner_views {'birth_date': datetime.date(2000, 7, 30), 'avatar': None, 'about': 'Главный разработчик данной системы', 'viber': '+38(093)135-02-39', 'telegram': '@last1war', 'second_name': 'Викторович'}
+ERROR 2021-08-29 17:09:08,377 owner_views {'birth_date': datetime.date(2000, 7, 30), 'avatar': None, 'about': 'Главный разработчик данной системы', 'viber': '+38(093)135-02-39', 'telegram': '@last1war', 'second_name': 'Викторович'}
+INFO 2021-08-29 17:49:43,141 owner_views <QueryDict: {'csrfmiddlewaretoken': ['KQG2MXSxWn6HfAoRhQo4C2Ql8MpQrBJ3TDnUXafXYbbqKrs1M4XaX8wTo28YQ90h'], 'avatar': [''], 'last_name': ['Мошко'], 'first_name': ['Андрей'], 'second_name': ['Викторович'], 'birth_date': ['30.07.2000'], 'phone_number': ['+38(099)513-56-82'], 'viber': ['+38(093)1350239'], 'telegram': ['@last1war'], 'email': ['andrew.moshko@gmail.com'], 'status': ['1'], 'ID': ['0001'], 'about': ['Разработчик системы и тестировщик'], 'password1': ['top1Dron'], 'password2': ['top1Dron']}>
+INFO 2021-08-29 17:51:39,362 owner_views dict_items([])
+INFO 2021-08-29 17:51:39,422 owner_views dict_items([('ID', ['Убедитесь, что это значение содержит не более 50 символов (сейчас 199).'])])
+INFO 2021-08-29 17:52:56,791 owner_views <django.forms.fields.CharField object at 0x7f88980f03a0>
+INFO 2021-08-29 17:53:25,509 owner_views 0001
+INFO 2021-08-29 17:56:56,197 owner_views <generator object MultiValueDict.items at 0x7f7e27dba580>
+INFO 2021-08-29 17:59:14,659 owner_views ['csrfmiddlewaretoken', 'avatar', 'last_name', 'first_name', 'second_name', 'birth_date', 'phone_number', 'viber', 'telegram', 'email', 'status', 'ID', 'about', 'password1', 'password2']
+INFO 2021-08-29 18:00:09,569 owner_views [('csrfmiddlewaretoken', 'a74EY9O0a7BWPOR5MvG2huhLLjiVZ0YajULw9mbqcVGFkFVfhJf8CAXj1z13oyfo'), ('avatar', ''), ('last_name', 'Мошко'), ('first_name', 'Андрей'), ('second_name', 'Викторович'), ('birth_date', '30.07.2000'), ('phone_number', '+38(099)513-56-82'), ('viber', '+38(093)1350239'), ('telegram', '@last1war'), ('email', 'andrew.moshko@gmail.com'), ('status', '1'), ('ID', '0001'), ('about', 'Разработчик системы и тестировщик'), ('password1', 'top1Dron'), ('password2', 'top1Dron')]
+INFO 2021-08-29 18:02:30,510 owner_views [('csrfmiddlewaretoken', 'bwSGPK9ynOW8GP80qLoGHN0fpprPsYeckjzy0XwYpC1RbGcaVZXM2TGNFFaXRwvq'), ('avatar', 'googleplay.png'), ('last_name', 'Мошко'), ('first_name', 'Андрей'), ('second_name', 'Викторович'), ('birth_date', '30.07.2000'), ('phone_number', '+38(099)513-56-82'), ('viber', '+38(093)1350239'), ('telegram', '@last1war'), ('email', 'andrew.moshko@gmail.com'), ('status', '1'), ('ID', '0001'), ('about', 'Разработчик системы и тестировщик'), ('password1', 'top1Dron'), ('password2', 'top1Dron')]
+INFO 2021-09-07 18:00:35,920 views {'number': 1, 'square': 40.5, 'owner': <Owner: Мошко Андрей Викторович>, 'tariff': None, 'house': '23', 'personal_account': ''}
+INFO 2021-09-07 18:02:22,246 views <QueryDict: {'csrfmiddlewaretoken': ['C3mNKny8hi6DPbSf2EJzPjqr41MdJdg2oFrzCjwK8fIqHnrR8XZFYv2fyG7WTbVI'], 'number': ['1'], 'square': ['40.5'], 'house': ['23'], 'section': ['61'], 'floor': ['1384'], 'owner': ['3'], 'tariff': [''], 'personal_account': ['']}>
+INFO 2021-09-07 22:36:53,817 views <QuerySet [<Section: Секция №1>, <Section: Секция №2>, <Section: Секция №3>]>
+INFO 2021-09-07 22:42:33,908 views <QuerySet []>
+INFO 2021-09-07 22:42:35,694 views <QuerySet [<Section: Секция №1>, <Section: Секция №2>, <Section: Секция №3>]>
+INFO 2021-09-07 22:42:40,719 views <QuerySet [<Section: Секция №1>, <Section: Секция №2>, <Section: Секция №3>]>
+INFO 2021-09-07 22:43:21,788 views <QuerySet []>
+INFO 2021-09-07 22:43:23,908 views <QuerySet [<Section: Секция №1>, <Section: Секция №2>, <Section: Секция №3>]>
+INFO 2021-09-07 22:45:03,544 views <QuerySet [<Section: Секция №1>, <Section: Секция №2>, <Section: Секция №3>]>
+INFO 2021-09-07 22:45:04,710 views <QuerySet [<Section: Секция №1>, <Section: Секция №2>, <Section: Секция №3>]>
+INFO 2021-09-07 22:48:46,136 views <QuerySet [<Section: Секция №1>, <Section: Секция №2>, <Section: Секция №3>]>
+INFO 2021-09-08 15:47:31,794 service_unit_views <tr><td colspan="2"><ul class="errorlist nonfield"><li>(Скрытое поле TOTAL_FORMS) Обязательное поле.</li><li>(Скрытое поле INITIAL_FORMS) Обязательное поле.</li></ul><input type="hidden" name="service-TOTAL_FORMS" id="id_service-TOTAL_FORMS"><input type="hidden" name="service-INITIAL_FORMS" id="id_service-INITIAL_FORMS"><input type="hidden" name="service-MIN_NUM_FORMS" id="id_service-MIN_NUM_FORMS"><input type="hidden" name="service-MAX_NUM_FORMS" id="id_service-MAX_NUM_FORMS"></td></tr>
+
+INFO 2021-09-08 15:52:41,805 service_unit_views <QuerySet [<Service: Service object (1)>]>
+INFO 2021-09-08 15:53:40,820 service_unit_views <QuerySet [<Service: Service object (1)>]>
+INFO 2021-09-08 15:54:13,768 service_unit_views <QuerySet [<Service: Service object (1)>]>
+INFO 2021-09-08 15:54:29,653 service_unit_views <QuerySet [<Service: Service object (1)>]>
+INFO 2021-09-08 15:54:56,404 service_unit_views <QuerySet [<Service: Service object (1)>]>
+INFO 2021-09-08 16:11:05,386 service_unit_views <tr><th><label for="id_service-0-name">Name:</label></th><td><input type="text" name="service-0-name" value="Холодная вода" maxlength="255" id="id_service-0-name"></td></tr>
+<tr><th><label for="id_service-0-in_meter">In meter:</label></th><td><input type="checkbox" name="service-0-in_meter" id="id_service-0-in_meter" checked></td></tr>
+<tr><th><label for="id_service-0-unit">Unit:</label></th><td><select name="service-0-unit" id="id_service-0-unit">
+  <option value="" selected>Выберите...</option>
+
+  <option value="1">Unit object (1)</option>
+
+  <option value="2">Unit object (2)</option>
+
+  <option value="3">Unit object (3)</option>
+
+</select></td></tr>
+<tr><th><label for="id_service-0-DELETE">Удалить:</label></th><td><input type="checkbox" name="service-0-DELETE" id="id_service-0-DELETE"><input type="hidden" name="service-0-id" value="1" id="id_service-0-id"></td></tr>
+INFO 2021-09-08 16:12:03,438 service_unit_views <tr><th><label for="id_service-0-name">Name:</label></th><td><input type="text" name="service-0-name" value="Холодная вода" maxlength="255" id="id_service-0-name"></td></tr>
+<tr><th><label for="id_service-0-in_meter">In meter:</label></th><td><input type="checkbox" name="service-0-in_meter" id="id_service-0-in_meter" checked></td></tr>
+<tr><th><label for="id_service-0-unit">Unit:</label></th><td><select name="service-0-unit" id="id_service-0-unit">
+  <option value="" selected>Выберите...</option>
+
+  <option value="1">Unit object (1)</option>
+
+  <option value="2">Unit object (2)</option>
+
+  <option value="3">Unit object (3)</option>
+
+</select></td></tr>
+<tr><th><label for="id_service-0-DELETE">Удалить:</label></th><td><input type="checkbox" name="service-0-DELETE" id="id_service-0-DELETE"><input type="hidden" name="service-0-id" value="1" id="id_service-0-id"></td></tr>
+INFO 2021-09-08 16:12:23,401 service_unit_views <tr><th><label for="id_service-0-name">Name:</label></th><td><input type="text" name="service-0-name" value="Холодная вода" maxlength="255" id="id_service-0-name"></td></tr>
+<tr><th><label for="id_service-0-in_meter">In meter:</label></th><td><input type="checkbox" name="service-0-in_meter" id="id_service-0-in_meter" checked></td></tr>
+<tr><th><label for="id_service-0-unit">Unit:</label></th><td><select name="service-0-unit" id="id_service-0-unit">
+  <option value="" selected>Выберите...</option>
+
+  <option value="1">Unit object (1)</option>
+
+  <option value="2">Unit object (2)</option>
+
+  <option value="3">Unit object (3)</option>
+
+</select></td></tr>
+<tr><th><label for="id_service-0-DELETE">Удалить:</label></th><td><input type="checkbox" name="service-0-DELETE" id="id_service-0-DELETE"><input type="hidden" name="service-0-id" value="1" id="id_service-0-id"></td></tr>
+INFO 2021-09-08 16:13:04,586 service_unit_views <tr><th><label for="id_service-0-name">Name:</label></th><td><input type="text" name="service-0-name" value="Холодная вода" maxlength="255" id="id_service-0-name"></td></tr>
+<tr><th><label for="id_service-0-in_meter">In meter:</label></th><td><input type="checkbox" name="service-0-in_meter" id="id_service-0-in_meter" checked></td></tr>
+<tr><th><label for="id_service-0-unit">Unit:</label></th><td><select name="service-0-unit" id="id_service-0-unit">
+  <option value="" selected>Выберите...</option>
+
+  <option value="1">Unit object (1)</option>
+
+  <option value="2">Unit object (2)</option>
+
+  <option value="3">Unit object (3)</option>
+
+</select></td></tr>
+<tr><th><label for="id_service-0-DELETE">Удалить:</label></th><td><input type="checkbox" name="service-0-DELETE" id="id_service-0-DELETE"><input type="hidden" name="service-0-id" value="1" id="id_service-0-id"></td></tr>
+INFO 2021-09-08 16:13:26,661 service_unit_views <tr><th><label for="id_service-0-name">Name:</label></th><td><input type="text" name="service-0-name" value="Холодная вода" maxlength="255" id="id_service-0-name"></td></tr>
+<tr><th><label for="id_service-0-in_meter">In meter:</label></th><td><input type="checkbox" name="service-0-in_meter" id="id_service-0-in_meter" checked></td></tr>
+<tr><th><label for="id_service-0-unit">Unit:</label></th><td><select name="service-0-unit" id="id_service-0-unit">
+  <option value="" selected>Выберите...</option>
+
+  <option value="1">Unit object (1)</option>
+
+  <option value="2">Unit object (2)</option>
+
+  <option value="3">Unit object (3)</option>
+
+</select></td></tr>
+<tr><th><label for="id_service-0-DELETE">Удалить:</label></th><td><input type="checkbox" name="service-0-DELETE" id="id_service-0-DELETE"><input type="hidden" name="service-0-id" value="1" id="id_service-0-id"></td></tr>
+INFO 2021-09-08 16:13:56,538 service_unit_views <tr><th><label for="id_service-0-name">Name:</label></th><td><input type="text" name="service-0-name" value="Холодная вода" maxlength="255" id="id_service-0-name"></td></tr>
+<tr><th><label for="id_service-0-in_meter">In meter:</label></th><td><input type="checkbox" name="service-0-in_meter" id="id_service-0-in_meter" checked></td></tr>
+<tr><th><label for="id_service-0-unit">Unit:</label></th><td><select name="service-0-unit" id="id_service-0-unit">
+  <option value="" selected>Выберите...</option>
+
+  <option value="1">Unit object (1)</option>
+
+  <option value="2">Unit object (2)</option>
+
+  <option value="3">Unit object (3)</option>
+
+</select></td></tr>
+<tr><th><label for="id_service-0-DELETE">Удалить:</label></th><td><input type="checkbox" name="service-0-DELETE" id="id_service-0-DELETE"><input type="hidden" name="service-0-id" value="1" id="id_service-0-id"></td></tr>
+INFO 2021-09-08 17:42:13,319 service_unit_views <tr><th><label for="id_service-0-name">Name:</label></th><td><input type="text" name="service-0-name" value="Холодная вода" maxlength="255" id="id_service-0-name"></td></tr>
+<tr><th><label for="id_service-0-in_meter">In meter:</label></th><td><input type="checkbox" name="service-0-in_meter" id="id_service-0-in_meter" checked></td></tr>
+<tr><th><label for="id_service-0-unit">Unit:</label></th><td><select name="service-0-unit" id="id_service-0-unit">
+  <option value="" selected>Выберите...</option>
+
+  <option value="1">м3</option>
+
+  <option value="2">кв.м.кКал</option>
+
+  <option value="3">кв.м</option>
+
+</select></td></tr>
+<tr><th><label for="id_service-0-DELETE">Удалить:</label></th><td><input type="checkbox" name="service-0-DELETE" id="id_service-0-DELETE"><input type="hidden" name="service-0-id" value="1" id="id_service-0-id"></td></tr>
+INFO 2021-09-08 17:46:07,554 service_unit_views <tr><th><label for="id_service-0-name">Name:</label></th><td><input type="text" name="service-0-name" value="Холодная вода" maxlength="255" id="id_service-0-name"></td></tr>
+<tr><th><label for="id_service-0-in_meter">In meter:</label></th><td><input type="checkbox" name="service-0-in_meter" id="id_service-0-in_meter" checked></td></tr>
+<tr><th><label for="id_service-0-unit">Unit:</label></th><td><select name="service-0-unit" id="id_service-0-unit">
+  <option value="" selected>Выберите...</option>
+
+  <option value="1">м3</option>
+
+  <option value="2">кв.м.кКал</option>
+
+  <option value="3">кв.м</option>
+
+</select></td></tr>
+<tr><th><label for="id_service-0-DELETE">Удалить:</label></th><td><input type="checkbox" name="service-0-DELETE" id="id_service-0-DELETE"><input type="hidden" name="service-0-id" value="1" id="id_service-0-id"></td></tr>
+INFO 2021-09-08 17:46:29,913 service_unit_views <tr><th><label for="id_service-0-name">Name:</label></th><td><input type="text" name="service-0-name" value="Холодная вода" maxlength="255" id="id_service-0-name"></td></tr>
+<tr><th><label for="id_service-0-in_meter">In meter:</label></th><td><input type="checkbox" name="service-0-in_meter" id="id_service-0-in_meter" checked></td></tr>
+<tr><th><label for="id_service-0-unit">Unit:</label></th><td><select name="service-0-unit" id="id_service-0-unit">
+  <option value="" selected>Выберите...</option>
+
+  <option value="1">м3</option>
+
+  <option value="2">кв.м.кКал</option>
+
+  <option value="3">кв.м</option>
+
+</select></td></tr>
+<tr><th><label for="id_service-0-DELETE">Удалить:</label></th><td><input type="checkbox" name="service-0-DELETE" id="id_service-0-DELETE"><input type="hidden" name="service-0-id" value="1" id="id_service-0-id"></td></tr>
+INFO 2021-09-08 17:47:13,812 service_unit_views <tr><th><label for="id_service-0-name">Name:</label></th><td><input type="text" name="service-0-name" value="Холодная вода" maxlength="255" id="id_service-0-name"></td></tr>
+<tr><th><label for="id_service-0-in_meter">In meter:</label></th><td><input type="checkbox" name="service-0-in_meter" id="id_service-0-in_meter" checked></td></tr>
+<tr><th><label for="id_service-0-unit">Unit:</label></th><td><select name="service-0-unit" id="id_service-0-unit">
+  <option value="" selected>Выберите...</option>
+
+  <option value="1">м3</option>
+
+  <option value="2">кв.м.кКал</option>
+
+  <option value="3">кв.м</option>
+
+</select></td></tr>
+<tr><th><label for="id_service-0-DELETE">Удалить:</label></th><td><input type="checkbox" name="service-0-DELETE" id="id_service-0-DELETE"><input type="hidden" name="service-0-id" value="1" id="id_service-0-id"></td></tr>
+INFO 2021-09-08 17:47:23,319 service_unit_views <tr><th><label for="id_service-0-name">Name:</label></th><td><input type="text" name="service-0-name" value="Холодная вода" maxlength="255" id="id_service-0-name"></td></tr>
+<tr><th><label for="id_service-0-in_meter">In meter:</label></th><td><input type="checkbox" name="service-0-in_meter" id="id_service-0-in_meter" checked></td></tr>
+<tr><th><label for="id_service-0-unit">Unit:</label></th><td><select name="service-0-unit" id="id_service-0-unit">
+  <option value="" selected>Выберите...</option>
+
+  <option value="1">м3</option>
+
+  <option value="2">кв.м.кКал</option>
+
+  <option value="3">кв.м</option>
+
+</select></td></tr>
+<tr><th><label for="id_service-0-DELETE">Удалить:</label></th><td><input type="checkbox" name="service-0-DELETE" id="id_service-0-DELETE"><input type="hidden" name="service-0-id" value="1" id="id_service-0-id"></td></tr>
+INFO 2021-09-08 17:47:40,549 service_unit_views <tr><th><label for="id_service-0-name">Name:</label></th><td><input type="text" name="service-0-name" value="Холодная вода" maxlength="255" id="id_service-0-name"></td></tr>
+<tr><th><label for="id_service-0-in_meter">In meter:</label></th><td><input type="checkbox" name="service-0-in_meter" id="id_service-0-in_meter" checked></td></tr>
+<tr><th><label for="id_service-0-unit">Unit:</label></th><td><select name="service-0-unit" id="id_service-0-unit">
+  <option value="" selected>Выберите...</option>
+
+  <option value="1">м3</option>
+
+  <option value="2">кв.м.кКал</option>
+
+  <option value="3">кв.м</option>
+
+</select></td></tr>
+<tr><th><label for="id_service-0-DELETE">Удалить:</label></th><td><input type="checkbox" name="service-0-DELETE" id="id_service-0-DELETE"><input type="hidden" name="service-0-id" value="1" id="id_service-0-id"></td></tr>
+INFO 2021-09-08 17:47:57,883 service_unit_views <tr><th><label for="id_service-0-name">Name:</label></th><td><input type="text" name="service-0-name" value="Холодная вода" maxlength="255" id="id_service-0-name"></td></tr>
+<tr><th><label for="id_service-0-in_meter">In meter:</label></th><td><input type="checkbox" name="service-0-in_meter" id="id_service-0-in_meter" checked></td></tr>
+<tr><th><label for="id_service-0-unit">Unit:</label></th><td><select name="service-0-unit" id="id_service-0-unit">
+  <option value="" selected>Выберите...</option>
+
+  <option value="1">м3</option>
+
+  <option value="2">кв.м.кКал</option>
+
+  <option value="3">кв.м</option>
+
+</select></td></tr>
+<tr><th><label for="id_service-0-DELETE">Удалить:</label></th><td><input type="checkbox" name="service-0-DELETE" id="id_service-0-DELETE"><input type="hidden" name="service-0-id" value="1" id="id_service-0-id"></td></tr>
+INFO 2021-09-08 17:48:28,939 service_unit_views <tr><th><label for="id_service-0-name">Name:</label></th><td><input type="text" name="service-0-name" value="Холодная вода" maxlength="255" id="id_service-0-name"></td></tr>
+<tr><th><label for="id_service-0-in_meter">In meter:</label></th><td><input type="checkbox" name="service-0-in_meter" id="id_service-0-in_meter" checked></td></tr>
+<tr><th><label for="id_service-0-unit">Unit:</label></th><td><select name="service-0-unit" id="id_service-0-unit">
+  <option value="" selected>Выберите...</option>
+
+  <option value="1">м3</option>
+
+  <option value="2">кв.м.кКал</option>
+
+  <option value="3">кв.м</option>
+
+</select></td></tr>
+<tr><th><label for="id_service-0-DELETE">Удалить:</label></th><td><input type="checkbox" name="service-0-DELETE" id="id_service-0-DELETE"><input type="hidden" name="service-0-id" value="1" id="id_service-0-id"></td></tr>
+INFO 2021-09-08 17:48:47,872 service_unit_views <tr><th><label for="id_service-0-name">Name:</label></th><td><input type="text" name="service-0-name" value="Холодная вода" maxlength="255" id="id_service-0-name"></td></tr>
+<tr><th><label for="id_service-0-in_meter">In meter:</label></th><td><input type="checkbox" name="service-0-in_meter" id="id_service-0-in_meter" checked></td></tr>
+<tr><th><label for="id_service-0-unit">Unit:</label></th><td><select name="service-0-unit" id="id_service-0-unit">
+  <option value="" selected>Выберите...</option>
+
+  <option value="1">м3</option>
+
+  <option value="2">кв.м.кКал</option>
+
+  <option value="3">кв.м</option>
+
+</select></td></tr>
+<tr><th><label for="id_service-0-DELETE">Удалить:</label></th><td><input type="checkbox" name="service-0-DELETE" id="id_service-0-DELETE"><input type="hidden" name="service-0-id" value="1" id="id_service-0-id"></td></tr>
+INFO 2021-09-08 17:49:10,331 service_unit_views <tr><th><label for="id_service-0-name">Name:</label></th><td><input type="text" name="service-0-name" value="Холодная вода" maxlength="255" id="id_service-0-name"></td></tr>
+<tr><th><label for="id_service-0-in_meter">In meter:</label></th><td><input type="checkbox" name="service-0-in_meter" id="id_service-0-in_meter"></td></tr>
+<tr><th><label for="id_service-0-unit">Unit:</label></th><td><select name="service-0-unit" id="id_service-0-unit">
+  <option value="" selected>Выберите...</option>
+
+  <option value="1">м3</option>
+
+  <option value="2">кв.м.кКал</option>
+
+  <option value="3">кв.м</option>
+
+</select></td></tr>
+<tr><th><label for="id_service-0-DELETE">Удалить:</label></th><td><input type="checkbox" name="service-0-DELETE" id="id_service-0-DELETE"><input type="hidden" name="service-0-id" value="1" id="id_service-0-id"></td></tr>
+INFO 2021-09-08 17:49:19,054 service_unit_views <tr><th><label for="id_service-0-name">Name:</label></th><td><input type="text" name="service-0-name" value="Холодная вода" maxlength="255" id="id_service-0-name"></td></tr>
+<tr><th><label for="id_service-0-in_meter">In meter:</label></th><td><input type="checkbox" name="service-0-in_meter" id="id_service-0-in_meter" checked></td></tr>
+<tr><th><label for="id_service-0-unit">Unit:</label></th><td><select name="service-0-unit" id="id_service-0-unit">
+  <option value="" selected>Выберите...</option>
+
+  <option value="1">м3</option>
+
+  <option value="2">кв.м.кКал</option>
+
+  <option value="3">кв.м</option>
+
+</select></td></tr>
+<tr><th><label for="id_service-0-DELETE">Удалить:</label></th><td><input type="checkbox" name="service-0-DELETE" id="id_service-0-DELETE"><input type="hidden" name="service-0-id" value="1" id="id_service-0-id"></td></tr>
+INFO 2021-09-08 19:07:59,845 service_unit_views <QueryDict: {'csrfmiddlewaretoken': ['vdsbp38GbWZU59YwsK6ASd3ZQy9GTe66hPxXhZ6i2TBHXlx8y3mG1pFNkdup3cLM', 'vdsbp38GbWZU59YwsK6ASd3ZQy9GTe66hPxXhZ6i2TBHXlx8y3mG1pFNkdup3cLM', 'vdsbp38GbWZU59YwsK6ASd3ZQy9GTe66hPxXhZ6i2TBHXlx8y3mG1pFNkdup3cLM', 'vdsbp38GbWZU59YwsK6ASd3ZQy9GTe66hPxXhZ6i2TBHXlx8y3mG1pFNkdup3cLM', 'vdsbp38GbWZU59YwsK6ASd3ZQy9GTe66hPxXhZ6i2TBHXlx8y3mG1pFNkdup3cLM', 'vdsbp38GbWZU59YwsK6ASd3ZQy9GTe66hPxXhZ6i2TBHXlx8y3mG1pFNkdup3cLM'], 'service-TOTAL_FORMS': ['1'], 'service-INITIAL_FORMS': ['2'], 'service-MIN_NUM_FORMS': ['0'], 'service-MAX_NUM_FORMS': ['1000'], 'service-0-id': ['1'], 'service-0-name': ['Холодная вода'], 'service-0-unit': ['1'], 'service-0-in_meter': ['on'], 'service-1-DELETE': ['on'], 'service-1-id': ['2'], 'service-1-name': ['Отопление'], 'service-1-unit': ['2'], 'service-1-in_meter': ['on'], 'service-__prefix__-name': [''], 'service-__prefix__-unit': [''], 'unit-TOTAL_FORMS': ['3'], 'unit-INITIAL_FORMS': ['3'], 'unit-MIN_NUM_FORMS': ['0'], 'unit-MAX_NUM_FORMS': ['1000'], 'unit-0-name': ['м3'], 'unit-1-name': ['кв.м.кКал'], 'unit-2-name': ['кв.м'], 'unit-__prefix__-name': ['']}>
+INFO 2021-09-08 19:09:09,190 service_unit_views <QueryDict: {'csrfmiddlewaretoken': ['vFQKHPEORcPZ42qldqihkuFgKI2YQh1GhhVwzLCqI9rMWeZXjJyntGh4ennH0fGm', 'vFQKHPEORcPZ42qldqihkuFgKI2YQh1GhhVwzLCqI9rMWeZXjJyntGh4ennH0fGm', 'vFQKHPEORcPZ42qldqihkuFgKI2YQh1GhhVwzLCqI9rMWeZXjJyntGh4ennH0fGm', 'vFQKHPEORcPZ42qldqihkuFgKI2YQh1GhhVwzLCqI9rMWeZXjJyntGh4ennH0fGm', 'vFQKHPEORcPZ42qldqihkuFgKI2YQh1GhhVwzLCqI9rMWeZXjJyntGh4ennH0fGm', 'vFQKHPEORcPZ42qldqihkuFgKI2YQh1GhhVwzLCqI9rMWeZXjJyntGh4ennH0fGm'], 'service-TOTAL_FORMS': ['2'], 'service-INITIAL_FORMS': ['2'], 'service-MIN_NUM_FORMS': ['0'], 'service-MAX_NUM_FORMS': ['1000'], 'service-0-id': ['1'], 'service-0-name': ['Холодная вода'], 'service-0-unit': ['1'], 'service-0-in_meter': ['on'], 'service-1-id': ['2'], 'service-1-name': ['Отопление'], 'service-1-unit': ['2'], 'service-1-in_meter': ['on'], 'service-__prefix__-name': [''], 'service-__prefix__-unit': [''], 'unit-TOTAL_FORMS': ['3'], 'unit-INITIAL_FORMS': ['3'], 'unit-MIN_NUM_FORMS': ['0'], 'unit-MAX_NUM_FORMS': ['1000'], 'unit-0-name': ['м3'], 'unit-1-name': ['кв.м.кКал'], 'unit-2-name': ['кв.м'], 'unit-__prefix__-name': ['']}>
+INFO 2021-09-08 19:11:50,579 service_unit_views <QueryDict: {'csrfmiddlewaretoken': ['ULULZjtuzAcqMRYlgf5rG9GZ9AgzL7hgGnZxRfr6qxOdE3xXmylxPliNDfBiV5WW', 'ULULZjtuzAcqMRYlgf5rG9GZ9AgzL7hgGnZxRfr6qxOdE3xXmylxPliNDfBiV5WW', 'ULULZjtuzAcqMRYlgf5rG9GZ9AgzL7hgGnZxRfr6qxOdE3xXmylxPliNDfBiV5WW', 'ULULZjtuzAcqMRYlgf5rG9GZ9AgzL7hgGnZxRfr6qxOdE3xXmylxPliNDfBiV5WW', 'ULULZjtuzAcqMRYlgf5rG9GZ9AgzL7hgGnZxRfr6qxOdE3xXmylxPliNDfBiV5WW', 'ULULZjtuzAcqMRYlgf5rG9GZ9AgzL7hgGnZxRfr6qxOdE3xXmylxPliNDfBiV5WW'], 'service-TOTAL_FORMS': ['2'], 'service-INITIAL_FORMS': ['2'], 'service-MIN_NUM_FORMS': ['0'], 'service-MAX_NUM_FORMS': ['1000'], 'service-0-id': ['1'], 'service-0-name': ['Холодная вода'], 'service-0-unit': ['1'], 'service-0-in_meter': ['on'], 'service-1-DELETE': ['on'], 'service-1-id': ['2'], 'service-1-name': ['Отопление'], 'service-1-unit': ['2'], 'service-1-in_meter': ['on'], 'service-2-name': ['Горячая вода'], 'service-2-unit': ['1'], 'service-2-in_meter': ['on'], 'service-__prefix__-name': [''], 'service-__prefix__-unit': [''], 'unit-TOTAL_FORMS': ['3'], 'unit-INITIAL_FORMS': ['3'], 'unit-MIN_NUM_FORMS': ['0'], 'unit-MAX_NUM_FORMS': ['1000'], 'unit-0-name': ['м3'], 'unit-1-name': ['кв.м.кКал'], 'unit-2-name': ['кв.м'], 'unit-__prefix__-name': ['']}>
+INFO 2021-09-08 19:12:17,736 service_unit_views <QueryDict: {'csrfmiddlewaretoken': ['TvZFauYW51hsUaNPs9h80p54rw7jedVKF74r2qWyWYTfMmmrysxe9BHSVbs2obAq', 'TvZFauYW51hsUaNPs9h80p54rw7jedVKF74r2qWyWYTfMmmrysxe9BHSVbs2obAq', 'TvZFauYW51hsUaNPs9h80p54rw7jedVKF74r2qWyWYTfMmmrysxe9BHSVbs2obAq', 'TvZFauYW51hsUaNPs9h80p54rw7jedVKF74r2qWyWYTfMmmrysxe9BHSVbs2obAq', 'TvZFauYW51hsUaNPs9h80p54rw7jedVKF74r2qWyWYTfMmmrysxe9BHSVbs2obAq', 'TvZFauYW51hsUaNPs9h80p54rw7jedVKF74r2qWyWYTfMmmrysxe9BHSVbs2obAq'], 'service-TOTAL_FORMS': ['1'], 'service-INITIAL_FORMS': ['2'], 'service-MIN_NUM_FORMS': ['0'], 'service-MAX_NUM_FORMS': ['1000'], 'service-0-id': ['1'], 'service-0-name': ['Холодная вода'], 'service-0-unit': ['1'], 'service-0-in_meter': ['on'], 'service-1-DELETE': ['on'], 'service-1-id': ['2'], 'service-1-name': ['Отопление'], 'service-1-unit': ['2'], 'service-1-in_meter': ['on'], 'service-__prefix__-name': [''], 'service-__prefix__-unit': [''], 'unit-TOTAL_FORMS': ['3'], 'unit-INITIAL_FORMS': ['3'], 'unit-MIN_NUM_FORMS': ['0'], 'unit-MAX_NUM_FORMS': ['1000'], 'unit-0-name': ['м3'], 'unit-1-name': ['кв.м.кКал'], 'unit-2-name': ['кв.м'], 'unit-__prefix__-name': ['']}>
+INFO 2021-09-08 19:13:03,012 service_unit_views <QueryDict: {'csrfmiddlewaretoken': ['4GB4dkUs4cB1asDDFzGpRZ0vC7pRQcwnQiGQ5gS4V9dO2EcfLSWv0bCj6MKA0ab3', '4GB4dkUs4cB1asDDFzGpRZ0vC7pRQcwnQiGQ5gS4V9dO2EcfLSWv0bCj6MKA0ab3', '4GB4dkUs4cB1asDDFzGpRZ0vC7pRQcwnQiGQ5gS4V9dO2EcfLSWv0bCj6MKA0ab3', '4GB4dkUs4cB1asDDFzGpRZ0vC7pRQcwnQiGQ5gS4V9dO2EcfLSWv0bCj6MKA0ab3', '4GB4dkUs4cB1asDDFzGpRZ0vC7pRQcwnQiGQ5gS4V9dO2EcfLSWv0bCj6MKA0ab3', '4GB4dkUs4cB1asDDFzGpRZ0vC7pRQcwnQiGQ5gS4V9dO2EcfLSWv0bCj6MKA0ab3'], 'service-TOTAL_FORMS': ['2'], 'service-INITIAL_FORMS': ['2'], 'service-MIN_NUM_FORMS': ['0'], 'service-MAX_NUM_FORMS': ['1000'], 'service-0-id': ['1'], 'service-0-name': ['Холодная вода'], 'service-0-unit': ['1'], 'service-0-in_meter': ['on'], 'service-1-DELETE': ['on'], 'service-1-id': ['2'], 'service-1-name': ['Отопление', 'Горячая вода'], 'service-1-unit': ['2', '1'], 'service-1-in_meter': ['on'], 'service-__prefix__-name': [''], 'service-__prefix__-unit': [''], 'unit-TOTAL_FORMS': ['3'], 'unit-INITIAL_FORMS': ['3'], 'unit-MIN_NUM_FORMS': ['0'], 'unit-MAX_NUM_FORMS': ['1000'], 'unit-0-name': ['м3'], 'unit-1-name': ['кв.м.кКал'], 'unit-2-name': ['кв.м'], 'unit-__prefix__-name': ['']}>
+ERROR 2021-09-08 19:13:03,043 service_unit_views dict_items([])
+ERROR 2021-09-08 19:13:03,089 service_unit_views dict_items([])
+INFO 2021-09-08 19:13:39,490 service_unit_views <QueryDict: {'csrfmiddlewaretoken': ['cqARE8SpfTElFRMkdTFqfg8V2T9L6YIXY2FDw4Q16Qg8x3lWjcVwosKJwyuugWnD', 'cqARE8SpfTElFRMkdTFqfg8V2T9L6YIXY2FDw4Q16Qg8x3lWjcVwosKJwyuugWnD', 'cqARE8SpfTElFRMkdTFqfg8V2T9L6YIXY2FDw4Q16Qg8x3lWjcVwosKJwyuugWnD', 'cqARE8SpfTElFRMkdTFqfg8V2T9L6YIXY2FDw4Q16Qg8x3lWjcVwosKJwyuugWnD', 'cqARE8SpfTElFRMkdTFqfg8V2T9L6YIXY2FDw4Q16Qg8x3lWjcVwosKJwyuugWnD', 'cqARE8SpfTElFRMkdTFqfg8V2T9L6YIXY2FDw4Q16Qg8x3lWjcVwosKJwyuugWnD'], 'service-TOTAL_FORMS': ['3'], 'service-INITIAL_FORMS': ['2'], 'service-MIN_NUM_FORMS': ['0'], 'service-MAX_NUM_FORMS': ['1000'], 'service-0-id': ['1'], 'service-0-name': ['Холодная вода'], 'service-0-unit': ['1'], 'service-0-in_meter': ['on'], 'service-1-id': ['2'], 'service-1-name': ['Горячая вода'], 'service-1-unit': ['1'], 'service-1-in_meter': ['on'], 'service-2-name': ['Отопление'], 'service-2-unit': ['2'], 'service-__prefix__-name': [''], 'service-__prefix__-unit': [''], 'unit-TOTAL_FORMS': ['3'], 'unit-INITIAL_FORMS': ['3'], 'unit-MIN_NUM_FORMS': ['0'], 'unit-MAX_NUM_FORMS': ['1000'], 'unit-0-name': ['м3'], 'unit-1-name': ['кв.м.кКал'], 'unit-2-name': ['кв.м'], 'unit-__prefix__-name': ['']}>
+ERROR 2021-09-08 19:13:39,534 service_unit_views dict_items([])
+ERROR 2021-09-08 19:13:39,593 service_unit_views dict_items([])
+ERROR 2021-09-08 19:13:39,621 service_unit_views dict_items([])
+INFO 2021-09-08 19:13:46,359 service_unit_views <QueryDict: {'csrfmiddlewaretoken': ['hakIQ1CjlOzH9vAtnpGwTwDiD9Sp7tqQ3MpuIXAVcLbu1H95tIWC2If67Od8hr5w', 'hakIQ1CjlOzH9vAtnpGwTwDiD9Sp7tqQ3MpuIXAVcLbu1H95tIWC2If67Od8hr5w', 'hakIQ1CjlOzH9vAtnpGwTwDiD9Sp7tqQ3MpuIXAVcLbu1H95tIWC2If67Od8hr5w', 'hakIQ1CjlOzH9vAtnpGwTwDiD9Sp7tqQ3MpuIXAVcLbu1H95tIWC2If67Od8hr5w', 'hakIQ1CjlOzH9vAtnpGwTwDiD9Sp7tqQ3MpuIXAVcLbu1H95tIWC2If67Od8hr5w', 'hakIQ1CjlOzH9vAtnpGwTwDiD9Sp7tqQ3MpuIXAVcLbu1H95tIWC2If67Od8hr5w', 'hakIQ1CjlOzH9vAtnpGwTwDiD9Sp7tqQ3MpuIXAVcLbu1H95tIWC2If67Od8hr5w'], 'service-TOTAL_FORMS': ['3'], 'service-INITIAL_FORMS': ['3'], 'service-MIN_NUM_FORMS': ['0'], 'service-MAX_NUM_FORMS': ['1000'], 'service-0-id': ['1'], 'service-0-name': ['Холодная вода'], 'service-0-unit': ['1'], 'service-0-in_meter': ['on'], 'service-1-id': ['2'], 'service-1-name': ['Горячая вода'], 'service-1-unit': ['1'], 'service-1-in_meter': ['on'], 'service-2-id': ['3'], 'service-2-name': ['Отопление'], 'service-2-unit': ['2'], 'service-2-in_meter': ['on'], 'service-__prefix__-name': [''], 'service-__prefix__-unit': [''], 'unit-TOTAL_FORMS': ['3'], 'unit-INITIAL_FORMS': ['3'], 'unit-MIN_NUM_FORMS': ['0'], 'unit-MAX_NUM_FORMS': ['1000'], 'unit-0-name': ['м3'], 'unit-1-name': ['кв.м.кКал'], 'unit-2-name': ['кв.м'], 'unit-__prefix__-name': ['']}>
+ERROR 2021-09-08 19:13:46,414 service_unit_views dict_items([])
+ERROR 2021-09-08 19:13:46,451 service_unit_views dict_items([])
+ERROR 2021-09-08 19:13:46,481 service_unit_views dict_items([])
+INFO 2021-09-08 19:16:25,812 service_unit_views <QueryDict: {'csrfmiddlewaretoken': ['ffHWd9Hrtonijh8w69Ht656htiuzT8UK1RMI55F3klZ5btH8csXzfhI5XXPi36zq', 'ffHWd9Hrtonijh8w69Ht656htiuzT8UK1RMI55F3klZ5btH8csXzfhI5XXPi36zq', 'ffHWd9Hrtonijh8w69Ht656htiuzT8UK1RMI55F3klZ5btH8csXzfhI5XXPi36zq', 'ffHWd9Hrtonijh8w69Ht656htiuzT8UK1RMI55F3klZ5btH8csXzfhI5XXPi36zq', 'ffHWd9Hrtonijh8w69Ht656htiuzT8UK1RMI55F3klZ5btH8csXzfhI5XXPi36zq', 'ffHWd9Hrtonijh8w69Ht656htiuzT8UK1RMI55F3klZ5btH8csXzfhI5XXPi36zq', 'ffHWd9Hrtonijh8w69Ht656htiuzT8UK1RMI55F3klZ5btH8csXzfhI5XXPi36zq'], 'service-TOTAL_FORMS': ['3'], 'service-INITIAL_FORMS': ['3'], 'service-MIN_NUM_FORMS': ['0'], 'service-MAX_NUM_FORMS': ['1000'], 'service-0-id': ['1'], 'service-0-name': ['Холодная вода'], 'service-0-unit': ['1'], 'service-0-in_meter': ['on'], 'service-1-id': ['2'], 'service-1-name': ['Горячая вода'], 'service-1-unit': ['1'], 'service-1-in_meter': ['on'], 'service-2-DELETE': ['on'], 'service-2-id': ['3'], 'service-2-name': ['Отопление'], 'service-2-unit': ['2'], 'service-2-in_meter': ['on'], 'service-3-name': ['Уборка территории'], 'service-3-unit': ['1'], 'service-__prefix__-name': [''], 'service-__prefix__-unit': [''], 'unit-TOTAL_FORMS': ['3'], 'unit-INITIAL_FORMS': ['3'], 'unit-MIN_NUM_FORMS': ['0'], 'unit-MAX_NUM_FORMS': ['1000'], 'unit-0-name': ['м3'], 'unit-1-name': ['кв.м.кКал'], 'unit-2-name': ['кв.м'], 'unit-__prefix__-name': ['']}>
+ERROR 2021-09-08 19:16:25,835 service_unit_views dict_items([])
+ERROR 2021-09-08 19:16:25,872 service_unit_views dict_items([])
+ERROR 2021-09-08 19:16:25,897 service_unit_views dict_items([])
+INFO 2021-09-08 19:18:29,430 service_unit_views <QueryDict: {'csrfmiddlewaretoken': ['ypOAxsQAggrQ7BDr6DSgAXtSFD7Gbr2Tk1TmpoOc7d3DZNc3cW8mJ95G9isplpHz', 'ypOAxsQAggrQ7BDr6DSgAXtSFD7Gbr2Tk1TmpoOc7d3DZNc3cW8mJ95G9isplpHz', 'ypOAxsQAggrQ7BDr6DSgAXtSFD7Gbr2Tk1TmpoOc7d3DZNc3cW8mJ95G9isplpHz', 'ypOAxsQAggrQ7BDr6DSgAXtSFD7Gbr2Tk1TmpoOc7d3DZNc3cW8mJ95G9isplpHz', 'ypOAxsQAggrQ7BDr6DSgAXtSFD7Gbr2Tk1TmpoOc7d3DZNc3cW8mJ95G9isplpHz', 'ypOAxsQAggrQ7BDr6DSgAXtSFD7Gbr2Tk1TmpoOc7d3DZNc3cW8mJ95G9isplpHz', 'ypOAxsQAggrQ7BDr6DSgAXtSFD7Gbr2Tk1TmpoOc7d3DZNc3cW8mJ95G9isplpHz'], 'service-TOTAL_FORMS': ['2'], 'service-INITIAL_FORMS': ['3'], 'service-MIN_NUM_FORMS': ['0'], 'service-MAX_NUM_FORMS': ['1000'], 'service-0-id': ['1'], 'service-0-name': ['Холодная вода'], 'service-0-unit': ['1'], 'service-0-in_meter': ['on'], 'service-1-DELETE': ['on'], 'service-1-id': ['2'], 'service-1-name': ['Горячая вода'], 'service-1-unit': ['1'], 'service-1-in_meter': ['on'], 'service-2-id': ['3'], 'service-2-name': ['Отопление'], 'service-2-unit': ['2'], 'service-2-in_meter': ['on'], 'service-__prefix__-name': [''], 'service-__prefix__-unit': [''], 'unit-TOTAL_FORMS': ['3'], 'unit-INITIAL_FORMS': ['3'], 'unit-MIN_NUM_FORMS': ['0'], 'unit-MAX_NUM_FORMS': ['1000'], 'unit-0-name': ['м3'], 'unit-1-name': ['кв.м.кКал'], 'unit-2-name': ['кв.м'], 'unit-__prefix__-name': ['']}>
+ERROR 2021-09-08 19:18:29,446 service_unit_views dict_items([])
+ERROR 2021-09-08 19:18:29,474 service_unit_views dict_items([])
+INFO 2021-09-08 19:19:36,142 service_unit_views <QueryDict: {'csrfmiddlewaretoken': ['nt2U28Whar3lbBsLgYSWU9V5axNgErU4957GU4UT1oF83N1nmh823lxTEc8ZOpzK', 'nt2U28Whar3lbBsLgYSWU9V5axNgErU4957GU4UT1oF83N1nmh823lxTEc8ZOpzK', 'nt2U28Whar3lbBsLgYSWU9V5axNgErU4957GU4UT1oF83N1nmh823lxTEc8ZOpzK', 'nt2U28Whar3lbBsLgYSWU9V5axNgErU4957GU4UT1oF83N1nmh823lxTEc8ZOpzK', 'nt2U28Whar3lbBsLgYSWU9V5axNgErU4957GU4UT1oF83N1nmh823lxTEc8ZOpzK', 'nt2U28Whar3lbBsLgYSWU9V5axNgErU4957GU4UT1oF83N1nmh823lxTEc8ZOpzK', 'nt2U28Whar3lbBsLgYSWU9V5axNgErU4957GU4UT1oF83N1nmh823lxTEc8ZOpzK'], 'service-TOTAL_FORMS': ['3'], 'service-INITIAL_FORMS': ['3'], 'service-MIN_NUM_FORMS': ['0'], 'service-MAX_NUM_FORMS': ['1000'], 'service-0-id': ['1'], 'service-0-name': ['Холодная вода'], 'service-0-unit': ['1'], 'service-0-in_meter': ['on'], 'service-1-id': ['2'], 'service-1-name': ['Горячая вода'], 'service-1-unit': ['1'], 'service-1-in_meter': ['on'], 'service-2-id': ['3'], 'service-2-name': ['Отопление'], 'service-2-unit': ['2'], 'service-2-in_meter': ['on'], 'service-__prefix__-name': [''], 'service-__prefix__-unit': [''], 'unit-TOTAL_FORMS': ['3'], 'unit-INITIAL_FORMS': ['3'], 'unit-MIN_NUM_FORMS': ['0'], 'unit-MAX_NUM_FORMS': ['1000'], 'unit-0-name': ['м3'], 'unit-1-name': ['кв.м.кКал'], 'unit-2-DELETE': ['on'], 'unit-2-name': ['кв.м', 'dasdas'], 'unit-__prefix__-name': ['']}>
+ERROR 2021-09-08 19:19:36,197 service_unit_views dict_items([])
+ERROR 2021-09-08 19:19:36,252 service_unit_views dict_items([])
+ERROR 2021-09-08 19:19:36,304 service_unit_views dict_items([])
+INFO 2021-09-08 19:20:16,182 views <QuerySet [<Section: Секция №1>, <Section: Секция №2>, <Section: Секция №3>]>
+ERROR 2021-09-08 19:54:49,341 service_unit_views [{'id': ['Обязательное поле.'], 'name': ['Unit с таким Name уже существует.']}, {'id': ['Обязательное поле.'], 'name': ['Unit с таким Name уже существует.']}, {}]
+ERROR 2021-09-08 19:55:51,913 service_unit_views [{}, {}, {}]
+ERROR 2021-09-08 19:56:17,009 service_unit_views [{}, {}, {}, {}, {}]
+ERROR 2021-09-08 19:56:41,607 service_unit_views [{}, {}, {}]
+ERROR 2021-09-08 19:56:51,570 service_unit_views [{}, {}, {}]
+ERROR 2021-09-09 10:04:06,516 service_unit_views [{}, {}, {}]
+ERROR 2021-09-09 10:04:10,347 service_unit_views [{}, {}, {}]
+ERROR 2021-09-09 10:15:03,348 service_unit_views [{}, {}, {}]
+ERROR 2021-09-09 10:19:41,371 service_unit_views [{}, {}, {}]
+ERROR 2021-09-09 10:20:04,730 service_unit_views [{}, {}, {}]
+ERROR 2021-09-09 10:20:18,101 service_unit_views [{}, {}, {}]
+ERROR 2021-09-09 19:56:34,153 service_unit_views [{}, {}, {}, {}, {}, {}, {}]
+ERROR 2021-09-09 19:58:29,295 service_unit_views [{}, {}, {}, {}, {}, {}, {}]
+INFO 2021-09-09 21:30:41,135 tariff_views [{}, {}]
+INFO 2021-09-09 21:32:22,686 tariff_views {'service': <Service: Отопление>, 'price': 213.0, 'DELETE': False}
+INFO 2021-09-09 21:32:22,687 tariff_views None
+INFO 2021-09-09 21:32:22,698 tariff_views {'service': <Service: Холодная вода>, 'price': 234.0, 'DELETE': False}
+INFO 2021-09-09 21:32:22,703 tariff_views None
+INFO 2021-09-09 21:33:44,149 tariff_views {'service': <Service: Отопление>, 'price': 12313.0, 'DELETE': False}
+INFO 2021-09-09 21:33:44,150 tariff_views Отопление
+INFO 2021-09-09 21:33:44,189 tariff_views {'service': <Service: Электроэнергия>, 'price': 2132.0, 'DELETE': False}
+INFO 2021-09-09 21:33:44,192 tariff_views Электроэнергия
+INFO 2021-09-09 21:33:44,225 tariff_views {'service': <Service: Электроэнергия>, 'price': 3432.0, 'DELETE': False}
+INFO 2021-09-09 21:33:44,228 tariff_views Электроэнергия
+INFO 2021-09-09 21:38:42,246 tariff_views {'service': <Service: Электроэнергия>, 'price': 1.68, 'DELETE': False}
+INFO 2021-09-09 21:38:42,247 tariff_views Электроэнергия
+INFO 2021-09-09 21:38:42,275 tariff_views {'service': <Service: Холодная вода>, 'price': 18.8, 'DELETE': False}
+INFO 2021-09-09 21:38:42,277 tariff_views Холодная вода
+INFO 2021-09-09 21:38:42,297 tariff_views {'service': <Service: Отопление>, 'price': 123.0, 'DELETE': False}
+INFO 2021-09-09 21:38:42,298 tariff_views Отопление
+INFO 2021-09-09 21:38:42,321 tariff_views {'service': <Service: Горячая вода>, 'price': 69.5, 'DELETE': False}
+INFO 2021-09-09 21:38:42,321 tariff_views Горячая вода
+INFO 2021-09-09 21:38:42,337 tariff_views {'service': <Service: Уборка территории>, 'price': 5.5, 'DELETE': False}
+INFO 2021-09-09 21:38:42,338 tariff_views Уборка территории
+INFO 2021-09-10 11:36:19,021 tariff_views {'service': <Service: Электроэнергия>, 'price': 3.0, 'DELETE': False}
+INFO 2021-09-10 11:36:19,023 tariff_views Электроэнергия
+INFO 2021-09-10 11:36:19,049 tariff_views {'service': <Service: Холодная вода>, 'price': 4.0, 'DELETE': False}
+INFO 2021-09-10 11:36:19,051 tariff_views Холодная вода
+INFO 2021-09-10 11:36:19,072 tariff_views {'service': <Service: Отопление>, 'price': 15.0, 'DELETE': False}
+INFO 2021-09-10 11:36:19,073 tariff_views Отопление
+INFO 2021-09-10 11:36:19,093 tariff_views {'service': <Service: Горячая вода>, 'price': 24.0, 'DELETE': False}
+INFO 2021-09-10 11:36:19,093 tariff_views Горячая вода
+INFO 2021-09-10 11:38:31,328 tariff_views {'service': <Service: Электроэнергия>, 'price': 2.0, 'DELETE': False}
+INFO 2021-09-10 11:38:31,329 tariff_views Электроэнергия
+INFO 2021-09-10 11:38:31,356 tariff_views {'service': <Service: Холодная вода>, 'price': 3.0, 'DELETE': False}
+INFO 2021-09-10 11:38:31,357 tariff_views Холодная вода
+INFO 2021-09-10 11:38:31,378 tariff_views {'service': <Service: Отопление>, 'price': 7.0, 'DELETE': False}
+INFO 2021-09-10 11:38:31,379 tariff_views Отопление
+ERROR 2021-09-10 18:18:20,404 tariff_views [{'id': ['Обязательное поле.']}, {'id': ['Обязательное поле.']}, {'id': ['Обязательное поле.']}]
+ERROR 2021-09-10 18:24:03,441 tariff_views [{'id': ['Обязательное поле.']}, {'id': ['Обязательное поле.']}, {'id': ['Обязательное поле.']}, {'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}]
+INFO 2021-09-10 18:29:00,611 tariff_views <QuerySet [{'service': 7, 'price': 3.0}, {'service': 10, 'price': 4.0}, {'service': 9, 'price': 15.0}, {'service': 11, 'price': 24.0}]>
+INFO 2021-09-10 18:29:19,973 tariff_views <QuerySet [{'service': 7, 'price': 1.68}, {'service': 10, 'price': 18.8}, {'service': 9, 'price': 123.0}, {'service': 11, 'price': 69.5}, {'service': 12, 'price': 5.5}]>
+ERROR 2021-09-10 18:30:13,040 tariff_views [{'id': ['Обязательное поле.']}, {'id': ['Обязательное поле.']}, {'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}]
+INFO 2021-09-10 18:31:03,470 tariff_views <QuerySet [{'service': 7, 'price': 3.0}, {'service': 10, 'price': 4.0}, {'service': 9, 'price': 15.0}, {'service': 11, 'price': 24.0}]>
+INFO 2021-09-10 18:31:31,565 tariff_views <QuerySet [{'service': 7, 'price': 3.0}, {'service': 10, 'price': 4.0}, {'service': 9, 'price': 15.0}, {'service': 11, 'price': 24.0}]>
+ERROR 2021-09-10 18:31:41,551 tariff_views [{'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}]
+ERROR 2021-09-10 18:32:45,331 tariff_views [{'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {}, {}]
+ERROR 2021-09-10 18:35:16,482 tariff_views [{}, {}]
+INFO 2021-09-10 19:52:02,370 tariff_views <QuerySet [{'service': 9, 'price': 1.0}]>
+INFO 2021-09-10 19:52:54,214 tariff_views <QuerySet [{'service': 9, 'price': 1.0}]>
+INFO 2021-09-10 19:53:27,078 tariff_views [{'service': 9, 'price': 1.0}]
+INFO 2021-09-10 19:53:40,082 tariff_views [{'service': 9, 'price': 1.0}]
+INFO 2021-09-10 19:55:22,861 tariff_views [{'service': 7, 'price': 1.68}, {'service': 10, 'price': 18.8}, {'service': 9, 'price': 123.0}, {'service': 11, 'price': 69.5}, {'service': 12, 'price': 5.5}]
+INFO 2021-09-12 13:53:53,083 tariff_views [{'service': 7, 'price': 1.68}, {'service': 10, 'price': 18.8}, {'service': 9, 'price': 123.0}, {'service': 11, 'price': 69.5}, {'service': 12, 'price': 5.5}]
+INFO 2021-09-12 13:54:03,492 tariff_views [{'service': 7, 'price': 1.68}, {'service': 10, 'price': 18.8}, {'service': 9, 'price': 123.0}, {'service': 11, 'price': 69.5}, {'service': 12, 'price': 5.5}]
+INFO 2021-09-12 13:55:32,879 tariff_views [{'service': 7, 'price': 1.68}, {'service': 10, 'price': 18.8}, {'service': 9, 'price': 123.0}, {'service': 11, 'price': 69.5}, {'service': 12, 'price': 5.5}]
+INFO 2021-09-12 13:59:37,538 tariff_views [{'service': 7, 'price': 1.68}, {'service': 10, 'price': 18.8}, {'service': 9, 'price': 123.0}, {'service': 11, 'price': 69.5}, {'service': 12, 'price': 5.5}]
+ERROR 2021-09-12 14:00:16,262 tariff_views [{}, {}, {}, {}, {}]
+ERROR 2021-09-12 14:01:39,270 tariff_views [{'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {'service': ['Обязательное поле.'], 'price': ['Обязательное поле.'], 'id': ['Обязательное поле.']}, {}, {}, {}]
+INFO 2021-09-13 10:12:49,323 personal_account_views <QuerySet []>
+INFO 2021-09-13 10:12:50,682 personal_account_views <QuerySet [<Flat: Квартира №1, ОСМД 1001 ЖК "Альтаир">]>
+INFO 2021-09-13 10:15:04,303 personal_account_views <QuerySet [<Flat: Квартира №1, ОСМД 1001 ЖК "Альтаир">]>
+INFO 2021-09-13 10:16:21,521 personal_account_views <QuerySet [<Flat: Квартира №1, ОСМД 1001 ЖК "Альтаир">]>
+INFO 2021-09-13 10:18:40,128 personal_account_views <QuerySet []>
+INFO 2021-09-13 10:18:42,781 personal_account_views <QuerySet [<Flat: Квартира №1, ОСМД 1001 ЖК "Альтаир">]>
+INFO 2021-09-13 10:23:31,440 personal_account_views <QuerySet [<Flat: Квартира №1, ОСМД 1001 ЖК "Альтаир">]>
+INFO 2021-09-13 10:24:19,418 personal_account_views <QuerySet [<Flat: Квартира №1, ОСМД 1001 ЖК "Альтаир">]>
+INFO 2021-09-13 10:25:41,049 personal_account_views <QuerySet [<Flat: Квартира №1, ОСМД 1001 ЖК "Альтаир">]>
+INFO 2021-09-13 10:32:52,934 personal_account_views <QuerySet []>
+INFO 2021-09-13 10:32:56,969 personal_account_views <QuerySet [<Flat: Квартира №1, ОСМД 1001 ЖК "Альтаир">]>
+INFO 2021-09-13 11:48:53,048 personal_account_views <QuerySet []>
+INFO 2021-09-13 11:49:06,464 personal_account_views <QuerySet [<Flat: Квартира №3, ОСМД 1002 ЖК "Альтаир 2">]>
+INFO 2021-09-13 11:49:11,043 personal_account_views <QuerySet []>
+INFO 2021-09-13 11:49:13,552 personal_account_views <QuerySet []>
+INFO 2021-09-13 11:49:18,108 personal_account_views <QuerySet [<Flat: Квартира №3, ОСМД 1002 ЖК "Альтаир 2">]>
+INFO 2021-09-13 11:49:25,359 personal_account_views <QuerySet []>
+INFO 2021-09-13 11:49:27,708 personal_account_views <QuerySet [<Flat: Квартира №3, ОСМД 1002 ЖК "Альтаир 2">]>
+INFO 2021-09-13 13:04:09,191 personal_account_views <QuerySet []>
+INFO 2021-09-13 13:04:12,938 personal_account_views <QuerySet []>
+INFO 2021-09-13 13:26:09,428 personal_account_views <QueryDict: {'csrfmiddlewaretoken': ['7HgFShpkGz2q0DwKuoZFxv15M5PmDeBIpy6hoSsH5gQsA5Hk0AfrQH8Z20xT6PbB'], 'uid': ['1392021102222'], 'status': ['1'], 'house': ['25'], 'section': ['65'], 'flat': ['8']}>
+INFO 2021-09-13 13:27:36,629 personal_account_views {'uid': '1392021102222', 'status': '1', 'house': <House: ОСМД 1002 ЖК "Альтаир 2">}
+INFO 2021-09-15 15:57:08,851 meters_views Холодная вода
+INFO 2021-09-18 21:07:51,292 master_calling_views {'master_type': None, 'description': 'test trouble', 'status': '1', 'master': None, 'flat': <Flat: 1>, 'comment': '', 'owner': <Owner: Мошко Андрей Викторович>, 'convenient_date': datetime.date(2021, 9, 19), 'convenient_time': datetime.time(16, 45)}
+ERROR 2021-09-21 10:57:41,983 cabinet_views andrew.moshko@gmail.com, top1Dron
+ERROR 2021-09-21 11:00:24,108 cabinet_views andrew.moshko@gmail.com, top1Dron

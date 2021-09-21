@@ -1,0 +1,70 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Пользователь{% endblock title %}
+
+
+{% block settings %}bg-light{% endblock settings %}
+{% block workers %}text-dark{% endblock workers %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1>Пользователь</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:worker_list' %}" class="text-dark">Пользователи</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Пользователь</li>
+            </ol>
+        </nav>
+    </section>
+    <div class="dropdown-divider"></div>
+    <section class="content">
+        <div class="card">
+            <div class="card-header row d-flex justify-content-end">
+                <a href="{% url 'myhouse_admin:worker_update' employee.pk %}" class="btn btn-primary">Редактировать пользователя</a>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <table class="table table-bordered table-hover table-striped">
+                            <tbody>
+                                <tr>
+                                    <td class="font-weight-bold">Пользователь</td>
+                                    <td>{{employee.user.get_full_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold">Роль</td>
+                                    <td>{{employee.role.name}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold">Телефон</td>
+                                    <td>{{employee.user.phone_number}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold">Email(логин)</td>
+                                    <td>{{employee.user.email}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold">Статус</td>
+                                    <td>
+                                    {% if employee.user.status == '0' %}
+                                        <span class="badge badge-danger">{{employee.user.get_status_display}}</span>
+                                    {% elif employee.user.status == '1' %}
+                                        <span class="badge badge-warning">{{employee.user.get_status_display}}</span>
+                                    {% elif employee.user.status == '2' %}
+                                        <span class="badge badge-success">{{employee.user.get_status_display}}</span>
+                                    {% endif %}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock main_content %}

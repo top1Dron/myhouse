@@ -1,0 +1,64 @@
+{% extends 'cabinet_layout/base.html' %}
+
+{% load static %}
+
+{% block title %}Вызов мастера{% endblock title %}
+
+{% block main_content %}
+    <div class="container-fluid">
+        <section class="content-header d-flex justify-content-between">
+            <h1 class="ml-3">Вызов мастера</h1>
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Вызов мастера</li>
+                </ol>
+            </nav>
+        </section>
+        <div class="dropdown-divider"></div>
+        <section class="content">
+            <div class="row d-flex justify-content-end my-3">
+                <a href="#" class="btn btn-success mr-3">Создать заявку</a>
+            </div>
+            <div class="card mx-2">
+                <div class="card-body">
+                    <table class="table table-bordered table-striped mx-2">
+                        <thead>
+                            <tr>
+                                <th>№ заявки</th>
+                                <th>Тип мастера</th>
+                                <th>Описание</th>
+                                <th>Удобное время</th>
+                                <th>Статус</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ticket in tickets %}
+                            <tr>
+                                <td>{{ticket.pk}}</td>
+                                <td>{{ticket.master_type}}</td>
+                                <td>{{ticket.description}}</td>
+                                <td>{{ticket.convenient_time|date:"d.m.Y - H:i"}}</td>
+                                <td>
+                                    {% if ticket.status == '1' %}
+                                        <span class="badge badge-primary">
+                                    {% elif ticket.status == '2' %}
+                                        <span class="badge badge-warning">
+                                    {% elif ticket.status == '3' %}
+                                        <span class="badge badge-success">
+                                    {% endif %}
+                                        {{ ticket.get_status_display}}</span>
+                                </td>
+                                <td></td>
+                            </tr>
+                            {% empty %}
+                                <td colspan="6">Ничего не найдено</td>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock main_content %}

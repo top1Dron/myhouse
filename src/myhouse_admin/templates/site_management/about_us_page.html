@@ -1,0 +1,232 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Редактирование страницы{% endblock title %}
+
+
+{% block site_management %}bg-light{% endblock site_management %}
+{% block about_us %}text-dark{% endblock about_us %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'plugins/summernote/summernote-bs4.min.css' %}">
+<style>
+@media only screen and (min-width : 481px) {
+    .flex-row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .flex-row > [class*='col-'] {
+        display: flex;
+        flex-direction: column;
+    }
+    .flex-row.row:after, 
+    .flex-row.row:before {
+        display: flex;
+    }
+}
+</style>
+{% endblock extra_css %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1>Редактирование страницы</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Редактирование страницы</li>
+            </ol>
+        </nav>
+        {% for error in form.errors.values %}
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ error|striptags }}
+        </div>
+        {% endfor %}
+        {% for error in document_formset.errors %}
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ error|striptags }}
+        </div>
+        {% endfor %}
+    </section>
+    <div class="dropdown-divider"></div>
+    <section class="content">
+        <div class="card">
+            <div class="card-header">
+                <h4>Редактирование страницы "О нас"</h4>
+            </div>
+            <div class="card-body">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="page-header">
+                        <h4>Информация</h4>
+                        <div class="dropdown-divider mb-4"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="{{form.heading.auto_id}}">Заголовок</label>
+                                {% render_field form.heading class="form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{form.short_text.auto_id}}">Краткий текст</label>
+                                {% render_field form.short_text class="form-control" %}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Фото директора</h4>
+                            {% if form.director_photo.value.url is not None %}
+                                <img id="director_photo" class=" text-center mb-3 slide" image-start-src='{{MEDIA_URL}}{{form.director_photo.value.url}}' src="{{MEDIA_URL}}{{form.director_photo.value.url}}" alt="...">
+                            {% else %}
+                                <img id="director_photo" class=" text-center mb-3 slide" image-start-src='...' src="{% static 'img/default-image.jpeg' %}" alt="...">
+                            {% endif %}
+                            <div class="form-group">
+                                <label>Рекомендуемый размер: (250x310)</label></br>
+                                <input type="file" name="director_photo" accept="image/*" id="id_director_photo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-header">
+                        <h4>Фотогалерея</h4>
+                        <div class="dropdown-divider mb-4"></div>
+                        <div class="row">
+                        {% for image in form.instance.images.all %}
+                            {% csrf_token %}
+                            <div class="col-xs-4 col-sm-2 text-center">
+                                <div class="form-group">
+                                    <img id="image-{{image.pk}}" class="img-thumbnail mb-3 gallery" src="{{MEDIA_URL}}{{image.image.url}}" alt="...">
+                                    <button class="text-red mb-2 btn btn-green" delete-url="{% url 'myhouse_admin:delete_about_image' image.pk %}" type='button' onclick="deleteObject(this, getCookie('csrftoken'))"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{image_form.image.auto_id}}">Рекомендуемый размер: (1200x1200)</label><br/>
+                            <input type="file" name="{{image_form.prefix}}-image" accept="image/*" id="id_{{image_form.prefix}}-image">
+                        </div>
+                    </div>
+                    <div class="page-header">
+                        <h4>Дополнительная информация</h4>
+                        <div class="dropdown-divider mb-4"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.ai_heading.auto_id}}">Заголовок</label>
+                        {% render_field form.ai_heading class="form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.ai_short_text.auto_id}}">Краткий текст</label>
+                        {% render_field form.ai_short_text class="form-control" %}
+                    </div>
+                    <div class="page-header">
+                        <h4>Дополнительная фотогалерея</h4>
+                        <div class="dropdown-divider mb-4"></div>
+                        <div class="row">
+                        {% for image in form.instance.additional_images.all %}
+                            {% csrf_token %}
+                            <div class="col-xs-4 col-sm-2 text-center">
+                                <div class="form-group">
+                                    <img id="ad-image-{{image.pk}}" class="img-thumbnail mb-3 ad_gallery" src="{{MEDIA_URL}}{{image.image.url}}" alt="...">
+                                    <button class="text-red mb-2 btn btn-green" delete-url="{% url 'myhouse_admin:delete_about_ad_image' image.pk %}" type='button' onclick="deleteObject(this, getCookie('csrftoken'))"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ad_image_form.image.auto_id}}">Рекомендуемый размер: (1200x1200)</label><br/>
+                            <input type="file" name="{{ad_image_form.prefix}}-image" accept="image/*" id="id_{{ad_image_form.prefix}}-image">
+                        </div>
+                    </div>
+                    <div class="page-header">
+                        <h4>Документы</h4>
+                        <div class="dropdown-divider mb-4"></div>
+                        {{ document_formset.management_form }}
+                        <div id="documents">
+                            {% for form in document_formset %}
+                                <div class="col-xs-12 col-md-6 mt-4">
+                                    {% csrf_token %}
+                                    {% if document_formset.can_delete %}
+                                        {% render_field form.DELETE class="d-none"%}
+                                    {% endif %}
+                                        {% render_field form.id type="hidden" %}
+                                        {% render_field form.about_us_page type="hidden" %}
+                                    <div class="row d-flex">
+                                        <div class="col-2 col-xs-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-file-earmark" viewBox="0 0 16 16">
+                                                <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
+                                            </svg>
+                                        </div>
+                                        <div class="col-8 col-md-9">
+                                            <label>PDF, JPG (макс. размер 20 Mb)</label></br>
+                                            <input type="file" name="document_set-{{forloop.counter0}}-file" id="id_document_set-{{forloop.counter0}}-file">
+                                            {% comment %} {{form.file}} {% endcomment %}
+                                        </div>
+                                        <a class="text-red text-center align-self-end mb-2" delete="true" type='button' onclick="deleteBlock(this, {{forloop.counter0}})"><i class="fa fa-trash"></i></a>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="{{form.name.auto_id}}">Название документа</label>
+                                        {% render_field form.name class="form-control" %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div id="empty_form" style="display:none">
+                            <div class="col-xs-12 col-md-6 mt-4">
+                                {% csrf_token %}
+                                <div class="row d-flex">
+                                    <div class="col-2 col-xs-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-file-earmark" viewBox="0 0 16 16">
+                                            <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="col-8 col-md-9">
+                                        <label>PDF, JPG (макс. размер 20 Mb)</label></br>
+                                        <input type="file" name="document_set-__prefix__-file" accept="image/*" id="{{document_formset.empty_form.file.auto_id}}">
+                                    </div>
+
+                                    <a class="text-red text-center align-self-end mb-2" type='button' onclick="deleteBlock(this)"><i class="fa fa-trash"></i></a>
+                                </div>
+                                
+                                {% comment %} <img id="{{document_formset.empty_form.poster.auto_id}}" class="img-thumbnail slide text-center mb-3" image-start-src='...' src="{% static 'img/default-image.jpeg' %}" alt="..."> {% endcomment %}
+                                
+                                <div class="form-group">
+                                    <label for="{{document_formset.empty_form.name.auto_id}}">Название документа</label>
+                                    {% render_field document_formset.empty_form.name class="form-control" %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-success ml-1 mb-4" type="button" id="add_document">Добавить документ</button>
+                    </div>
+                    <div class="page-header">
+                        <h4>Настройки SEO</h4>
+                        <div class="dropdown-divider"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.seo_title.auto_id}}">Title</label>
+                        {% render_field form.seo_title class="form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.seo_description.auto_id}}">Description</label>
+                        {% render_field form.seo_description class="form-control" style="height:150px;" %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.seo_keywords.auto_id}}">Keywords</label>
+                        {% render_field form.seo_keywords class="form-control" style="height:150px;" %}
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <a href="{% url 'myhouse_admin:about_us_page' %}" class="btn btn-default">Отменить</a>
+                        <button class="btn btn-success ml-1" type="submit">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock main_content %}
+{% block extra_js %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
+    <script src="{% static 'plugins/summernote/summernote-bs4.min.js' %}"></script>
+    <script src="{% static 'js/admin/site_management/about_us_page.js' %}" type="module"></script>
+{% endblock extra_js %}

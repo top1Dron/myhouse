@@ -1,0 +1,11 @@
+{% extends 'layout/base.html' %}
+
+{% load static %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1 class="ml-2">Добро пожаловать в административную панель, {{user.get_full_name|default_if_none:user}}</h1>
+    </section>
+</div>
+{% endblock main_content %}

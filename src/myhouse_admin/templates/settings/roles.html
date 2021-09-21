@@ -1,0 +1,76 @@
+{% extends 'layout/base.html' %}
+
+{% load static %}
+
+{% block title %}Роли{% endblock title %}
+
+
+{% block settings %}bg-light{% endblock settings %}
+{% block roles %}text-dark{% endblock roles %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1>Роли</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Роли</li>
+            </ol>
+        </nav>
+    </section>
+    <div class="dropdown-divider"></div>
+    <section class="content">
+        <div class="card">
+            <form action="{% url 'myhouse_admin:roles' %}" method="POST">
+                <div class="card-body table-responsive p-0">
+                    {% csrf_token %}
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Роль</th>
+                                <th class="text-center">Статистика</th>
+                                <th class="text-center">Касса</th>
+                                <th class="text-center">Квитанции на оплату</th>
+                                <th class="text-center">Лицевые счета</th>
+                                <th class="text-center">Квартиры</th>
+                                <th class="text-center">Владельцы квартир</th>
+                                <th class="text-center">Дома</th>
+                                <th class="text-center">Сообщения</th>
+                                <th class="text-center">Заявки вызова мастера</th>
+                                <th class="text-center">Счетчики</th>
+                                <th class="text-center">Управление сайтом</th>
+                                <th class="text-center">Услуги</th>
+                                <th class="text-center">Тарифы</th>
+                                <th class="text-center">Роли</th>
+                                <th class="text-center">Пользователи</th>
+                                <th class="text-center">Платежные реквизиты</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for role in roles %}
+                                <tr>
+                                    <td>{{role.instance.name}}</td>
+                                    {% for check in role.abilities %}
+                                        <td class="text-center">
+                                            <div class="form-check form-check-inline">
+                                                <span class="form-check-input">{{ check.tag }}</span>
+                                            </div>
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row d-flex justify-content-end">
+                    <div class="form-group mt-3 mr-3">
+                        <a href="{% url 'myhouse_admin:roles' %}" class="btn btn-default">Отменить</a>
+                        <button class="btn btn-success" type="submit">Сохранить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+{% endblock main_content %}

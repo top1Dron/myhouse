@@ -1,0 +1,93 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Пользователь{% endblock title %}
+
+
+{% block settings %}bg-light{% endblock settings %}
+{% block workers %}text-dark{% endblock workers %}
+
+{% block main_content %}
+<div class="content-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1>Пользователь</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:worker_list' %}" class="text-dark">Пользователи</a></li>
+                {% if update %}
+                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:worker_detail' employee.pk %}" class="text-dark">Пользователь</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Редактирование</li>
+                {% else %}
+                    <li class="breadcrumb-item active" aria-current="page">Новый пользователь</li>
+                {% endif %}
+            </ol>
+        </nav>
+    </section>
+    <div class="dropdown-divider"></div>
+    <section class="content">
+        <div class="card">
+            <div class="card-body">
+                <form action="" method="POST" class="was-validated">
+                    {% csrf_token %}
+                        {% for error in user_form.errors.values %}
+                        <div class="alert alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            {{ error|striptags }}
+                        </div>
+                        {% endfor %}
+                        {% for error in form.errors.values %}
+                        <div class="alert alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            {{ error|striptags }}
+                        </div>
+                        {% endfor %} 
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group g-3">
+                                <label for="{{user_form.first_name.auto_id}}" class="form-label">Имя</label>
+                                {% render_field user_form.first_name class='form-control is-invalid'%}
+                            </div>
+                            <div class="form-group g-3">
+                                <label for="{{user_form.last_name.auto_id}}" class="form-label">Фамилия</label>
+                                {% render_field user_form.last_name class='form-control is-invalid'%}
+                            </div>
+                            <div class="form-group g-3">
+                                <label for="{{form.role.auto_id}}" class="form-label ">Роль</label>
+                                {% render_field form.role class='form-control is-invalid'%}
+                            </div>
+                            <div class="form-group g-3">
+                                <label for="{{user_form.password1.auto_id}}" class="form-label">{{user_form.password1.label}}</label>
+                                {% render_field user_form.password1 class='form-control' type="password" %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group g-3">
+                                <label for="{{user_form.email.auto_id}}" class="form-label">Email</label>
+                                {% render_field user_form.email class='form-control is-invalid'%}
+                            </div>
+                            <div class="form-group g-3">
+                                <label for="{{user_form.phone_number.auto_id}}" class="form-label">Телефон</label>
+                                {% render_field user_form.phone_number class='form-control is-invalid'%}
+                            </div>
+                            <div class="form-group g-3">
+                                <label for="{{user_form.status.auto_id}}" class="form-label">Статус</label>
+                                {% render_field user_form.status class='form-control is-invalid'%}
+                            </div>
+                            <div class="form-group g-3">
+                                <label for="{{user_form.password2.auto_id}}" class="form-label">{{user_form.password2.label}}</label>
+                                {% render_field user_form.password2 class='form-control' type="password" %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-end mr-2">
+                        <a href="myhouse_admin:worker_list" class="btn btn-default mr-1">Отменить</a>
+                        <button class="btn btn-success" type="submit">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock main_content %}

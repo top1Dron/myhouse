@@ -1,0 +1,53 @@
+{% extends 'auth/login_base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block card %}
+    <ul class="nav nav-tabs">
+        <li class="nav-item w-50">
+            <a class="nav-link active text-dark text-center" href="#">Для жильца</a>
+        </li>
+        <li class="nav-item w-50">
+            <a class="nav-link text-dark text-center" href="{% url 'myhouse_admin:admin_login' %}">Для администрации</a>
+        </li>
+        </li>
+    </ul>
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Вход в личный кабинет</p>
+
+      <form action="" method="post">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          {% render_field form.email class="form-control" placeholder="Email или ID" type="text" %}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          {% render_field form.password class="form-control" placeholder="Пароль" type="password" %}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+                Запомнить меня
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary btn-block">Вход</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+    </div>
+{% endblock card %}

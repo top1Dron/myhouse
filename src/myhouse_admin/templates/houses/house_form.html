@@ -1,0 +1,30 @@
+{% load static widget_tweaks %}
+
+<div class="form-group g-3">
+    <label for="{{form.name.auto_id}}" class="form-label">Название</label>
+    {% render_field form.name class="form-control is-invalid" %}
+</div>
+<div class="form-group g-3">
+    <label for="{{form.address.auto_id}}" class="form-label">Адрес</label>
+    {% render_field form.address class="form-control is-invalid" rows="1" %}
+</div>
+<div class="form-group g3">
+    <label>Изображение #1. Размер: (522x350)</label></br>
+    <input type="file" name="image1" accept="image/*" id="id_image1">
+</div>
+<div class="form-group g3">
+    <label>Изображение #2. Размер: (248x160)</label></br>
+    <input type="file" name="image2" accept="image/*" id="id_image2">
+</div>
+<div class="form-group g3">
+    <label>Изображение #3. Размер: (248x160)</label></br>
+    <input type="file" name="image3" accept="image/*" id="id_image3">
+</div>
+<div class="form-group g3">
+    <label>Изображение #4. Размер: (248x160)</label></br>
+    <input type="file" name="image4" accept="image/*" id="id_image4">
+</div>
+<div class="form-group g3">
+    <label>Изображение #5. Размер: (248x160)</label></br>
+    <input type="file" name="image5" accept="image/*" id="id_image5">
+</div>

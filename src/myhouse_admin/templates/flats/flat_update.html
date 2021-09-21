@@ -1,0 +1,31 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}{{flat.to_string}}{% endblock title %}
+
+{% block flats %}bg-light{% endblock flats %}
+
+{% block extra_css %}{% endblock extra_css %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1>{{flat.to_string}}</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:flat_list' %}" class="text-dark">Квартиры</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:flat_detail' flat.pk %}" class="text-dark">{{flat.to_string}}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Редактирование</li>
+            </ol>
+        </nav>
+    </section>
+    <div class="dropdown-divider"></div>
+    {% include 'flats/flat_form.html' %}
+</div>
+{% endblock main_content %}
+
+{% block extra_js %}
+    <script src="{% static 'js/admin/flats/flat_create_update.js' %}" type="module"></script>
+{% endblock extra_js %}

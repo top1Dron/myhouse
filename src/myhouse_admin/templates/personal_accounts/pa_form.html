@@ -1,0 +1,72 @@
+{% load static widget_tweaks %}
+<section class="content">
+    <form action="" method="POST" class="was-validated">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="form-group g-3 mt-2">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="uid-addon1">№</span>
+                        </div>
+                        {% render_field form.uid class="form-control" aria-describedby="uid-addon1"%}
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                {% for error_name, error in form.errors.items %}
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    {{error_name}}:{{ error|striptags }}
+                </div>
+                {% endfor %}
+                <div class="form-group g-3">
+                    <label for="{{form.status.auto_id}}" class="form-label">Статус</label>
+                    {% render_field form.status class='form-control is-invalid'%}
+                </div>
+                <div class="form-group g-3">
+                    <label for="{{form.house.auto_id}}" class="form-label">Дом</label>
+                    {% render_field form.house class='form-control is-invalid' data-house-sections-url=load_house_sections_url data-empty-flats=load_empty_flats_url %}
+                </div>
+                <div class="form-group g-3">
+                    <label for="{{form.section.auto_id}}" class="form-label">Секция</label>
+                    {% if not update %}
+                        {% render_field form.section class='form-control is-invalid' data-section-flat-url=load_section_flats_without_pa_url %}
+                    {% else %}
+                        {% render_field form.section class='form-control is-invalid' data-section-flat-update-url=load_section_flats_on_update_pa_url %}
+                    {% endif %}
+                </div>
+                <div class="form-group g-3">
+                    <label for="{{form.flat.auto_id}}" class="form-label">Квартира</label>
+                    {% render_field form.flat class='form-control is-invalid' data-flat-details-url=load_flat_details %}
+                </div>
+                <p>
+                    <strong>Владелец: </strong>
+                    <span id="id_flat_owner">
+                        {% if form.instance.pk is not None %}
+                            <a href="{% url 'myhouse_admin:owner_detail' form.instance.flat.owner.pk %}" class="text-ecoration-none">{{form.instance.flat.owner}}</a>
+                        {% else %}
+                            не выбран
+                        {% endif %}
+                    </span>    
+                </p>
+                <p>
+                    <strong>Телефон: </strong>
+                    <span id="id_flat_owner_phone">
+                        {% if form.instance.pk is not None %}
+                            <a href="tel:{{form.instance.flat.owner.user.phone_number}}" class="text-decoration-none">{{form.instance.flat.owner.user.phone_number}}</a>
+                        {% else %}
+                            не выбран
+                        {% endif %}
+                    </span>    
+                </p>
+                <div class="row d-flex justify-content-end mr-2">
+                    <a href="myhouse_admin:worker_list" class="btn btn-default mr-1">Отменить</a>
+                    <button class="btn btn-success" type="submit">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

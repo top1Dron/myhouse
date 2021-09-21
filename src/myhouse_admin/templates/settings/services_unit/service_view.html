@@ -1,0 +1,68 @@
+{% load static widget_tweaks %}
+
+{{ service_formset.management_form }}
+{% comment %} {% for form in service_formset %}
+    {% for error_name, error in form.errors.items %}
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        {{error_name}}:{{ error|striptags }}
+    </div>
+    {% endfor %}
+{% endfor %} {% endcomment %}
+<div id="all_service">
+    {% for form in service_formset %}
+        <div class="row d-flex align-items-center">
+            {% csrf_token %}
+            {% render_field form.id %}
+            <div class="col-12">
+                <div class="form-group g-3 mt-2">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label for="{{form.name.auto_id}}">Услуга</label>
+                            {% render_field form.name class="form-control" %}
+                        </div>
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-5">
+                            <label for="{{form.unit.auto_id}}">Ед. изм.</label>
+                            <div class="input-group">
+                                {% render_field form.unit class="form-control" %}
+                                <button class="btn btn-default text-center align-self-end mb-2" delete-url="{% url 'myhouse_admin:service_delete' form.instance.pk %}" type='button' onclick="deleteService(this, 'id_service-TOTAL_FORMS', true)"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            {% render_field form.in_meter %}
+                            <label for="{{form.in_meter.auto_id}}">Показывать в счетчиках</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<button class="btn btn-default my-2" type="button" id="add_service">Добавить</button>
+<div id="empty_service_form" style="display:none">
+    <div class="row d-flex align-items-center">
+        <div class="col-12">
+            <div class="form-group g-3 mt-2">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="{{service_formset.empty_form.name.auto_id}}">Услуга</label>
+                        {% render_field service_formset.empty_form.name class="form-control" %}
+                    </div>
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-5">
+                        <label for="{{service_formset.empty_form.unit.auto_id}}">Ед. изм.</label>
+                        <div class="input-group">
+                            {% render_field service_formset.empty_form.unit class="form-control" %}
+                            <button class="btn btn-default text-center align-self-end mb-2" type='button' onclick="deleteService(this, 'id_service-TOTAL_FORMS')"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        {% render_field service_formset.empty_form.in_meter %}
+                        <label for="{{service_formset.empty_form.in_meter.auto_id}}">Показывать в счетчиках</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

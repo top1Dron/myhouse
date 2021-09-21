@@ -1,0 +1,30 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Новый лицевой счет{% endblock title %}
+
+{% block personal_accounts %}bg-light{% endblock personal_accounts %}
+
+{% block extra_css %}{% endblock extra_css %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1>Новый лицевой счет</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:personal_account_list' %}" class="text-dark">Лицевые счета</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Новый лицевой счет</li>
+            </ol>
+        </nav>
+    </section>
+    <div class="dropdown-divider"></div>
+    {% include 'personal_accounts/pa_form.html' %}
+</div>
+{% endblock main_content %}
+
+{% block extra_js %}
+    <script src="{% static 'js/admin/personal_accounts/personal_account_create_update.js' %}" type="module"></script>
+{% endblock extra_js %}

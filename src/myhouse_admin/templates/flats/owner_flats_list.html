@@ -1,0 +1,4 @@
+<option value="">Выберите...</option>
+{% for flat in flats %}
+<option value="{{ flat.pk }}">{{ flat }}, {{flat.floor.section.house}}</option>
+{% endfor %}

@@ -1,0 +1,45 @@
+{% extends base_layout|default_if_none:'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Профиль владельца{% endblock title %}
+
+{% block owners %}bg-light{% endblock owners %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+{% endblock extra_css %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1>Профиль владельца</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:owner_list' %}" class="text-dark">Владельцы квартир</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:owner_detail' owner.pk %}" class="text-dark">Профиль владельца</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Редактирование</li>
+            </ol>
+        </nav>
+    </section>
+    <div class="dropdown-divider"></div>
+    {% include 'users/owner_form.html' %}
+</div>
+{% endblock main_content %}
+
+{% block extra_js %}
+    <script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
+    <script src="{% static 'plugins/moment/moment-with-locales.min.js' %}"></script>
+    <script src="{% static 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+    <script>
+        $(function () {
+            $('#birthdate').datetimepicker({
+                autoclose: true,
+                locale: 'ru',
+                format:'DD.MM.YYYY',
+            });
+        });
+    </script>
+{% endblock extra_js %}

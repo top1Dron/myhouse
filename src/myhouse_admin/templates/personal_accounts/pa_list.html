@@ -1,0 +1,143 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Лицевые счета{% endblock title %}
+
+{% block flats %}bg-light{% endblock flats %}
+
+{% block main_content %}
+<section class="content-header d-flex justify-content-between">
+    <h1>Лицевые счета</h1>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Лицевые счета</li>
+        </ol>
+    </nav>
+</section>
+<div class="dropdown-divider"></div>
+<div class="content">
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3>? грн.</h3>
+                            <p>Состояние кассы</p>
+                        </div>
+                        <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+                                <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="small-box bg-primary">
+                        <div class="inner">
+                            <h3>? грн.</h3>
+                            <p>Баланс по счетам</p>
+                        </div>
+                        <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+                                <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3>? грн.</h3>
+                            <p>Задолженность по счетам</p>
+                        </div>
+                        <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+                                <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="dropdown float-right mr-2">
+                <a class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Выберите действие
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a href="{% url 'myhouse_admin:personal_account_create' %}" class="dropdown-item">Добавить лицевой счёт</a>
+                    <a class="dropdown-item" href="#">Выгрузить в Excel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mr-2 ml-2">
+        <div class="card-header">
+            <div class="row d-flex justify-content-end mr-3">
+                <a href="{% url 'myhouse_admin:personal_account_list' %}" class="btn btn-default">Очистить</a>
+            </div>
+        </div>
+        <div class="card-body table-responsive p-0">
+            {% csrf_token %}
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Статус</th>
+                        <th>Квартира</th>
+                        <th>Дом</th>
+                        <th>Секция</th>
+                        <th>Владелец</th>
+                        <th>Остаток (грн)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% comment %} <td></td>
+                        <td>{% render_field house_search_form.house_name_search_field class="form-control"%}</td>
+                        <td>{% render_field house_search_form.house_address_search_field class="form-control" %}</td>
+                        <td></td> {% endcomment %}
+                    </tr>
+                {% for personal_account in personal_accounts %}
+                    <tr data-href="{% url 'myhouse_admin:personal_account_detail' personal_account.pk %}">
+                        <td>{{personal_account.uid}}</td>
+                        <td>
+                            {% if personal_account.status == '0' %}
+                                <span class="badge badge-danger">{{personal_account.get_status_display}}</span>
+                            {% elif personal_account.status == '1' %}
+                                <span class="badge badge-success">{{personal_account.get_status_display}}</span>
+                            {% endif %}
+                        </td>
+                        <td>{{personal_account.flat.number}}</td>
+                        <td>{{personal_account.flat.floor.section.house}}</td>
+                        <td>{{personal_account.flat.floor.section}}</td>
+                        <td>{{personal_account.flat.owner}}</td>
+                        <td>{{personal_account.summary|stringformat:".2f"}}</td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="{% url 'myhouse_admin:personal_account_update' personal_account.pk %}" class="btn btn-default">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                        <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                                    </svg>
+                                </a>
+                                <button type="button" class="btn btn-default delete-personal_account-button" delete-url="{% url 'myhouse_admin:personal_account_delete' personal_account.pk %}"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="8">Лицевых счетов не обнаружено</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}
+
+{% block extra_js %}
+    <script src="{% static 'js/admin/personal_accounts/personal_account_list.js' %}" type="module"></script>
+{% endblock extra_js %}

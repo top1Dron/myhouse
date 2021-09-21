@@ -1,0 +1,140 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Новый дом{% endblock title %}
+
+{% block houses %}bg-light{% endblock houses %}
+
+{% block main_content %}
+<div class="content-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1>Новый дом</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:house_list' %}" class="text-dark">Дома</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Новый дом</li>
+            </ol>
+        </nav>
+    </section>
+    <div class="dropdown-divider"></div>
+    <section class="content">
+        <div class="card">
+            <div class="card-body">
+                <form action="" method="POST" class="was-validated" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for error in form.errors.values %}
+                        <div class="alert alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            {{ error|striptags }}
+                        </div>
+                    {% endfor %}
+                    <div class="row">
+                        <div class="col-lg-4">
+                            {% include 'houses/house_form.html' %}
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img class="img-fluid" alt="Изображение #1. Размер: (522x350)" src="{% static 'img/default-image(522x350).jpeg' %}" style="height:350px; margin-bottom:30px">
+                                </div>
+                                <div class="row col-md-6">
+                                    <div class="col-md-6">
+                                        <img class="img-fluid" alt="Изображение #2. Размер: (248x160)" src="{% static 'img/default-image(248x160).jpeg' %}" style="height:160px;">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <img class="img-fluid" alt="Изображение #3. Размер: (248x160)" src="{% static 'img/default-image(248x160).jpeg' %}" style="height:160px;">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <img class="img-fluid" alt="Изображение #4. Размер: (248x160)" src="{% static 'img/default-image(248x160).jpeg' %}" style="height:160px;">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <img class="img-fluid" alt="Изображение #5. Размер: (248x160)" src="{% static 'img/default-image(248x160).jpeg' %}" style="height:160px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a id="section-tab" class="nav-link active" aria-current="page" href="#">Секции</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="employee-tab" class="nav-link" href="#">Пользователи</a>
+                                </li>
+                            </ul>
+                            <div class="sections-block d-block border">
+                                {{ section_formset.management_form }}
+                                <div id="sections"></div>
+                                <div class="row d-flex justify-content-end">
+                                    <button class="btn btn-success mr-3 my-2" type="button" id="add_section">Добавить</button>
+                                </div>
+                                <div id="empty_sections_form" style="display:none">
+                                    <div class="row d-flex align-items-center">
+                                        {% render_field section_formset.empty_form.DELETE class="d-none" %}
+                                        <div class="col-lg-6">
+                                            <div class="form-group g-3 ml-2 mt-2">
+                                                <label for="{{section_formset.empty_form.name.auto_id}}">Название секции</label>
+                                                {% render_field section_formset.empty_form.name class="form-control" value="Секция №__prefix1__" %}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <div class="form-group g-3 mt-2">
+                                                <label for="{{section_formset.empty_form.floors.auto_id}}">Количество этажей</label>
+                                                {% render_field section_formset.empty_form.floors class="form-control" value='1'%}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-1">
+                                            </br>
+                                            <button class="mt-2 btn btn-danger text-center align-self-end mb-2" type='button' onclick="deleteSection(this, 'id_section_set-TOTAL_FORMS')"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="employee-block d-none border">
+                                {{ employee_formset.management_form }}
+                                <div id="employee"></div>
+                                <div class="row d-flex justify-content-end">
+                                    <button class="btn btn-success mr-3 my-2" type="button" id="add_employee">Добавить</button>
+                                </div>
+                                <div id="empty_employee_form" style="display:none">
+                                    <div class="row d-flex align-items-center">
+                                        <div class="col-lg-6">
+                                            <div class="form-group g-3 ml-2 mt-2">
+                                                <label for="{{employee_formset.empty_form.worker.auto_id}}">ФИО</label>
+                                                {% render_field employee_formset.empty_form.worker class="form-control employee-select" %}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <div class="form-group g3 mt-2">
+                                                <label>Роль</label>
+                                                <input type="text" class="form-control role" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-1">
+                                            </br>
+                                            <button class="mt-2 btn btn-danger text-center align-self-end mb-2" type='button' onclick="deleteSection(this, 'id_employee_set-TOTAL_FORMS')"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-end mr-2">
+                        <a href="{% url 'myhouse_admin:house_list' %}" class="btn btn-default mr-1">Отменить</a>
+                        <button class="btn btn-success" type="submit">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+</div>
+{% endblock main_content %}
+
+{% block extra_js %}
+    <script src="{% static 'js/admin/houses/house_create_update.js' %}" type="module"></script>
+{% endblock extra_js %}

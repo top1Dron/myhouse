@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Document{% endblock title %}</title>
+    {% block extra_meta %}{% endblock extra_meta %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    {% block extra_css %}{% endblock extra_css %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img style="height:40px" src="{% static 'img/my_house_logo.svg' %}" alt="my_house_logo"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item" style="{% block main_page_nav %}{% endblock main_page_nav %}">
+                    <a class="nav-link {% block main_page_nav_link %}{% endblock main_page_nav_link %}" aria-current="page" href="{% url 'app:index' %}">Главная</a>
+                </li>
+                <li class="nav-item" style="{% block about_us_nav %}{% endblock about_us_nav %}">
+                    <a class="nav-link {% block about_us_nav_link %}{% endblock about_us_nav_link %}" href="{% url 'app:about_us' %}">О нас</a>
+                </li>
+                <li class="nav-item" style="{% block services_nav %}{% endblock services_nav %}">
+                    <a class="nav-link {% block services_nav_link %}{% endblock services_nav_link %}" href="{% url 'app:services' %}">Услуги</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://avada-media.ua/myhouse24/">Условия приобретения</a>
+                </li>
+                <li class="nav-item" style="{% block contacts_nav %}{% endblock contacts_nav %}">
+                    <a class="nav-link {% block contacts_nav_link %}{% endblock contacts_nav_link %}" href="{% url 'app:contacts' %}">Контакты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:login' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+                            <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                        </svg> Вход</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+        </nav>
+    <div class="content-wrapper" style="min-height: 85vh;">{% block main_content %}{% endblock main_content %}</div>
+    <footer class="main-footer w-100" style="height: 73px;background-color: #f8f8f8;border-top: 1px solid #e7e7e7;">
+        <div class="container">
+            <div class="row">
+                <span class="text-secondary text-center my-4">Разработано <a class="text-decoration-none" href="https://avada-media.ua">AVADA-MEDIA</a>. На базе системы управления <a class="text-decoration-none" href="https://avada-media.ua/myhouse24/">"МойДом24"</a>.</span>
+            </div>
+        </div>
+    </footer>
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    {% block extra_js %}{% endblock extra_js %}
+</body>
+</html>

@@ -1,0 +1,179 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Редактирование страницы{% endblock title %}
+
+
+{% block site_management %}bg-light{% endblock site_management %}
+{% block main_page %}text-dark{% endblock main_page %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'plugins/summernote/summernote-bs4.min.css' %}">
+<style>
+@media only screen and (min-width : 481px) {
+    .flex-row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .flex-row > [class*='col-'] {
+        display: flex;
+        flex-direction: column;
+    }
+    .flex-row.row:after, 
+    .flex-row.row:before {
+        display: flex;
+    }
+}
+</style>
+{% endblock extra_css %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1>Редактирование страницы</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Редактирование страницы</li>
+            </ol>
+        </nav>
+    </section>
+    <div class="dropdown-divider"></div>
+    <section class="content">
+        <div class="card">
+            <div class="card-header">
+                <div class="row d-flex justify-content-between mr-3">
+                    <h4>Редактирование страницы "Главная"</h4>
+                    <a href="#" class="btn btn-default">Обновить robots и sitemap</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="page-header">
+                        <h4>Слайдер</h4>
+                        <div class="dropdown-divider mb-4"></div>
+                    </div>
+                    <div class="row flex-row">
+                        <div class="col-md-4">
+                            <h4 for="{{form.slide1.auto_id}}">Слайд 1</h4>
+                            {% if form.slide1.value.url  is not None %}
+                                <img id="slide1" class=" text-center mb-3 slide" image-start-src='{{MEDIA_URL}}{{form.slide1.value.url}}' src="{{MEDIA_URL}}{{form.slide1.value.url}}" alt="...">
+                            {% else %}
+                                <img id="slide1" class=" text-center mb-3 slide" image-start-src='...' src="{% static 'img/default-image.jpeg' %}" alt="...">
+                            {% endif %}
+                            <label>Рекомендуемый размер: (1920x1080)</label></br>
+                            <input type="file" name="slide1" accept="image/*" id="id_slide1">
+                        </div>
+                        <div class="col-md-4">
+                            <h4 for="{{form.slide2.auto_id}}">Слайд 2</h4>
+                            {% if form.slide2.value.url  is not None %}
+                                <img id="slide2" class=" text-center mb-3 slide" image-start-src='{{MEDIA_URL}}{{form.slide2.value.url}}' src="{{MEDIA_URL}}{{form.slide2.value.url}}" alt="...">
+                            {% else %}
+                                <img id="slide2" class=" text-center mb-3 slide" image-start-src='...' src="{% static 'img/default-image.jpeg' %}" alt="...">
+                            {% endif %}
+                            <label>Рекомендуемый размер: (1920x1080)</label></br>
+                            <input type="file" name="slide2" accept="image/*" id="id_slide2">
+                        </div>
+                        <div class="col-md-4">
+                            <h4 for="{{form.slide3.auto_id}}">Слайд 3</h4>
+                            {% if form.slide3.value.url  is not None %}
+                                <img id="slide3" class=" text-center mb-3 slide" image-start-src='{{MEDIA_URL}}{{form.slide3.value.url}}' src="{{MEDIA_URL}}{{form.slide3.value.url}}" alt="...">
+                            {% else %}
+                                <img id="slide3" class=" text-center mb-3 slide" image-start-src='...' src="{% static 'img/default-image.jpeg' %}" alt="...">
+                            {% endif %}
+                            <label>Рекомендуемый размер: (1920x1080)</label></br>
+                            <input type="file" name="slide3" accept="image/*" id="id_slide3">
+                        </div>
+                    </div>
+                    <div class="page-header mt-4">
+                        <h4>Краткая информация</h4>
+                        <div class="dropdown-divider mb-4"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.heading.auto_id}}">Заголовок</label>
+                        {% render_field form.heading class="form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.short_text.auto_id}}">Краткий текст</label>
+                        {% render_field form.short_text class="form-control" %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.show_links_on_apps }}
+                        <label for="form.show_links_on_apps.auto_id">Показать ссылки на приложения</label>
+                    </div>
+                    <div class="page-header">
+                        <h4>Рядом с нами</h4>
+                        <div class="dropdown-divider"></div>
+                    </div>
+                    <div class="form-group g-3">
+                        {{ blocks.management_form }}
+                        <div class="row flex-row" id="blocks">
+                            {% for block in blocks %}
+                            {% for hidden in block.hidden_fields %}
+                                {{ hidden }}
+                            {% endfor %}
+                            <div class="col-md-4 mt-4">
+                                <h4>Блок {{ forloop.counter }}</h4>
+                                {% if block.poster.value.url is not None %}
+                                    <img id="block_image_{{forloop.counter0}}" class="slide text-center mb-3" image-start-src='{{MEDIA_URL}}{{block.poster.value.url}}' src="{{MEDIA_URL}}{{block.poster.value.url}}" alt="...">
+                                {% else %}
+                                    <img id="block_image_{{forloop.counter0}}" class="slide text-center mb-3" image-start-src='...' src="{% static 'img/default-image.jpeg' %}" alt="...">
+                                {% endif %}
+                                <label>Рекомендуемый размер: (1000x600)</label>
+                                <input type="file" name="blocks-{{forloop.counter0}}-poster" accept="image/*" id="id_blocks-{{forloop.counter0}}-poster">
+                                <div class="form-group">
+                                    <label for="{{block.heading.auto_id}}">Заголовок блока</label>
+                                    {% render_field block.heading class="form-control" %}
+                                </div>
+                                <div class="form-group">
+                                    <label for="{{block.description.auto_id}}">Описание</label>
+                                    {% render_field block.description class="form-control" %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="page-header">
+                        <h4>Настройки SEO</h4>
+                        <div class="dropdown-divider"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.seo_title.auto_id}}">Title</label>
+                        {% render_field form.seo_title class="form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.seo_description.auto_id}}">Description</label>
+                        {% render_field form.seo_description class="form-control" style="height:150px;" %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.seo_keywords.auto_id}}">Keywords</label>
+                        {% render_field form.seo_keywords class="form-control" style="height:150px;" %}
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <a href="{% url 'myhouse_admin:main_page' %}" class="btn btn-default">Отменить</a>
+                        <button class="btn btn-success ml-1" type="submit">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock main_content %}
+
+{% block extra_js %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
+    <script src="{% static 'plugins/summernote/summernote-bs4.min.js' %}"></script>
+    <script>
+        $('.slide').matchHeight();
+        $(`#id_short_text`).summernote({
+            height: '200px',
+        });
+        for(var i=0; i<6; i++){
+            $(`#id_blocks-${i}-description`).summernote({
+                height: '200px',
+            });
+        }
+    </script>
+{% endblock extra_js %}

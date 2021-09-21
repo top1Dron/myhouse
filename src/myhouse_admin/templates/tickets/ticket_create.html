@@ -1,0 +1,36 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Новая заявка{% endblock title %}
+
+{% block tickets %}bg-light{% endblock tickets %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'plugins/summernote/summernote-bs4.min.css' %}">
+{% endblock extra_css %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1 class="ml-2">Новая заявка</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:master_request_list' %}" class="text-dark">Вызов мастера</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Новая заявка</li>
+            </ol>
+        </nav>
+    </section>
+    <div class="dropdown-divider"></div>
+    {% include 'tickets/ticket_form.html' %}
+</div>
+{% endblock main_content %}
+
+{% block extra_js %}
+    <script src="{% static 'plugins/summernote/summernote-bs4.min.js' %}"></script>
+    <script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
+    <script src="{% static 'plugins/moment/moment-with-locales.min.js' %}"></script>
+    <script src="{% static 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+    <script src="{% static 'js/admin/tickets/ticket_create_update.js' %}" type="module"></script>
+{% endblock extra_js %}

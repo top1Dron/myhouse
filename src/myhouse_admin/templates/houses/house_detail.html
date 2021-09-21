@@ -1,0 +1,87 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}{{house.name}}{% endblock title %}
+
+{% block houses %}bg-light{% endblock houses %}
+
+{% block main_content %}
+    <div class="content-fluid">
+        <section class="content-header d-flex justify-content-between">
+            <h1>{{house.name}}</h1>
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:house_list' %}" class="text-dark">Дома</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{house.name}}</li>
+                </ol>
+            </nav>
+        </section>
+        <div class="dropdown-divider"></div>
+        <section class="content">
+            <div class="card">
+                <div class="card-header row d-flex justify-content-end">
+                    <a href="{% url 'myhouse_admin:house_update' house.pk %}" class="btn btn-primary">Редактировать дом</a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <table class="table table-bordered table-hover table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td class="font-weight-bold">Название</td>
+                                        <td>{{house.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Адрес</td>
+                                        <td>{{house.address}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Секций</td>
+                                        <td>{{house.section_set.count}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Этажей</td>
+                                        <td>{{house.floor_count}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Пользователи</td>
+                                        <td>
+                                        {% for employee in house.workers.all %}
+                                            <strong>{{employee.role.name}}:</strong>
+                                            <a href="{% url 'myhouse_admin:worker_detail' employee.pk %}" class="text-decoration-none">{{employee.user.get_full_name}}</a>
+                                            </br>
+                                        {% endfor %}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img class="img-fluid" src="{{MEDIA_URL}}{{house.image1.url}}" style="height:350px; margin-bottom:30px">
+                                </div>
+                                <div class="row col-md-6">
+                                    <div class="col-md-6">
+                                        <img class="img-fluid" src="{{MEDIA_URL}}{{house.image2.url}}" style="height:160px;">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <img class="img-fluid" src="{{MEDIA_URL}}{{house.image3.url}}" style="height:160px;">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <img class="img-fluid" src="{{MEDIA_URL}}{{house.image4.url}}" style="height:160px;">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <img class="img-fluid" src="{{MEDIA_URL}}{{house.image5.url}}" style="height:160px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock main_content %}

@@ -1,0 +1,36 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Новый тариф{% endblock title %}
+
+
+{% block settings %}bg-light{% endblock settings %}
+{% block tariffs %}text-dark{% endblock tariffs %}
+
+{% block main_content %}
+<div class="conteiner-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1>Новый тариф</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:tariff_list' %}" class="text-dark"><i class="fa fa-home"></i>Тарифы</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Новый тариф</li>
+            </ol>
+        </nav>
+    </section>
+    <div class="dropdown-divider"></div>
+    <section class="content">
+        <div class="card">
+            <div class="card-body">
+                {% include "settings/tariff/tariff_form.html" %}
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock main_content %}
+
+{% block extra_js %}
+    <script src="{% static 'js/admin/settings/tariff_create_update.js' %}" type="module"></script>
+{% endblock extra_js %}

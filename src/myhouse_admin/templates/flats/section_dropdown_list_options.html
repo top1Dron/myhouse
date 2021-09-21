@@ -1,0 +1,4 @@
+<option value="">Выберите...</option>
+{% for section in sections %}
+<option value="{{ section.pk }}">{{ section.name }}</option>
+{% endfor %}

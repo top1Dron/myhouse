@@ -1,0 +1,112 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}{{flat.to_string}}{% endblock title %}
+
+{% block flats %}bg-light{% endblock flats %}
+
+{% block main_content %}
+    <div class="content-fluid">
+        <section class="content-header d-flex justify-content-between">
+            <h1>{{flat.to_string}}</h1>
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:flat_list' %}" class="text-dark">Квартиры</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{flat.to_string}}</li>
+                </ol>
+            </nav>
+        </section>
+        <div class="dropdown-divider"></div>
+        <section class="content">
+            <div class="card">
+                <div class="card-header row d-flex">
+                    <h3 class="mr-auto">Просмотр квартиры</h3>
+                    {% if flat.flat_personal_account is not None %}
+                    <a href="#" class="btn btn-default mr-1">
+                    {% else %}
+                    <a href="#" class="btn btn-default mr-1 disabled">
+                    {% endif %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+                            <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+                        </svg>Принять платеж
+                    </a>
+                    {% if flat.flat_personal_account is not None %}
+                    <a href="#" class="btn btn-default mr-1">
+                    {% else %}
+                    <a href="#" class="btn btn-default mr-1 disabled">
+                    {% endif %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
+                            <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
+                        </svg>Оформить квитанцию
+                    </a>
+                    <a href="{% url 'myhouse_admin:flat_update' flat.pk %}" class="btn btn-primary justify-content-end">Редактировать квартиру</a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-bordered table-striped mr-2 ml-2">
+                                <tbody>
+                                    <tr>
+                                        <td class="font-weight-bold">Лицевой счет</td>
+                                        <td>
+                                            {% if flat.flat_personal_account is not None %}
+                                                <a href="{% url 'myhouse_admin:personal_account_detail' flat.flat_personal_account.pk %}" class="text-decoration-none">{{flat.flat_personal_account}}</a>
+                                            {% else %}
+                                                <span>не указано</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Номер квартиры</td>
+                                        <td>{{flat.number}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Площадь</td>
+                                        <td>{{flat.square}}м<sup>2</sup></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Дом</td>
+                                        <td><a href="{% url 'myhouse_admin:house_detail' flat.floor.section.house.pk %}" class="text-decoration-none">{{flat.floor.section.house.name}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Секция</td>
+                                        <td>{{flat.floor.section.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Этаж</td>
+                                        <td>{{flat.floor.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Владелец</td>
+                                        <td><a href="{% url 'myhouse_admin:owner_detail' flat.owner.pk %}" class="text-decoration-none">{{flat.owner}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Тариф</td>
+                                        <td>
+                                            {% if flat.tariff is not None %}
+                                                <a href="#" class="text-decoration-none">{{flat.tariff}}</a>
+                                            {% else %}
+                                                <span>не указано</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-12 my-2">
+                            <a href="#" class="text-decoration-none">Посмотреть показания счётчиков</a>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <a href="#" class="text-decoration-none">Посмотреть приходы</a>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <a href="#" class="text-decoration-none">Посмотреть квитанции</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock main_content %}

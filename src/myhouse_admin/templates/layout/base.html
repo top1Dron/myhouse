@@ -1,0 +1,339 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Мой Дом24 администрация{% endblock title %}</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+  <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+
+  <link rel="short icon" href="{% static 'img/favicon.png' %}">
+
+  {% block extra_css %}{% endblock extra_css %}
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+  </div>
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-inline-block">
+            <span class="nav-link text-dark">Панель администратора</span>
+        </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <p class="text-dark">{{user.get_full_name}}</p>
+            </a>
+        </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-light-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link">
+      <img class='w-100' src="{% static 'img/my_house_logo.svg' %}" alt="my_house_logo">
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      
+      <nav class="mt-2">
+        <ul class="navbar-nav nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            {% if '1' in user.employee.role.abilities %}
+            <li class="nav-item">
+                <a class="nav-link {% block statistics %}{% endblock statistics %}" href="{% url 'myhouse_admin:index' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-graph-up" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                    <p>Статистика</p>
+                </a>
+            </li>
+            {% endif %}
+            {% if '2' in user.employee.role.abilities %}
+            <li class="nav-item">
+                <a class="nav-link {% block cashbox %}{% endblock cashbox %}" href="{% url 'myhouse_admin:cashbox_list' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+                        <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+                    </svg>
+                    <p>Касса</p>
+                </a>
+            </li>
+            {% endif %}
+            {% if '3' in user.employee.role.abilities %}
+            <li class="nav-item">
+                <a class="nav-link {% block receipts %}{% endblock receipts %}" href="{% url 'myhouse_admin:receipt_list' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
+                        <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
+                    </svg>
+                    <p>Квитанции на оплату</p>
+                </a>
+            </li>
+            {% endif %}
+            {% if '4' in user.employee.role.abilities %}
+            <li class="nav-item">
+                <a class="nav-link {% block personal_accounts %}{% endblock personal_accounts %}" href="{% url 'myhouse_admin:personal_account_list' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
+                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
+                        <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/>
+                    </svg>
+                    <p>Лицевые счета</p>
+                </a>
+            </li>
+            {% endif %}
+            {% if '5' in user.employee.role.abilities %}
+            <li class="nav-item">
+                <a class="nav-link {% block flats %}{% endblock flats %}" href="{% url 'myhouse_admin:flat_list' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
+                        <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z"/>
+                        <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                    </svg>
+                    <p>Квартиры</p>
+                </a>
+            </li>
+            {% endif %}
+            {% if '6' in user.employee.role.abilities %}
+            <li class="nav-item">
+                <a class="nav-link {% block owners %}{% endblock owners %}" href="{% url 'myhouse_admin:owner_list' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                        <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
+                        <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+                    </svg>
+                    <p>Владельцы квартир</p>
+                </a>
+            </li>
+            {% endif %}
+            {% if '7' in user.employee.role.abilities %}
+            <li class="nav-item">
+                <a class="nav-link {% block houses %}{% endblock houses %}" href="{% url 'myhouse_admin:house_list' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/>
+                        <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/>
+                    </svg>
+                    <p>Дома</p>
+                </a>
+            </li>
+            {% endif %}
+            {% if '8' in user.employee.role.abilities %}
+            <li class="nav-item">
+                <a class="nav-link {% block messages %}{% endblock messages %}" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
+                    </svg>
+                    <p>Сообщения</p>
+                </a>
+            </li>
+            {% endif %}
+            {% if '9' in user.employee.role.abilities %}
+            <li class="nav-item">
+                <a class="nav-link {% block tickets %}{% endblock tickets %}" href="{% url 'myhouse_admin:master_request_list' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wrench" viewBox="0 0 16 16">
+                        <path d="M.102 2.223A3.004 3.004 0 0 0 3.78 5.897l6.341 6.252A3.003 3.003 0 0 0 13 16a3 3 0 1 0-.851-5.878L5.897 3.781A3.004 3.004 0 0 0 2.223.1l2.141 2.142L4 4l-1.757.364L.102 2.223zm13.37 9.019.528.026.287.445.445.287.026.529L15 13l-.242.471-.026.529-.445.287-.287.445-.529.026L13 15l-.471-.242-.529-.026-.287-.445-.445-.287-.026-.529L11 13l.242-.471.026-.529.445-.287.287-.445.529-.026L13 11l.471.242z"/>
+                    </svg>
+                    <p>Заявки вызова мастера</p>
+                </a>
+            </li>
+            {% endif %}
+            {% if '10' in user.employee.role.abilities %}
+            <li class="nav-item">
+                <a class="nav-link {% block meters %}{% endblock meters %}" href="{% url 'myhouse_admin:meter_list' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-speedometer" viewBox="0 0 16 16">
+                        <path d="M8 2a.5.5 0 0 1 .5.5V4a.5.5 0 0 1-1 0V2.5A.5.5 0 0 1 8 2zM3.732 3.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 8a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 8zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 7.31A.91.91 0 1 0 8.85 8.569l3.434-4.297a.389.389 0 0 0-.029-.518z"/>
+                        <path fill-rule="evenodd" d="M6.664 15.889A8 8 0 1 1 9.336.11a8 8 0 0 1-2.672 15.78zm-4.665-4.283A11.945 11.945 0 0 1 8 10c2.186 0 4.236.585 6.001 1.606a7 7 0 1 0-12.002 0z"/>
+                    </svg>
+                    <p>Показания счетчиков</p>
+                </a>
+            </li>
+            {% endif %}
+            {% if '11' in user.employee.role.abilities %}
+            <li class="nav-item">
+                <a class="nav-link {% block site_management %}{% endblock site_management %}" href="#">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-display" viewBox="0 0 16 16">
+                        <path d="M0 4s0-2 2-2h12s2 0 2 2v6s0 2-2 2h-4c0 .667.083 1.167.25 1.5H11a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1h.75c.167-.333.25-.833.25-1.5H2s-2 0-2-2V4zm1.398-.855a.758.758 0 0 0-.254.302A1.46 1.46 0 0 0 1 4.01V10c0 .325.078.502.145.602.07.105.17.188.302.254a1.464 1.464 0 0 0 .538.143L2.01 11H14c.325 0 .502-.078.602-.145a.758.758 0 0 0 .254-.302 1.464 1.464 0 0 0 .143-.538L15 9.99V4c0-.325-.078-.502-.145-.602a.757.757 0 0 0-.302-.254A1.46 1.46 0 0 0 13.99 3H2c-.325 0-.502.078-.602.145z"/>
+                    </svg>
+                    Управление сайтом
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a class="nav-link {% block main_page %}{% endblock main_page %}" href="{% url 'myhouse_admin:main_page' %}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Главная страница</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block about_us %}{% endblock about_us %}" href="{% url 'myhouse_admin:about_us_page' %}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>О нас</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block services_page %}{% endblock services_page %}" href="{% url 'myhouse_admin:services_page' %}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Услуги</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block tariffs_page %}{% endblock tariffs_page %}" href="{% url 'myhouse_admin:tariff_page' %}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Тарифы</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block contacts %}{% endblock contacts %}" href="{% url 'myhouse_admin:contacts_page' %}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Контакты</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link {% block settings %}{% endblock settings %}" href="#">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                        <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                        <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+                    </svg>
+                    Настройки системы
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    {% if '12' in user.employee.role.abilities %}
+                    <li class="nav-item {% block services %}{% endblock services %}">
+                        <a class="nav-link" href="{% url 'myhouse_admin:service_unit' %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase-fill" viewBox="0 0 16 16">
+                                <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v1.384l7.614 2.03a1.5 1.5 0 0 0 .772 0L16 5.884V4.5A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5z"/>
+                                <path d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85v5.65z"/>
+                            </svg>
+                            <p>Услуги</p>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if '13' in user.employee.role.abilities %}
+                    <li class="nav-item">
+                        <a class="nav-link {% block tariffs %}{% endblock tariffs %}" href="{% url 'myhouse_admin:tariff_list' %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
+                                <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                                <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
+                            </svg>
+                            <p>Тарифы</p>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if '14' in user.employee.role.abilities %}
+                    <li class="nav-item">
+                        <a class="nav-link {% block roles %}{% endblock roles %}" href="{% url 'myhouse_admin:roles' %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                            </svg>
+                            <p>Роли</p>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if '15' in user.employee.role.abilities %}
+                    <li class="nav-item">
+                        <a class="nav-link {% block workers %}{% endblock workers %}" href="{% url 'myhouse_admin:worker_list' %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                                <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                            </svg>
+                            <p>Пользователи</p>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if '16' in user.employee.role.abilities %}
+                    <li class="nav-item">
+                        <a class="nav-link {% block payment_details %}{% endblock payment_details %}" href="{% url 'myhouse_admin:payment_details' %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
+                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
+                                <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/>
+                            </svg>
+                            <p>Платежные реквизиты</p>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link {% block payment_types %}{% endblock payment_types %}" href="{% url 'myhouse_admin:payment_type_list' %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ol" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5z"/>
+                                <path d="M1.713 11.865v-.474H2c.217 0 .363-.137.363-.317 0-.185-.158-.31-.361-.31-.223 0-.367.152-.373.31h-.59c.016-.467.373-.787.986-.787.588-.002.954.291.957.703a.595.595 0 0 1-.492.594v.033a.615.615 0 0 1 .569.631c.003.533-.502.8-1.051.8-.656 0-1-.37-1.008-.794h.582c.008.178.186.306.422.309.254 0 .424-.145.422-.35-.002-.195-.155-.348-.414-.348h-.3zm-.004-4.699h-.604v-.035c0-.408.295-.844.958-.844.583 0 .96.326.96.756 0 .389-.257.617-.476.848l-.537.572v.03h1.054V9H1.143v-.395l.957-.99c.138-.142.293-.304.293-.508 0-.18-.147-.32-.342-.32a.33.33 0 0 0-.342.338v.041zM2.564 5h-.635V2.924h-.031l-.598.42v-.567l.629-.443h.635V5z"/>
+                            </svg>
+                            <p>Статьи платежей</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- /.content-wrapper --> 
+    <div class="content-wrapper">{% block main_content %}{% endblock main_content %}
+    </div>
+    <footer class="main-footer">
+        <span class="text-dark">Разработано <a href="https://avada-media.ua">AVADA-MEDIA</a>. На базе системы управления <a href="https://avada-media.ua/myhouse24/">"МойДом24"</a>. Документация API доступна по <a href="http://myhouse24.avada-media.ua/frontend/web/doc/">ссылке</a>.</span>
+    </footer>
+
+  
+  
+  <!-- /.content-wrapper -->
+
+  
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+<!-- REQUIRED SCRIPTS -->
+<!-- jQuery -->
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- overlayScrollbars -->
+<script src="{% static 'plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'dist/js/adminlte.js' %}"></script>
+
+<!-- PAGE PLUGINS -->
+<!-- jQuery Mapael -->
+{% comment %} <script src="{% static 'admin/plugins/jquery-mousewheel/jquery.mousewheel.js' %}"></script>
+<script src="{% static 'admin/plugins/raphael/raphael.min.js' %}"></script>
+<script src="{% static 'admin/plugins/jquery-mapael/jquery.mapael.min.js' %}"></script>
+<script src="{% static 'admin/plugins/jquery-mapael/maps/usa_states.min.js' %}"></script>
+
+{% endcomment %}
+{% block extra_js %}{% endblock extra_js %}
+
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'dist/js/demo.js' %}"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+{% comment %} <script src="{% static 'admin/dist/js/pages/dashboard2.js' %}"></script> {% endcomment %}
+</body>
+</html>

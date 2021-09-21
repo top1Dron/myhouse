@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}{{main_page.seo_title}}{% endblock title %}
+{% block extra_meta %}
+    <meta name="description" content="{{main_page.seo_description}}">
+    <meta name="keywords" content="{{main_page.seo_keywords}}">
+{% endblock extra_meta %}
+{% block main_page_nav %}background-color:#c3d2e9{% endblock main_page_nav %}
+{% block main_page_nav_link %}active{% endblock main_page_nav_link %}
+{% block main_content %}
+    <div id="carouselTopControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselTopControls" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselTopControls" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselTopControls" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+            <img src="{{MEDIA_URL}}{{main_page.slide2.url}}" class="d-block w-100" alt="top-slide-1">
+            </div>
+            <div class="carousel-item">
+            <img src="{{MEDIA_URL}}{{main_page.slide2.url}}" class="d-block w-100" alt="top-slide-2">
+            </div>
+            <div class="carousel-item">
+            <img src="{{MEDIA_URL}}{{main_page.slide2.url}}" class="d-block w-100" alt="top-slide-3">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselTopControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselTopControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <div class="info my-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-7 col-md-8">
+                    <div class="page-header">
+                        <h3>{{ main_page.heading }}</h3>
+                        <div class="dropdown-divider mb-4"></div>
+                        {{ main_page.short_text|safe }}
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <a href="{% url 'app:about_us' %}" class="btn btn-primary">Подробнее</a>
+                            </div>
+                            <div class="col-sm-8">
+                                <span class="float-end">
+                                    <a href="https://play.google.com/store/apps/details?id=com.avadamedia.program.myhouse24&hl=uk">
+                                        <img src="{% static 'img/googleplay.png' %}" alt="googleplay" class="img-fluid">
+                                    </a>
+                                    <a href="https://itunes.apple.com/us/app/%D0%BC%D0%BE%D0%B9%D0%B4%D0%BE%D0%BC24/id1308075440?l=ru&ls=1&mt=8">
+                                        <img src="{% static 'img/appstore.png' %}" alt="appstore" class="img-fluid">
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-5 col-md-4">
+                    <div class="page-header">
+                        <h3>Контакты</h3>
+                        <div class="dropdown-divider mb-4"></div>
+                        <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                            </svg> {{ contacts_page.fio }}</p>
+                        <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-compass-fill" viewBox="0 0 16 16">
+                                <path d="M15.5 8.516a7.5 7.5 0 1 1-9.462-7.24A1 1 0 0 1 7 0h2a1 1 0 0 1 .962 1.276 7.503 7.503 0 0 1 5.538 7.24zm-3.61-3.905L6.94 7.439 4.11 12.39l4.95-2.828 2.828-4.95z"/>
+                            </svg> {{ contacts_page.location }}</p>
+                        <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                            </svg> {{ contacts_page.address }}</p>
+                        <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+                            </svg> <a href="{{contacts_page.phone_link}}">{{ contacts_page.phone_number }}</a></p>
+                        <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                                <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                            </svg> <a href="{{contacts_page.mail_to}}">{{ contacts_page.email }}</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="advantages mb-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h3>Рядом с нами</h3>
+                    <div class="dropdown-divider"></div>
+                </div>
+                {% for block in main_page.blocks.all %}
+                    <div class="col-sm-6 col-md-4">
+                        <div class="card mt-4">
+                            <img class="img-thumbnail" src="{{MEDIA_URL}}{{block.poster.url}}" alt="block-{{forloop.counter}}">
+                            <div class="card-body">
+                                <h3 class="card-title">{{block.heading}}</h3>
+                                <p class="card-text">{{block.description|safe}}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock main_content %}
+
+{% block extra_js %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
+    <script>
+        $('.card').matchHeight();
+    </script>
+{% endblock extra_js %}

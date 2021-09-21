@@ -1,0 +1,60 @@
+{% load static widget_tweaks %}
+
+<section class="content">
+    <div class="card">
+        <div class="card-body">
+            <form action="" method="POST" class="was-validated">
+                {% csrf_token %}
+                {% for error_name, error in form.errors.items %}
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    {{error_name}}:{{ error|striptags }}
+                </div>
+                {% endfor %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group g-3">
+                            <label for="{{form.number.auto_id}}" class="form-label">Номер квартиры</label>
+                            {% render_field form.number class='form-control is-invalid'%}
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{form.square.auto_id}}" class="form-label">Площадь (кв.м.)</label>
+                            {% render_field form.square class='form-control is-invalid' min="0" %}
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{form.house.auto_id}}" class="form-label">Дом</label>
+                            {% render_field form.house class='form-control is-invalid' data-house-sections-url=load_house_sections_url data-empty-flats=load_empty_flats_url %}
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{form.section.auto_id}}" class="form-label">Секция</label>
+                            {% render_field form.section class='form-control is-invalid' data-section-floors-url=load_section_floors_url %}
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{form.floor.auto_id}}" class="form-label">Этаж</label>
+                            {% render_field form.floor class='form-control is-invalid'%}
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{form.owner.auto_id}}" class="form-label">Владелец</label>
+                            {% render_field form.owner class='form-control is-invalid'%}
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{form.tariff.auto_id}}" class="form-label">Тариф</label>
+                            {% render_field form.tariff class='form-control is-invalid'%}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group g-3">
+                            <label for="{{form.personal_account.auto_id}}" class="form-label">Лицевой счет</label>
+                            {% render_field form.personal_account class='form-control is-invalid'%}
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-end mr-2">
+                    <a href="myhouse_admin:flat_list" class="btn btn-default mr-1">Отменить</a>
+                    <button class="btn btn-success mr-1" type="submit">Сохранить</button>
+                    <button class="btn btn-success" type="submit" name="another">Сохранить и добавить новую</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
