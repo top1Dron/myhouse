@@ -94,6 +94,7 @@ class OwnerUpdateView(PermissionRequiredMixin, UpdateView):
                 'first_name': self.object.user.first_name.split()[0]
             })
         context['update'] = True
+        context['base_layout'] = 'layout/base.html'
         return context
 
     def post(self, request, *args, **kwargs):
@@ -103,7 +104,8 @@ class OwnerUpdateView(PermissionRequiredMixin, UpdateView):
 
         if user_form.is_valid() and form.is_valid():
             user = user_form.save()
-            user_form.instance.set_password(user_form.cleaned_data['password1'])
+            if len(user_form.cleaned_data['password1']) > 7:
+                user_form.instance.set_password(user_form.cleaned_data['password1'])
             user_form.instance.first_name = user_form.instance.first_name + ' ' + form.cleaned_data['second_name']
             user_form.instance.save()
             owner = form.save(commit=False)

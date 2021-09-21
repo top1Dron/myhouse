@@ -108,7 +108,7 @@ class Owner(models.Model):
 
     @property
     def flats_to_str(self) -> str:
-        return ',</br>'.join({str(flat) for flat in self.flats.all()})
+        return ',</br>'.join({str(flat.to_string) for flat in self.flats.all()})
 
     @property
     def first_name(self) -> str:

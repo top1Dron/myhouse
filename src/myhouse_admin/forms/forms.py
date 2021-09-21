@@ -319,3 +319,19 @@ class TicketForm(forms.ModelForm):
             self.fields['owner'].initial = self.instance.flat.owner.pk
             self.fields['convenient_date'].initial = to_current_timezone(self.instance.convenient_time)
             self.fields['convenient_time'].initial = to_current_timezone(self.instance.convenient_time)
+
+
+class OwnerTicketForm(forms.ModelForm):
+    flat = FlatChoiceField(queryset=db_utils.get_flats(), empty_label='Выберите...')
+    master_type = forms.ModelChoiceField(queryset=db_utils.get_roles(), empty_label='Любой специалист', required=False)
+    convenient_date = forms.DateField(input_formats=("%d.%m.%Y",), required=False, initial=get_dt_now_object())
+    convenient_time = forms.TimeField(input_formats=("%H:%M",), required=False, initial=get_dt_now_object())
+
+    class Meta:
+        model = Ticket
+        fields = ('master_type', 'description', 'flat', 'comment')
+
+    def __init__(self, *args, **kwargs):
+        owner = kwargs.pop('owner', None)
+        super().__init__(*args, **kwargs)
+        self.fields['flat'].queryset = db_utils.get_owner_flats(owner=owner)

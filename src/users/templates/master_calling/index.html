@@ -18,7 +18,7 @@
         <div class="dropdown-divider"></div>
         <section class="content">
             <div class="row d-flex justify-content-end my-3">
-                <a href="#" class="btn btn-success mr-3">Создать заявку</a>
+                <a href="{% url 'users:owner_requests_create' %}{% if owner_ID is not None %}?owner_ID={{owner_ID}}{% endif %}" class="btn btn-success mr-3">Создать заявку</a>
             </div>
             <div class="card mx-2">
                 <div class="card-body">
@@ -37,7 +37,7 @@
                             {% for ticket in tickets %}
                             <tr>
                                 <td>{{ticket.pk}}</td>
-                                <td>{{ticket.master_type}}</td>
+                                <td>{{ticket.master_type|default_if_none:"Любой специалист"}}</td>
                                 <td>{{ticket.description}}</td>
                                 <td>{{ticket.convenient_time|date:"d.m.Y - H:i"}}</td>
                                 <td>
@@ -50,7 +50,7 @@
                                     {% endif %}
                                         {{ ticket.get_status_display}}</span>
                                 </td>
-                                <td></td>
+                                <td><button type="button" class="btn btn-default delete-ticket-button {% if ticket.status != '1' %}disabled{% endif %}" delete-url="{% url 'users:master_request_delete' ticket.pk %}"><i class="fa fa-trash"></i></button></td>
                             </tr>
                             {% empty %}
                                 <td colspan="6">Ничего не найдено</td>
@@ -62,3 +62,7 @@
         </section>
     </div>
 {% endblock main_content %}
+
+{% block extra_js %}
+    <script src="{% static 'js/master-requests-list.js' %}" type="module"></script>
+{% endblock extra_js %}

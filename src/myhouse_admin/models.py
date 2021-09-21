@@ -125,7 +125,7 @@ class Flat(models.Model):
 
     @property
     def to_string(self) -> str:
-        return f'Квартира №{self.number}, {self.floor.section.house.name}'
+        return f'№{self.number}, {self.floor.section.house.name}'
 
     def __str__(self) -> str:
         return f'{self.number}'

@@ -1,4 +1,5 @@
 import logging
+from myhouse_admin.utils.utils import PermissionRequiredMixin
 
 from django.conf import settings
 from django.contrib import messages
@@ -26,7 +27,6 @@ def cabinet_login(request):
         password = request.POST.get('password')
         user = authenticate(request, email=email, password=password)
         if user is None:
-            logger.error(f'{email}, {password}')
             email = db_utils.get_owner_email_by_ID(email)
             user = authenticate(request, email=email, password=password)
         if user is not None:
@@ -40,7 +40,7 @@ def cabinet_login(request):
                 redirect_to = request.POST.get('next')
                 if redirect_to:
                     return redirect(redirect_to)
-                return redirect(reverse_lazy('users:profile'))
+                return redirect(reverse_lazy('users:open_cabinet'))
             else:
                 messages.error(request, 'Владельца с такими данными не найдено')
         else:
@@ -55,13 +55,17 @@ def cabinet_login(request):
     return render(request, 'auth/cabinet_login.html', {'form': form})
 
 
-class CabinetDetailView(LoginRequiredMixin, DetailView):
+class CabinetDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     template_name = 'cabinet/owner_profile.html'
     context_object_name = 'owner'
+    owner_cabinet = True
 
     def get_object(self):
         if 'owner_ID' in self.request.GET and hasattr(self.request.user, 'employee'):
-            return db_utils.get_owner_object_by_params(ID=self.request.GET.get('owner_ID'))
+            try:
+                return db_utils.get_owner_object_by_params(ID=self.request.GET.get('owner_ID'))
+            except:
+                raise Http404('Пользователя с таким ID не обнаружено')
         else:
             try:
                 return self.request.user.owner
@@ -103,3 +107,23 @@ class CabinetUpdateView(OwnerUpdateView):
         if 'owner_ID' in self.request.GET:
             context['owner_ID'] = self.request.GET['owner_ID']
         return context
+
+
+def open_owner_cabinet(request):
+    context = {}
+    context['owner_ID'] = None
+    url_data = {}
+    if 'owner_ID' in request.GET:
+        owner_ID = request.GET['owner_ID']
+        context['owner_ID'] = owner_ID
+        owner = db_utils.get_owner_object_by_params(ID=owner_ID)
+        url_data['owner_ID'] = owner_ID
+    else:
+        owner = request.user.owner
+    if len(owner.flats.all()) > 0:
+        url = reverse_lazy('users:summary')
+        url_data['flat_id'] = owner.flats.first().pk
+        url += '?' + urlencode(url_data)
+    else:
+        url = reverse_lazy('users:profile') + '?' + urlencode(url_data)
+    return redirect(url)

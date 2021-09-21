@@ -69,7 +69,13 @@
                                         {% endif %}
                                     {% endfor %}
                                 </td>
-                                <td>{{owner.flats_to_str|safe}}</td>
+                                <td>
+                                    {% for flat in owner.flats.all %}
+                                        <div class="row">
+                                            <a href="{% url 'myhouse_admin:flat_detail' flat.pk %}">{{flat.to_string}}</a>{% if not forloop.last %},{% endif %}
+                                        </div>
+                                    {% endfor %}
+                                </td>
                                 <td>{{owner.user.date_joined}}</td>
                                 <td>
                                     {% if owner.user.status == '0' %}

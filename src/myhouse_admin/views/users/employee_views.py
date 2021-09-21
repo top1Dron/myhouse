@@ -134,7 +134,8 @@ class EmployeeUpdateView(PermissionRequiredMixin, UpdateView):
         user_form = self.second_form_class(request.POST, instance=self.object.user)
         if user_form.is_valid() and form.is_valid():
             user = user_form.save()
-            user_form.instance.set_password(user_form.cleaned_data['password1'])
+            if len(user_form.cleaned_data['password1']) > 7:
+                user_form.instance.set_password(user_form.cleaned_data['password1'])
             user_form.instance.save()
             employee = form.save(commit=False)
             employee.user = user

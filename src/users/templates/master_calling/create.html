@@ -1,0 +1,85 @@
+{% extends 'cabinet_layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Новая заявка{% endblock title %}
+
+{% block master_request %}bg-light{% endblock master_request %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1 class="ml-2">Новая заявка</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'users:owner_requests_list' %}" class="text-dark">Вызов мастера</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Новая заявка</li>
+            </ol>
+        </nav>
+    </section>
+    <div class="dropdown-divider"></div>
+    <section class="content">
+        <form action="" method="POST" class="was-validated">
+            {% csrf_token %}
+            <div class="card ml-2 mr-2">
+                <div class="card-body">
+                    {% for error_name, error in form.errors.items %}
+                    <div class="alert alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{error_name}}:{{ error|striptags }}
+                    </div>
+                    {% endfor %}
+                        <div class="form-group g-3">
+                            <label for="{{form.master_type.auto_id}}" class="form-label">Тип мастера</label>
+                            {% render_field form.master_type class='form-control is-invalid'%}
+                        </div>
+                        <div class="form-group g-3">
+                            <label for="{{form.flat.auto_id}}" class="form-label">Квартира</label>
+                            {% render_field form.flat class='form-control is-invalid'%}
+                        </div>
+                        <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group g-3">
+                                <label for="convenientdate">Дата работ</label>
+                                <div class="input-group date" id="convenientdate" data-target-input="nearest">
+                                    {% render_field form.convenient_date class="form-control w-60 datetimepicker-input" data-target="#convenientdate" %}
+                                    <div class="input-group-append" data-target="#convenientdate" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group g-3">
+                                <label for="convenienttime">Время работ</label>
+                                <div class="input-group date" id="convenienttime" data-target-input="nearest">
+                                    {% render_field form.convenient_time class="form-control w-60 datetimepicker-input" data-target="#convenienttime" %}
+                                    <div class="input-group-append" data-target="#convenienttime" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="form-group g-3">
+                            <label for="{{form.description.auto_id}}" class="form-label">Описание</label>
+                            {% render_field form.description class='form-control is-invalid' rows="5" placeholder="Опишите проблему" %}
+                        </div>
+                    <div class="row d-flex justify-content-end mr-2">
+                        <a href="myhouse_admin:worker_list" class="btn btn-default mr-1">Отменить</a>
+                        <button class="btn btn-success" type="submit">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>
+{% endblock main_content %}
+
+{% block extra_js %}
+    <script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
+    <script src="{% static 'plugins/moment/moment-with-locales.min.js' %}"></script>
+    <script src="{% static 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+    <script src="{% static 'js/master-requests-create.js' %}" type="module"></script>
+{% endblock extra_js %}
