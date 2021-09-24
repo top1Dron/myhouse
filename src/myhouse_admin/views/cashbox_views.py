@@ -29,6 +29,9 @@ class CashboxListView(PermissionRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['sum_in'] = db_utils.get_cashbox_in()
         context['sum_out'] = db_utils.get_cashbox_out()
+        context['cb_state'] = db_utils.get_cashbox_state()
+        context['cb_indebtedness'] = db_utils.get_indebtedness()
+        context['cb_balances'] = db_utils.get_flat_balances()
         return context
 
 
@@ -52,9 +55,13 @@ class CashboxRecordCreateView(PermissionRequiredMixin, CreateView):
             context['coming'] = True
             context['form'].fields['payment_type'].queryset = PaymentType.objects.filter(type='0')
             context['load_owner_accounts_url'] = reverse_lazy('myhouse_admin:load_owner_accounts')
+            context['type_name'] = 'приходная'
+            context['max_sum'] = '50000'
         else:
             context['coming'] = False
-            context['form'].fields['payment_type'].queryset = PaymentType.objects.filter(type='1')
+            context['form'].fields['payment_type'].queryset = PaymentType.objects.filter(type='1').exclude(name="Погашение квитанции")
+            context['type_name'] = 'расходная'
+            context['max_sum'] = str(db_utils.get_cashbox_state())
         if cb_record is not None:
             context['form'].fields['owner'].initial = cb_record.personal_account.flat.owner
             context['form'].fields['personal_account'].initial = cb_record.personal_account
@@ -85,6 +92,7 @@ class CashboxRecordUpdateView(PermissionRequiredMixin, UpdateView):
             context['coming'] = False
             context['form'].fields['payment_type'].queryset = PaymentType.objects.filter(type='1')
         context['update'] = True
+        context['type_name'] = 'Приходная' if self.object.payment_type.type == '0' else 'Расходная'
         return context
 
     def get_form_kwargs(self, *args, **kwargs):
@@ -122,6 +130,11 @@ class CashboxRecordDetailView(PermissionRequiredMixin, DetailView):
     template_name = 'cashbox/cbr_detail.html'
     context_object_name = 'cashbox_record'
     permission_required = '2'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['type_name'] = 'Приходная' if self.object.payment_type.type == '0' else 'Расходная'
+        return context
 
 
 @staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))

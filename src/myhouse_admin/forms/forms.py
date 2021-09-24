@@ -2,7 +2,7 @@ from django import forms
 from django.forms.models import modelformset_factory
 from django.forms.utils import to_current_timezone
 
-from myhouse_admin.models import (CashboxRecord, Flat, Floor, House, MainPage, MeterReading, PaymentDetails, PaymentType, PersonalAccount, Receipt, Section, Service, ServicesPage, Tariff, 
+from myhouse_admin.models import (CashboxRecord, Flat, Floor, House, MainPage, MeterReading, PaymentDetails, PaymentType, PersonalAccount, Receipt, ReceiptService, Section, Service, ServicesPage, Tariff, 
     TariffPage, ContactsPage, AboutUsPage, AboutUsPageImage, AboutUsPageAdditionalImage, TariffService, Ticket, Unit)
 from myhouse_admin.utils import db_utils
 from myhouse_admin.utils.utils import get_auto_id, get_current_datetime, get_dt_now_object
@@ -274,9 +274,9 @@ class MeterReadingForm(forms.ModelForm):
 
 
 class ReceiptForm(forms.ModelForm):
-    house = forms.ModelChoiceField(queryset=db_utils.get_houses(), empty_label='Выберите...', required=False)
-    section = forms.ModelChoiceField(queryset=Section.objects.none(), empty_label='Выберите...', required=False)
-    flat = forms.ModelChoiceField(queryset=Flat.objects.none(), empty_label='Выберите...', required=False)
+    house = forms.ModelChoiceField(queryset=db_utils.get_houses(), empty_label='Выберите...')
+    section = forms.ModelChoiceField(queryset=Section.objects.none(), empty_label='Выберите...')
+    flat = forms.ModelChoiceField(queryset=Flat.objects.none(), empty_label='Выберите...')
     personal_account = forms.CharField(max_length=50, required=False)
 
     class Meta:
@@ -284,7 +284,6 @@ class ReceiptForm(forms.ModelForm):
         fields = ('number', 'is_made', 'creation_date', 'start_date', 'end_date', 'flat', 'status')
 
     def __init__(self, *args, **kwargs):
-        flat = kwargs.pop('flat', None)
         update = kwargs.pop('update', None)
         super().__init__(*args, **kwargs)
         if not update:
@@ -292,6 +291,24 @@ class ReceiptForm(forms.ModelForm):
             self.fields['creation_date'].initial = get_dt_now_object()
             self.fields['start_date'].initial = get_dt_now_object()
             self.fields['end_date'].initial = get_dt_now_object()
+        else:
+            self.fields['house'].initial = self.instance.flat.floor.section.house
+            self.fields['section'].queryset = db_utils.get_house_sections(self.instance.flat.floor.section.house.pk)
+            self.fields['section'].initial = self.instance.flat.floor.section
+            self.fields['flat'].queryset = db_utils.get_current_and_empty_flats(self.instance.flat.pk, self.instance.flat.floor.section.pk)
+            self.fields['flat'].initial = self.instance.flat
+
+
+class ReceiptServiceForm(forms.ModelForm):
+    service = forms.ModelChoiceField(queryset=db_utils.get_all_services(), empty_label='Выберите...')
+    unit = forms.ModelChoiceField(queryset=db_utils.get_all_unit(), empty_label='Выберите...')
+
+    class Meta:
+        model = ReceiptService
+        fields = ('consumption', 'unit_price', 'total_price')
+
+
+ReceiptServiceFormSet = modelformset_factory(ReceiptService, ReceiptServiceForm, extra=0, can_delete=True)
 
 
 class FlatChoiceField(forms.ModelChoiceField):

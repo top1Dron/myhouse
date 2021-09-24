@@ -24,6 +24,24 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-5">
+                <div class="dropdown float-right mr-2">
+                    <a class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Выберите действие
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        {% if update %}
+                            <a href="{% url 'myhouse_admin:receipt_create' %}?invoice_id={{form.instance.pk}}" class="dropdown-item">Копировать</a>
+                            {% comment %} <a class="dropdown-item" href="{% url 'myhouse_admin:receipt_delete' form.instance.pk %}">Удалить</a> {% endcomment %}
+                            <button class="dropdown-item" type="button" delete-url="{% url 'myhouse_admin:receipt_delete' form.instance.pk %}">Удалить</button>
+                        {% endif %}
+                        {% comment %} <a href="#" class="dropdown-item">Установить все услуги согласно тарифу</a>
+                        <a class="dropdown-item" href="#">Добавить показания счетчиков</a> {% endcomment %}
+                        <button class="dropdown-item" type="button">Установить все услуги согласно тарифу</button>
+                        <button class="dropdown-item" type="button">Добавить показания счетчиков</button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="card">
             <div class="card-body">
@@ -124,6 +142,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
+                        {{ service_formset.management_form }}
                         <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
@@ -132,29 +151,52 @@
                                 <th>Ед. изм.</th>
                                 <th>Цена за ед., грн.</th>
                                 <th>Стоимость, грн.</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody id="id_receipt_services_body">
-                        {% for rs in receipt_services %}
-                            <tr>
-                                <td>{{rs.number}}</td>
-                                <td>{{rs.reading_date|date:"d.m.Y"}}</td>
-                                <td>{{rs.reading_date|date:"F Y"}}</td>
-                                <td>{{rs.flat.floor.section.house}}</td>
-                                <td>{{rs.flat.floor.section}}</td>
-                            </tr>
-                        {% endfor %}
-                        <tr>
-                            <td colspan="4">
-                                <button class="btn btn-default" type="button">Добавить услугу</button>
-                                <button class="btn btn-default" type="button">Установить все услуги согласно тарифу</button>
-                                <button class="btn btn-default" type="button">Добавить показания счетчиков</button>
-                            </td>
-                            <td>
-                                Итого: <strong><span id="id_summary">0.00</span> грн</strong>
-                            </td>
-                        </tr>
+                                {% for service_form in service_formset %}
+                                    {% csrf_token %}
+                                    {% render_field service_form.id %}
+                                    <tr>
+                                        <td>{% render_field service_form.service class="form-control" get-service-unit-url=get_service_unit_url %}</td>
+                                        <td>{% render_field service_form.consumption class="form-control" min="0" %}</td>
+                                        <td>{% render_field service_form.unit class="form-control" %}</td>
+                                        <td>{% render_field service_form.unit_price class="form-control" min="0" %}</td>
+                                        <td>{% render_field service_form.total_price class="form-control" %}</td>
+                                        <td><button class="btn btn-default text-center" type='button' onclick="deleteService(this, 'id_service-TOTAL_FORMS', true)"><i class="fa fa-trash"></i></button></td>
+                                    </tr>
+                                {% endfor %}
                         </tbody>
+                        <tbody id="empty_service_form" style="display:none">
+                            <tr>
+                                <td>{% render_field service_formset.empty_form.service class="form-control" get-service-unit-url=get_service_unit_url %}</td>
+                                <td>{% render_field service_formset.empty_form.consumption class="form-control" min="0" %}</td>
+                                <td>{% render_field service_formset.empty_form.unit class="form-control" %}</td>
+                                <td>{% render_field service_formset.empty_form.unit_price class="form-control" min="0" %}</td>
+                                <td>{% render_field service_formset.empty_form.total_price class="form-control" %}</td>
+                                <td><button class="btn btn-default text-center" type='button' onclick="deleteService(this, 'id_service-TOTAL_FORMS')"><i class="fa fa-trash"></i></button></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                             <tr>
+                                <td colspan="4">
+                                    <button class="btn btn-default" type="button" id="add_service">Добавить услугу</button>
+                                    <button class="btn btn-default" type="button">Установить все услуги согласно тарифу</button>
+                                    <button class="btn btn-default" type="button">Добавить показания счетчиков</button>
+                                </td>
+                                <td>
+                                    Итого: <strong><span id="id_summary_display">
+                                        {% if update %}
+                                            {{form.instance.summary|stringformat:".2f"}}
+                                        {% else %}
+                                            0.00
+                                        {% endif %}</span> грн</strong>
+                                    <input type="hidden" value="0.00" name="summary" id="id_summary">
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
                     </table>
                     </div>
                 </div>
@@ -166,3 +208,4 @@
         </div>
     </form>
 </section>
+

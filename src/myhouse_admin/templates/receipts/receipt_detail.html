@@ -1,0 +1,163 @@
+{% extends 'layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Квитанция{% endblock title %}
+
+{% block receipts %}bg-light{% endblock receipts %}
+
+{% block main_content %}
+    <div class="content-fluid">
+        <section class="content-header d-flex justify-content-between">
+            <h1 class="ml-3">Квитанция</h1>
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:receipt_list' %}" class="text-dark">Счетчики</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Квитанция №{{receipt.number}}</li>
+                </ol>
+            </nav>
+        </section>
+        <div class="dropdown-divider"></div>
+        <section class="content">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group g-3 mt-2 ml-3">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="number-addon1">№</span>
+                            </div>
+                            <input type="text" class="form-control w-60" aria-describedby="number-addon1" value="{{ receipt.number }}" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1 text-center mt-3">от</div>
+                <div class="col-lg-3">
+                    <div class="form-group g-3 mt-2">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="reading_date-addon1"><i class="fa fa-calendar"></i></span>
+                            </div>
+                            <input type="text" class="form-control w-60" aria-describedby="reading_date-addon1" value="{{ receipt.creation_date|date:"d.m.Y" }}" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mr-3 ml-3">
+                <div class="card-header row d-flex justify-content-end">
+                    {% csrf_token %}
+                    <a href="#" class="btn btn-default mr-1">Печать</a>
+                    <a href="#" class="btn btn-default mr-1">Отправить на e-mail</a>
+                    <a href="{% url 'myhouse_admin:receipt_update' receipt.pk %}" class="btn btn-primary">Редактировать показание</a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-bordered table-striped mx-2">
+                                <tbody>
+                                    <tr>
+                                        <td class="font-weight-bold">Проведена</td>
+                                        <td>
+                                            {% if receipt.is_made %}
+                                                <span class="badge badge-success">Проведена</span>
+                                            {% else %}
+                                                <span class="badge badge-danger">Не проведена</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Статус</td>
+                                        <td>
+                                            {% if receipt.status == '3' %}
+                                                <span class="badge badge-success">{{receipt.get_status_display}}</span>
+                                            {% elif receipt.status == '2' %}
+                                                <span class="badge badge-warning">{{receipt.get_status_display}}</span>
+                                            {% elif receipt.status == '1' %}
+                                                <span class="badge badge-danger">{{receipt.get_status_display}}</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Период</td>
+                                        <td>{{receipt.start_date|date:"d.m.Y"}} - {{receipt.end_date|date:"d.m.Y"}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Владелец</td>
+                                        <td><a href="{% url 'myhouse_admin:owner_detail' receipt.flat.owner.pk %}" class="text-decoration-none">{{receipt.flat.owner}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Лицевой счет</td>
+                                        <td>
+                                            {% if receipt.flat.flat_personal_account is not None %}
+                                                <a href="{% url 'myhouse_admin:personal_account_detail' receipt.flat.flat_personal_account.pk %}" class="text-decoration-none">{{receipt.flat.flat_personal_account.uid}}</a>
+                                            {% else %}
+                                                (не указано)
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Телефон</td>
+                                        <td>{{receipt.flat.owner.user.phone_number}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Дом</td>
+                                        <td><a href="{% url 'myhouse_admin:house_detail' receipt.flat.floor.section.house.pk %}" class="text-decoration-none">{{receipt.flat.floor.section.house.name}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Квартира</td>
+                                        <td><a href="{% url 'myhouse_admin:flat_detail' receipt.flat.pk %}" class="text-decoration-none">{{receipt.flat.number}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Секция</td>
+                                        <td>{{receipt.flat.floor.section.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Тариф</td>
+                                        <td>
+                                            {% if receipt.flat.tariff is not None %}
+                                                <a href="{% url 'myhouse_admin:tariff_detail' receipt.flat.tariff.pk %}">{{receipt.flat.tariff}}</a>
+                                            {% else %}
+                                                (не указано)
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered table-striped mx-2 mt-3">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Услуга</th>
+                                        <th>Количество потребления (расход)</th>
+                                        <th>Ед. изм.</th>
+                                        <th>Цена за ед., грн.</th>
+                                        <th>Стоимость, грн.</th>
+                                    </tr>
+                                    <tbody>
+                                        {% for rs in receipt.r_services.all %}
+                                            <tr>
+                                                <td>{{forloop.counter}}</td>
+                                                <td>{{rs.service.name}}</td>
+                                                <td>{{rs.consumption|stringformat:".2f"}}</td>
+                                                <td>{{rs.unit}}</td>
+                                                <td>{{rs.unit_price|stringformat:".2f"}}</td>
+                                                <td>{{rs.total_price|stringformat:".2f"}}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="5"></td>
+                                            <td><p><strong>Итого: {{receipt.summary|stringformat:".2f"}}</strong></p></td>
+                                        </tr>
+                                    </tfoot>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock main_content %}

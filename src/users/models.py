@@ -123,6 +123,13 @@ class Owner(models.Model):
             return self.user.first_name.split(' ')[1]
         except:
             return ''
+
+    @property
+    def have_debts(self) -> bool:
+        for flat in self.flats.all():
+            if flat.balance < 0:
+                return True
+        return False
     
     def __str__(self) -> str:
         return f'{self.user.last_name} {self.user.first_name}'

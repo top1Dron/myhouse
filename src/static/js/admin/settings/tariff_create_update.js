@@ -1,4 +1,4 @@
-import {add_form, getCookie, deleteObject } from '../../services.js'
+import {add_form, getCookie, deleteObject, service_onchange } from '../../services.js'
 
 $(document).ready(function(){
     $('#add_service').click(function(e){
@@ -22,22 +22,4 @@ function deleteService(button, totalFormsId, update=false){
         'Вы уверены, что хотите удалить данные этой услуги тарифа из базы данных?',
         'Данные успешно удалены!');
     }
-}
-
-function service_onchange(serviceId, unitId){
-    $(`#${serviceId}`).change(function(){
-        var url = $(`#${serviceId}`).attr("get-service-unit-url");
-        var servicePk = $(this).val();
-
-        $.ajax({
-            url: url,
-            type: 'GET',
-            data: {
-                'service_pk': servicePk
-            },
-            success: function (data) {
-                $(`#${unitId}`).val(data['unit_name']);
-            }
-        });
-    });
 }

@@ -13,7 +13,7 @@
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
-                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:meter_list' %}?" class="text-dark">Счетчики</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:meter_list' %}" class="text-dark">Счетчики</a></li>
                     <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:meter_reading_list' %}?flat_id={{meter_reading.flat.pk}}&service_id={{meter_reading.service.pk}}" class="text-dark">Показание счетчиков, кв.{{meter_reading.flat.number}}</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Показание счетчикa №{{meter_reading.number}}</li>
                 </ol>

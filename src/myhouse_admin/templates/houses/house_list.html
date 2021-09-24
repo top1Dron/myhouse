@@ -31,7 +31,7 @@
             {% csrf_token %}
             <input type="hidden" id="id_filtered_name" value="{{filtered_name|default_if_none:"0"}}">
             <input type="hidden" id="id_filtered_address" value="{{filtered_address|default_if_none:"0"}}">
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>#</th>

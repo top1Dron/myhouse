@@ -57,6 +57,13 @@ class PersonalAccountListView(PermissionRequiredMixin, ListView):
     template_name = 'personal_accounts/pa_list.html'
     permission_required = '4'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cb_state'] = db_utils.get_cashbox_state()
+        context['cb_indebtedness'] = db_utils.get_indebtedness()
+        context['cb_balances'] = db_utils.get_flat_balances()
+        return context
+
 
 class PersonalAccountDetailView(PermissionRequiredMixin, DetailView):
     model = PersonalAccount

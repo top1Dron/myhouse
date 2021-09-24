@@ -109,10 +109,13 @@ class TariffUpdateView(PermissionRequiredMixin, UpdateView):
 @permission_required('13')
 def get_service_unit(request):
     try:
-        unit_name = db_utils.get_service(pk=request.GET.get('service_pk')).unit.name
+        unit = db_utils.get_service(pk=request.GET.get('service_pk')).unit
+        unit_pk = unit.pk
+        unit_name = unit.name
     except:
+        unit_pk = ''
         unit_name = 'Выберите...'
-    return JsonResponse({'unit_name': unit_name})
+    return JsonResponse({'unit_name': unit_name, 'unit_id': unit_pk})
 
 
 @staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))

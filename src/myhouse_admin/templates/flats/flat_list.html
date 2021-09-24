@@ -29,7 +29,7 @@
         </div>
         <div class="card-body table-responsive p-0">
             {% csrf_token %}
-            <table class="table table-bordered table-hover" id="id_flat_table">
+            <table class="table table-bordered table-striped" id="id_flat_table">
                 <thead>
                     <tr>
                         <th>№ квартиры</th>
@@ -58,7 +58,19 @@
                         <td>{{flat.floor.section}}</td>
                         <td>{{flat.floor}}</td>
                         <td>{{flat.owner}}</td>
-                        <td>{{flat.flat_personal_account|default_if_none:"(нет счёта)"}}</td>
+                        <td>
+                            {% if flat.flat_personal_account is not None %}
+                                {% if flat.balance > 0 %}
+                                    <span class="text-success">{{flat.balance|stringformat:".2f"}}</span>
+                                {% elif flat.balance < 0 %}
+                                    <span class="text-danger">{{flat.balance|stringformat:".2f"}}</span>
+                                {% else %}
+                                    <span>{{flat.balance|stringformat:".2f"}}</span>
+                                {% endif %}
+                            {% else %}
+                                <span>(нет счета)</span>
+                            {% endif %}
+                        </td>
                         <td>
                             <div class="btn-group">
                                 <a href="{% url 'myhouse_admin:flat_update' flat.pk %}" class="btn btn-default">

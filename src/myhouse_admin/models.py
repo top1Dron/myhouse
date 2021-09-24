@@ -1,10 +1,10 @@
 import os
 
-from django.core.exceptions import ValidationError
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.core import validators
 from django.db import models
+from django.db.models.aggregates import Sum
 from django.db.models.fields.files import ImageField
 from django.dispatch import receiver
 
@@ -102,20 +102,6 @@ class Flat(models.Model):
     class Meta:
         unique_together = ('number', 'floor')
 
-    def clean(self):
-        """
-        Validate number and floor__section are unique together
-        """
-        if self.number and self.floor.section:
-            if self.__class__.objects.filter(
-                number=self.number, 
-                floor=self.floor, 
-                floor__section=self.floor.section).exists():
-                raise ValidationError(
-                    'Этот номер квартиры уже присутствует в секции',
-                    code='unique_together',
-                )
-
     @property
     def flat_personal_account(self):
         try:
@@ -130,6 +116,15 @@ class Flat(models.Model):
     def __str__(self) -> str:
         return f'{self.number}'
 
+    
+    @property
+    def balance(self) -> float:
+        flat_cb_in: float = CashboxRecord.objects.filter(personal_account=self.flat_personal_account).aggregate(Sum('summary'))['summary__sum']
+        flat_receipts_summary: float = Receipt.objects.filter(flat=self).aggregate(Sum('summary'))['summary__sum']
+        flat_cb_in = 0.0 if flat_cb_in is None else flat_cb_in
+        flat_receipts_summary = 0.0 if flat_receipts_summary is None else flat_receipts_summary
+        return flat_cb_in - flat_receipts_summary
+
 
 class PersonalAccount(models.Model):
     STATUSES = (
@@ -139,7 +134,6 @@ class PersonalAccount(models.Model):
     uid = models.CharField(max_length=50, unique=True)
     flat = models.OneToOneField(Flat, on_delete=models.SET_NULL, null=True, related_name='personal_account')
     status = models.CharField(max_length=1, choices=STATUSES)
-    summary = models.FloatField(default=0.0)
 
     def __str__(self):
         return self.uid
@@ -158,20 +152,6 @@ class PaymentType(models.Model):
 
     def __str__(self) -> str:
         return self.name
-
-
-class CashboxRecord(models.Model):
-    number = models.CharField(max_length=50, unique=True)
-    date = models.DateField('Дата')
-    is_made = models.BooleanField(default=False)
-    payment_type = models.ForeignKey(PaymentType, on_delete=models.CASCADE)
-    personal_account = models.ForeignKey(PersonalAccount, on_delete=models.CASCADE, null=True, blank=True)
-    manager = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, blank=True)
-    summary = models.FloatField(validators=[validators.MinValueValidator(0.0)])
-    comment = models.TextField(null=True, blank=True)
-
-    class Meta:
-        ordering = ('-date', )
 
 
 class MeterReading(models.Model):
@@ -206,12 +186,27 @@ class Receipt(models.Model):
 
 
 class ReceiptService(models.Model):
-    receipt = models.ForeignKey(Receipt, on_delete=models.CASCADE)
+    receipt = models.ForeignKey(Receipt, on_delete=models.CASCADE, related_name='r_services')
     service = models.ForeignKey(Service, on_delete=models.DO_NOTHING)
     consumption = models.FloatField(validators=[validators.MinValueValidator(0.0)])
     unit = models.ForeignKey(Unit, on_delete=models.DO_NOTHING)
     unit_price = models.FloatField(validators=[validators.MinValueValidator(0.0)])
     total_price = models.FloatField(validators=[validators.MinValueValidator(0.0)])
+
+
+class CashboxRecord(models.Model):
+    number = models.CharField(max_length=50, unique=True)
+    date = models.DateField('Дата')
+    is_made = models.BooleanField(default=False)
+    payment_type = models.ForeignKey(PaymentType, on_delete=models.CASCADE)
+    personal_account = models.ForeignKey(PersonalAccount, on_delete=models.CASCADE, null=True, blank=True)
+    manager = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, blank=True)
+    summary = models.FloatField(validators=[validators.MinValueValidator(0.0)])
+    comment = models.TextField(null=True, blank=True)
+    receipt = models.ForeignKey(Receipt, on_delete=models.CASCADE, null=True, blank=True)
+
+    class Meta:
+        ordering = ('-date', )
 
 
 class Ticket(models.Model):

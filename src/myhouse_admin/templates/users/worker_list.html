@@ -34,7 +34,7 @@
                 {% csrf_token %}
                 <input type="hidden" id="id_filtered_role" value="{{filtered_role|default_if_none:"0"}}">
                 <input type="hidden" id="id_filtered_status" value="{{filtered_status|default_if_none:"0"}}">
-                <table class="table table-bordered table-hover">
+                <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>#</th>

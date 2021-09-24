@@ -2,19 +2,19 @@
 
 {% load static widget_tweaks %}
 
-{% block title %}Приходная ведомость{% endblock title %}
+{% block title %}{{type_name}} ведомость{% endblock title %}
 
 {% block cashbox %}bg-light{% endblock cashbox %}
 
 {% block main_content %}
     <div class="content-fluid">
         <section class="content-header d-flex justify-content-between">
-            <h1 class="ml-3">Приходная ведомость</h1>
+            <h1 class="ml-3">{{type_name}} ведомость</h1>
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
                     <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:cashbox_list' %}" class="text-dark">Платежи</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Приходная ведомость №{{cashbox_record.number}}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{type_name}} ведомость №{{cashbox_record.number}}</li>
                 </ol>
             </nav>
         </section>

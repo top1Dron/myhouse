@@ -2,7 +2,7 @@
 
 {% load static widget_tweaks %}
 
-{% block title %}Новая квитанция{% endblock title %}
+{% block title %}Квитанция{% endblock title %}
 
 {% block receipts %}bg-light{% endblock receipts %}
 
@@ -11,12 +11,13 @@
 {% block main_content %}
 <div class="container-fluid">
     <section class="content-header d-flex justify-content-between">
-        <h1>Новая квитанция</h1>
+        <h1>Квитанция</h1>
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
                 <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:receipt_list' %}" class="text-dark">Квитанции</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Новая квитанция</li>
+                <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:receipt_detail' form.instance.pk %}" class="text-dark">Квитанция №{{form.instance.number}}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Редактирование</li>
             </ol>
         </nav>
     </section>
@@ -27,7 +28,7 @@
             <h5 class="ml-2">Показания счетчиков</h5>
         </div>
         <div class="card-body p-0">
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>№</th>

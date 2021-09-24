@@ -112,12 +112,40 @@ export function add_form(totalFormsId, factoryBlockId, emptyFormId, ){
     $(`#${factoryBlockId}`).append($(`#${emptyFormId}`).html().replace(/__prefix__/g, form_idx).replace(/__prefix1__/g, parseInt(form_idx) + 1));
     var totalForms = parseInt(form_idx) + 1;
     $(`#${totalFormsId}`).val(totalForms);
+    return totalForms;
 }
 
 export function extractContent(s) {
     var span = document.createElement('span');
     span.innerHTML = s;
     return span.textContent || span.innerText;
+}
+
+export function service_onchange_ajax(serviceId, unitId, select=false){
+    var url = $(`#${serviceId}`).attr("get-service-unit-url");
+    var servicePk = $(`#${serviceId}`).val();
+
+    $.ajax({
+        url: url,
+        type: 'GET',
+        data: {
+            'service_pk': servicePk
+        },
+        success: function (data) {
+            if(select){
+                $(`#${unitId}`).val(data['unit_id']);
+            }
+            else{
+                $(`#${unitId}`).val(data['unit_name']);
+            }
+        }
+    });
+}
+
+export function service_onchange(serviceId, unitId, select=false){
+    $(`#${serviceId}`).change(function(){
+        service_onchange_ajax(serviceId, unitId, select=false);
+    });
 }
 
 export function init_datatable(table_id, search_text_array, simple_select_array, html_values_select_array){

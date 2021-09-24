@@ -87,7 +87,19 @@
                                     </tr>
                                     <tr>
                                         <td class="font-weight-bold">Остаток, грн.</td>
-                                        <td>{{personal_account.summary|stringformat:".2f"}}</td>
+                                        <td>
+                                            {% if personal_account.flat is not None %}
+                                                {% if personal_account.flat.balance > 0 %}
+                                                    <span class="text-success">{{personal_account.flat.balance|stringformat:".2f"}}</span>
+                                                {% elif personal_account.flat.balance < 0 %}
+                                                    <span class="text-danger">{{personal_account.flat.balance|stringformat:".2f"}}</span>
+                                                {% else %}
+                                                    <span>{{personal_account.flat.balance|stringformat:".2f"}}</span>
+                                                {% endif %}
+                                            {% else %}
+                                                <span>0.00</span>
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

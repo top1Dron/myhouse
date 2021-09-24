@@ -29,7 +29,7 @@
         </div>
         <div class="card-body table-responsive p-0">
             {% csrf_token %}
-            <table class="table table-bordered table-hover" id="id_ticket_table">
+            <table class="table table-bordered table-striped" id="id_ticket_table">
                 <thead>
                     <tr>
                         <th>№ заявки</th>
@@ -67,17 +67,13 @@
                         <td>{{ticket.flat.owner}}</td>
                         <td>{{ticket.flat.owner.user.phone_number}}</td>
                         <td>{{ticket.master|default_if_none:"(не задано)"}}</td>
-                        <td>
-                            {% if ticket.status == '1' %}
-                                <span class="badge badge-primary">
-                            {% elif ticket.status == '2' %}
-                                <span class="badge badge-warning">
-                            {% elif ticket.status == '3' %}
-                                <span class="badge badge-success">
-                            {% endif %}
-                                    {{ticket.get_status_display}}
-                                </span>
-                        </td>
+                        {% if ticket.status == '1' %}
+                            <td><span class="badge badge-primary">{{ticket.get_status_display}}</span></td>
+                        {% elif ticket.status == '2' %}
+                            <td><span class="badge badge-warning">{{ticket.get_status_display}}</span></td>
+                        {% elif ticket.status == '3' %}
+                            <td><span class="badge badge-success">{{ticket.get_status_display}}</span></td>
+                        {% endif %}
                         <td>
                             <div class="btn-group">
                                 <a href="{% url 'myhouse_admin:master_request_update' ticket.pk %}" class="btn btn-default">

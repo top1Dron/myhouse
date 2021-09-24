@@ -59,7 +59,10 @@ urlpatterns = [
 
     # receipt block
     path('invoice/index/', staff_member_required(receipt_views.ReceiptListView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name="receipt_list"),
-    path('invoice/create/', staff_member_required(receipt_views.ReceiptCreateView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name="receipt_create"),
+    path('invoice/create/', receipt_views.receipt_create_view, name="receipt_create"),
+    path('invoice/update/<int:pk>/', receipt_views.receipt_update_view, name="receipt_update"),
+    path('invoice/delete/<int:pk>/', receipt_views.delete_receipt_view, name="receipt_delete"),
+    path('invoice/<int:pk>/', staff_member_required(receipt_views.ReceiptDetailView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name="receipt_detail"),
 
     # master request block
     path('master-request/index', staff_member_required(master_calling_views.TicketListView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name="master_request_list"),

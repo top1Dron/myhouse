@@ -39,7 +39,7 @@
             </div>
             <div class="card-body table-responsive p-0">
                 {% csrf_token %}
-                <table class="table table-bordered table-hover" id="id_owner_table">
+                <table class="table table-bordered table-striped" id="id_owner_table">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -98,7 +98,9 @@
                                         <span class="badge badge-success">{{owner.user.get_status_display}}</span>
                                     {% endif %}
                                 </td>
-                                <td></td>
+                                <td>
+                                    {% if owner.have_debts %}Да{% endif %}
+                                </td>
                                 <td>
                                     <div class="btn-group">
                                         <a href="#" class="btn btn-default">

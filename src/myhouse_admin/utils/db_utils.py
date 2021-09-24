@@ -1,11 +1,12 @@
 from typing import Iterable, Optional
 import logging
 
+from django.core.exceptions import ValidationError
 from django.db.models import Q
 from django.db.models.aggregates import Sum
 from django.shortcuts import get_object_or_404
 
-from myhouse_admin.models import Block, AboutUsPageImage, AboutUsPageAdditionalImage, CashboxRecord, Flat, Floor, House, MeterReading, PaymentType, Section, PersonalAccount, Service, Tariff, TariffService, Ticket, Unit
+from myhouse_admin.models import Block, AboutUsPageImage, AboutUsPageAdditionalImage, CashboxRecord, Flat, Floor, House, MeterReading, PaymentType, Receipt, ReceiptService, Section, PersonalAccount, Service, Tariff, TariffService, Ticket, Unit
 from users.models import Employee, Role, User, Owner 
 
 
@@ -118,6 +119,10 @@ def get_meter_reading(**kwargs) -> MeterReading:
 
 def get_ticket(**kwargs) -> Ticket:
     return get_object_or_404(Ticket, **kwargs)
+
+
+def get_receipt(**kwargs) -> Receipt:
+    return get_object_or_404(Receipt, **kwargs)
 
 
 def delete_house_worker(employee_pk: int, house_pk: int) -> None:
@@ -243,7 +248,14 @@ def get_current_and_selected_section_flats(flat_id, section_id) -> Iterable[Flat
 
 
 def create_flat(**kwargs) -> Flat:
-    return Flat.objects.create(**kwargs)
+    if kwargs['number'] and kwargs['floor'].section:
+        if Flat.objects.filter(
+            number=kwargs['number'], 
+            floor=kwargs['floor'], 
+            floor__section=kwargs['floor'].section).exists():
+            return None
+        else:
+            return Flat.objects.create(**kwargs)
 
 
 def create_pa(**kwargs) -> PersonalAccount:
@@ -284,12 +296,18 @@ def get_cashbox_records() -> Iterable[CashboxRecord]:
     return CashboxRecord.objects.all()
 
 
-def get_cashbox_in() -> int:
-    return CashboxRecord.objects.filter(payment_type__type='0').aggregate(Sum('summary'))['summary__sum']
+def get_cashbox_in() -> float:
+    return CashboxRecord.objects.filter(payment_type__type='0') \
+        .aggregate(Sum('summary'))['summary__sum']
 
 
-def get_cashbox_out() -> int:
-    return CashboxRecord.objects.filter(payment_type__type='1').aggregate(Sum('summary'))['summary__sum']
+def get_cashbox_out() -> float:
+    return CashboxRecord.objects.filter(payment_type__type='1') \
+        .aggregate(Sum('summary'))['summary__sum']
+
+
+def get_cashbox_state() -> float:
+    return get_cashbox_in() - get_cashbox_out()
 
 
 def get_owner_accounts(owner_id: int) -> Iterable[PersonalAccount]:
@@ -315,6 +333,10 @@ def get_all_meter_readings() -> Iterable[MeterReading]:
     return MeterReading.objects.all().order_by('-reading_date')
 
 
+def get_flat_meters(flat_id) -> Iterable[MeterReading]:
+    return get_all_meter_readings().filter(flat=flat_id)
+
+
 def get_services_in_meter() -> Iterable[Service]:
     return Service.objects.filter(in_meter=True)
 
@@ -325,3 +347,22 @@ def delete_ticket(ticket_pk)-> None:
 
 def get_owner_tickets(owner: Owner) -> Iterable[Ticket]:
     return Ticket.objects.filter(flat__in=owner.flats.all()).order_by('-convenient_time')
+
+
+def get_receipt_services() -> Iterable[ReceiptService]:
+    return ReceiptService.objects.all()
+
+
+def get_flats_with_indebtedness() -> Iterable[Flat]:
+    return [flat for flat in get_flats() if flat.balance < 0]
+
+
+def get_flats_without_indebtedness() -> Iterable[Flat]:
+    return [flat for flat in get_flats() if flat.balance >= 0]
+
+
+def get_indebtedness() -> float:
+    return -sum([flat.balance for flat in get_flats_with_indebtedness()])
+
+def get_flat_balances() -> float:
+    return sum([flat.balance for flat in get_flats_without_indebtedness()])
