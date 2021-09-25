@@ -23,12 +23,13 @@ def service_unit_view(request):
         form.fields['unit'].initial = form.instance.unit
     if request.method == 'POST':
         service_formset = ServiceFormSet(request.POST, prefix='service', queryset=db_utils.get_all_services())
-        if unit_formset.is_valid():
-            unit_formset.save()
-        for form in service_formset:
-            if form.is_valid():
-                service = form.save(commit=False)
-                service.unit = form.cleaned_data.get('unit')
+        for unit_form in unit_formset:
+                if unit_form.is_valid() and len(unit_form.cleaned_data) > 0:
+                    unit_formset.save()
+        for service_form in service_formset:
+            if service_form.is_valid() and len(service_form.cleaned_data) > 0:
+                service = service_form.save(commit=False)
+                service.unit = service_form.cleaned_data.get('unit')
                 service.save()
         return redirect(reverse_lazy('myhouse_admin:service_unit'))
     return render(request, 'settings/services_unit/service_unit.html', {

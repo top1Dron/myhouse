@@ -1,8 +1,8 @@
-import { init_datatable, deleteObject, getCookie } from '../../services.js'
+import { init_datatable, getCookie } from '../../services.js'
 
 $(document).ready(function(){
 
-    $('.icheck-primary, .delete-receipt-button').click(function(e){
+    $('tr input[name="message_check"]').click(function(e){
         e.stopPropagation();
     });
 
@@ -10,23 +10,18 @@ $(document).ready(function(){
         document.location = $(this).data('href');
     });
 
-    init_datatable('id_receipts_table', [1, 3, 4], [5, 6, 7], [2]);
+    init_datatable('id_message_table', [], [], []);
 
-    $('#id_receipts_table_filter').hide();
-
-    $('.delete-receipt-button').click(function(e){
-        deleteObject(this, getCookie('csrftoken'), 
-            'Вы уверены, что хотите удалить данные этой квитанции из базы данных?',
-            'Квитанция удалена успешно!')
-    });
+    $('input[aria-controls="id_message_table"]').addClass('form-control').attr('placeholder', 'Поиск');
+    $('#id_message_table_filter').addClass('mr-2').addClass('float-right').addClass('mt-2');
 
     $("#id_selection_all").click(function(){
-        $('input[name=receipts_check]').not(this).prop('checked', this.checked);
+        $('input[name=message_check]').not(this).prop('checked', this.checked);
     });
 
     $("#id_delete_many").click(function(){
         var ids = [];
-        $('input[name="receipts_check"]:checked').each(function() { 
+        $('input[name="message_check"]:checked').each(function() { 
             var v = $(this).val();
             ids.push(v);
         });

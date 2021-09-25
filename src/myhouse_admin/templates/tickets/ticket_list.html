@@ -61,12 +61,22 @@
                     <tr data-href="{% url 'myhouse_admin:master_request_detail' ticket.pk %}">
                         <td>{{ticket.pk}}</td>
                         <td>{{ticket.convenient_time|date:"d.m.Y - H:i"}}</td>
-                        <td>{{ticket.master_type.name|default_if_none:"Любой специалист"}}</td>
+                        <td>{{ticket.master_type|default_if_none:"Любой специалист"}}</td>
                         <td>{{ticket.description}}</td>
-                        <td>{{ticket.flat.to_string}}</td>
-                        <td>{{ticket.flat.owner}}</td>
+                        <td>
+                            <a href="{% url 'myhouse_admin:flat_detail' ticket.flat.pk %}">кв.&nbsp;{{ticket.flat.to_string}}</a>
+                        </td>
+                        <td>
+                            <a href="{% url 'myhouse_admin:owner_detail' ticket.flat.owner.pk %}">{{ticket.flat.owner}}</a>
+                        </td>
                         <td>{{ticket.flat.owner.user.phone_number}}</td>
-                        <td>{{ticket.master|default_if_none:"(не задано)"}}</td>
+                        <td>
+                            {% if ticket.master is not None %}
+                                <a href="{% url 'myhouse_admin:worker_detail' ticket.master.pk %}">{{ticket.master}}</a>
+                            {% else %}
+                                (не задано)
+                            {% endif %}
+                        </td>
                         {% if ticket.status == '1' %}
                             <td><span class="badge badge-primary">{{ticket.get_status_display}}</span></td>
                         {% elif ticket.status == '2' %}

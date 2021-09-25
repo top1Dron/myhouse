@@ -1,0 +1,45 @@
+{% extends 'cabinet_layout/base.html' %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Сообщение{% endblock title %}
+
+{% block messages %}bg-light{% endblock messages %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <section class="content-header d-flex justify-content-between">
+        <h1>Сообщение</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'users:summary' %}{% if owner_ID is not None %}?owner_ID={{owner_ID}}{% endif %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'users:message_index' %}{% if owner_ID is not None %}?owner_ID={{owner_ID}}{% endif %}" class="text-dark">Сообщения</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Сообщение</li>
+            </ol>
+        </nav>
+    </section>
+    <div class="dropdown-divider"></div>
+    <div class="card mt-2 mx-2">
+        <div class="card-body">
+            <div class="row mt-1"><h5>{{message.subject}}</h5></div>
+            <div class="row d-flex justify-content-between">
+                От: {{message.sender.user.get_full_name}}
+                <span class="text-secondary">{{message.send_date|date:"d.m.Y - H:i"}}</span>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="row">
+                {{message.body|safe}}
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="row">
+                <button class="btn btn-default" id="id_delete_message_button" success-href="{% url 'users:message_index' %}{% if owner_ID is not None %}?owner_ID={{owner_ID}}{% endif %}"  delete-url="{% url 'users:message_delete' message.pk %}{% if owner_ID is not None %}?owner_ID={{owner_ID}}{% endif %}" type="button"><i class="fa fa-trash"></i>&nbsp; Удалить</button>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock main_content %}
+
+{% block extra_js %}
+    <script src="{% static 'js/admin/messages/message_detail.js' %}" type="module"></script>
+{% endblock extra_js %}

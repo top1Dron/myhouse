@@ -22,13 +22,13 @@
             <div class="col-lg-4 col-sm-6 col-xs-12">
                 <div class="small-box bg-primary">
                     <div class="inner">
-                        <h3>?</h3>
+                        <h3>{{houses_count}}</h3>
                         <p>домов</p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-building"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                    <a href="{% url 'myhouse_admin:house_list' %}" class="small-box-footer">
                         Перейти в дома
                         <i class="fa fa-arrow-circle-right"></i>
                     </a>
@@ -37,13 +37,13 @@
             <div class="col-lg-4 col-sm-6 col-xs-12">
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h3>?</h3>
+                        <h3>{{active_owners_count}}</h3>
                         <p>Активных владельцев</p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-users"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                    <a href="{% url 'myhouse_admin:owner_list' %}" class="small-box-footer">
                         Перейти к владельцам
                         <i class="fa fa-arrow-circle-right"></i>
                     </a>
@@ -52,13 +52,13 @@
             <div class="col-lg-4 col-sm-6 col-xs-12">
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3>?</h3>
+                        <h3>{{active_tickets_count}}</h3>
                         <p>Заявок мастера в работе</p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-wrench"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                    <a href="{% url 'myhouse_admin:master_request_list' %}" class="small-box-footer">
                         Перейти в заявки
                         <i class="fa fa-arrow-circle-right"></i>
                     </a>
@@ -67,13 +67,13 @@
             <div class="col-lg-4 col-sm-6 col-xs-12">
                 <div class="small-box bg-primary">
                     <div class="inner">
-                        <h3>?</h3>
+                        <h3>{{flats_count}}</h3>
                         <p>Квартир</p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-key"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                    <a href="{% url 'myhouse_admin:flat_list' %}" class="small-box-footer">
                         Перейти в квартиры
                         <i class="fa fa-arrow-circle-right"></i>
                     </a>
@@ -82,13 +82,13 @@
             <div class="col-lg-4 col-sm-6 col-xs-12">
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h3>?</h3>
+                        <h3>{{pa_count}}</h3>
                         <p>Личных счетов</p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-child"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                    <a href="{% url 'myhouse_admin:personal_account_list' %}" class="small-box-footer">
                         Перейти к счетам
                         <i class="fa fa-arrow-circle-right"></i>
                     </a>
@@ -97,13 +97,13 @@
             <div class="col-lg-4 col-sm-6 col-xs-12">
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3>?</h3>
+                        <h3>{{new_tickets_count}}</h3>
                         <p>Новых заявок мастера</p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-user-plus"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                    <a href="{% url 'myhouse_admin:master_request_list' %}" class="small-box-footer">
                         Перейти в заявки
                         <i class="fa fa-arrow-circle-right"></i>
                     </a>
@@ -114,7 +114,7 @@
             <div class="col-lg-8 col-md-7 col-xs-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">График погашения квитанций, грн</h3>
+                        <h3 class="card-title">График приходов и расходов по кассе, грн</h3>
 
                         <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -136,38 +136,38 @@
             <div class="col-lg-4 col-md-5 col-xs-12">
                 <div class="info-box">
                     <span class="info-box-icon bg-red">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
                             <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
                             <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
                         </svg>
                     </span>
                     <div class="info-box-content">
                         <span class="info-box-text">ЗАДОЛЖЕННОСТЬ ПО СЧЕТАМ, ГРН</span>
-                        <span class="info-box-number">?</span>
+                        <span class="info-box-number">{{cb_indebtedness|stringformat:".2f"}}</span>
                     </div>
                 </div>
                 <div class="info-box">
                     <span class="info-box-icon bg-info">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
                             <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
                             <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
                         </svg>
                     </span>
                     <div class="info-box-content">
                         <span class="info-box-text">БАЛАНС ПО СЧЕТАМ, ГРН</span>
-                        <span class="info-box-number">?</span>
+                        <span class="info-box-number">{{cb_balances|stringformat:".2f"}}</span>
                     </div>
                 </div>
                 <div class="info-box">
                     <span class="info-box-icon bg-green">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
                             <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
                             <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
                         </svg>
                     </span>
                     <div class="info-box-content">
                         <span class="info-box-text">СОСТОЯНИЕ КАССЫ, ГРН</span>
-                        <span class="info-box-number">?</span>
+                        <span class="info-box-number">{{cb_state|stringformat:".2f"}}</span>
                     </div>
                 </div>
             </div>
@@ -202,41 +202,72 @@
 {% block extra_js %}
 <script src="{% static 'plugins/chart.js/Chart.min.js' %}"></script>
 <script>
-    var areaChartData = {
-      labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    var payIndebtednessChartData = {
+      labels  : ['янв., {{current_year}}', 'февр., {{current_year}}', 'март, {{current_year}}', 'апр., {{current_year}}', 'май, {{current_year}}', 'июнь, {{current_year}}', 'июль, {{current_year}}', 'авг., {{current_year}}', 'сент., {{current_year}}', 'окт., {{current_year}}', 'нояб., {{current_year}}', 'дек., {{current_year}}'],
       datasets: [
         {
-          label               : 'Digital Goods',
-          backgroundColor     : 'rgba(60,141,188,0.9)',
-          borderColor         : 'rgba(60,141,188,0.8)',
+          label               : 'Погашение задолженности',
+          backgroundColor     : 'rgba(12,154,12,0.9)',
+          borderColor         : 'rgba(12,154,12,0.8)',
           pointRadius          : false,
           pointColor          : '#3b8bba',
           pointStrokeColor    : 'rgba(60,141,188,1)',
           pointHighlightFill  : '#fff',
           pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : [28, 48, 40, 19, 86, 27, 90]
+          data                : {{paid_indebtedness_per_year}}
         },
         {
-          label               : 'Electronics',
-          backgroundColor     : 'rgba(210, 214, 222, 1)',
-          borderColor         : 'rgba(210, 214, 222, 1)',
+          label               : 'Задолженность',
+          backgroundColor     : 'rgba(232, 54, 32, 1)',
+          borderColor         : 'rgba(232, 54, 32, 1)',
           pointRadius         : false,
           pointColor          : 'rgba(210, 214, 222, 1)',
           pointStrokeColor    : '#c1c7d1',
           pointHighlightFill  : '#fff',
           pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : [65, 59, 80, 81, 56, 55, 40]
+          data                : {{indebtedness_per_year}}
+        },
+      ]
+    }
+
+    var inOutChartData = {
+      labels  : ['янв., {{current_year}}', 'февр., {{current_year}}', 'март, {{current_year}}', 'апр., {{current_year}}', 'май, {{current_year}}', 'июнь, {{current_year}}', 'июль, {{current_year}}', 'авг., {{current_year}}', 'сент., {{current_year}}', 'окт., {{current_year}}', 'нояб., {{current_year}}', 'дек., {{current_year}}'],
+      datasets: [
+        {
+          label               : 'Приход',
+          backgroundColor     : 'rgba(12,154,12,0.9)',
+          borderColor         : 'rgba(12,154,12,0.8)',
+          pointRadius          : false,
+          pointColor          : '#3b8bba',
+          pointStrokeColor    : 'rgba(60,141,188,1)',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(60,141,188,1)',
+          data                : {{cashbox_in_per_year}}
+        },
+        {
+          label               : 'Расход',
+          backgroundColor     : 'rgba(232, 54, 32, 1)',
+          borderColor         : 'rgba(232, 54, 32, 1)',
+          pointRadius         : false,
+          pointColor          : 'rgba(210, 214, 222, 1)',
+          pointStrokeColor    : '#c1c7d1',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(220,220,220,1)',
+          data                : {{cashbox_out_per_year}}
         },
       ]
     }
 
     var barChartCanvas = $('#barChart').get(0).getContext('2d')
     var barChartCanvas2 = $('#barChart2').get(0).getContext('2d')
-    var barChartData = $.extend(true, {}, areaChartData)
-    var temp0 = areaChartData.datasets[0]
-    var temp1 = areaChartData.datasets[1]
+    var barChartData = $.extend(true, {}, payIndebtednessChartData)
+    var barChartData2 = $.extend(true, {}, inOutChartData)
+    var temp0 = payIndebtednessChartData.datasets[0]
+    var temp1 = payIndebtednessChartData.datasets[1]
     barChartData.datasets[0] = temp1
     barChartData.datasets[1] = temp0
+    barChartData2.datasets[0] = inOutChartData.datasets[0]
+    barChartData2.datasets[1] = inOutChartData.datasets[1]
 
     var barChartOptions = {
       responsive              : true,
@@ -252,7 +283,7 @@
 
     new Chart(barChartCanvas2, {
       type: 'bar',
-      data: barChartData,
+      data: barChartData2,
       options: barChartOptions
     })
 </script>

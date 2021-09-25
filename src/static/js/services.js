@@ -59,52 +59,51 @@ export function deleteObject(button, csrf_token,
     delete_confirm_message='Вы уверены, что хотите удалить данные этого объекта из базы данных?', 
     delete_success_message="Данные об объекте удалены"){
     
-    if(confirm(delete_confirm_message)){
-        var deleteUrl = $(button).attr("delete-url");
-        $.ajax({
-            url: deleteUrl,
-            type: 'DELETE',
-            data: {},
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('X-CSRFToken', csrf_token);
-            },
-            success: function(resp){
-                alert(delete_success_message);
-                window.location.reload();
-            }
-        });
-    }
-
-    // Swal.fire({
-    //     title: delete_confirm_message,
-    //     text: "Отмена действия невозможна",
-    //     icon: 'warning',
-    //     showCancelButton: true,
-    //     confirmButtonColor: '#3085d6',
-    //     cancelButtonColor: '#d33',
-    //     confirmButtonText: 'Да, удалить!',
-    //     cancelButtonText: 'Нет, отменить!',
-    //     }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             var deleteUrl = $(button).attr("delete-url");
-    //             $.ajax({
-    //                 url: deleteUrl,
-    //                 type: 'DELETE',
-    //                 data: {},
-    //                 beforeSend: function (xhr) {
-    //                     xhr.setRequestHeader('X-CSRFToken', csrf_token);
-    //                 },
-    //                 success: function(resp){
-    //                     Swal.fire(
-    //                         'Удалено!',
-    //                         delete_success_message,
-    //                         'success'
-    //                     )
-    //                     window.location.reload();
-    //                 }
-    //             });
+    // if(confirm(delete_confirm_message)){
+    //     var deleteUrl = $(button).attr("delete-url");
+    //     $.ajax({
+    //         url: deleteUrl,
+    //         type: 'DELETE',
+    //         data: {},
+    //         beforeSend: function (xhr) {
+    //             xhr.setRequestHeader('X-CSRFToken', csrf_token);
+    //         },
+    //         success: function(resp){
+    //             alert(delete_success_message);
+    //             window.location.reload();
     //         }
-    //     })
+    //     });
+    // }
+
+    Swal.fire({
+        title: delete_confirm_message,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Да, удалить!',
+        cancelButtonText: 'Нет, отменить!',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var deleteUrl = $(button).attr("delete-url");
+            $.ajax({
+                url: deleteUrl,
+                type: 'DELETE',
+                data: {},
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-CSRFToken', csrf_token);
+                },
+                success: function(resp){
+                    Swal.fire(
+                        delete_success_message,
+                        'Удалено!',
+                        'success'
+                    )
+                    window.location.reload();
+                }
+            });
+        }
+    })
 }
 
 export function add_form(totalFormsId, factoryBlockId, emptyFormId, ){
@@ -205,5 +204,6 @@ export function init_datatable(table_id, search_text_array, simple_select_array,
         ordering: false,
         paging: false,
         responsive: true,
+        language: { search: "" },
     });
 }

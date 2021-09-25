@@ -38,13 +38,20 @@ class UserCheckMixin(object):
 
     def check_user(self, user):
         return True
+    
+    def check_cabinet_user(self, request):
+        return True
 
     def user_check_failed(self, request, *args, **kwargs):
         return redirect(self.user_check_failure_path)
 
     def dispatch(self, request, *args, **kwargs):
-        if not self.check_user(request.user):
-            return self.user_check_failed(request, *args, **kwargs)
+        if not self.owner_cabinet:
+            if not self.check_user(request.user):
+                return self.user_check_failed(request, *args, **kwargs)
+        else:
+            if not self.check_cabinet_user(request):
+                return self.user_check_failed(request, *args, **kwargs)
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -54,29 +61,42 @@ class PermissionRequiredMixin(UserCheckMixin):
     owner_cabinet = False
 
     def check_user(self, user):
-        if not self.owner_cabinet:
-            return self.permission_required in user.employee.role.abilities
+        return self.permission_required in user.employee.role.abilities
+    
+    def check_cabinet_user(self, request):
+        if 'owner_ID' in request.GET or hasattr(request.user, 'owner'):
+            return True
         else:
-            return hasattr(user, 'owner') or hasattr(user, 'employee')
+            return False
 
 
-def owner_flat_required():
-    pass
+class CabinetPermissionRequiredMixin:
+    user_check_failure_path = reverse_lazy('users:login')
+    
+    def dispatch(self, request, *args, **kwargs):
+        if 'owner_ID' in request.GET:
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            if hasattr(request.user, 'owner'):
+                return super().dispatch(request, *args, **kwargs)
+            else:
+                return redirect(self.user_check_failure_path)
 
 
 def owner_flat_required(view):
     @wraps(view)
     def inner(request, *args, **kwargs):
+        user_check_failure_path = reverse_lazy('users:login')
         if 'owner_ID' in request.GET:
             owner = db_utils.get_owner_object_by_params(ID=request.GET['owner_ID'])
         else:
             if hasattr(request.user, 'owner'):
                 owner = request.user.owner
             else:
-                raise Http404('Not found')
+                return redirect(user_check_failure_path)
 
         if len(owner.flats.all()) == 0:
-            raise Http404('Not found')
+            return redirect(user_check_failure_path)
             
         return view(request, *args, **kwargs)
     

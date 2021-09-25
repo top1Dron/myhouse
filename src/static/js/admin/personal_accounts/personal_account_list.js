@@ -1,6 +1,10 @@
 import { init_datatable, deleteObject, getCookie } from '../../services.js'
 
 $(document).ready(function(){
+    $('.delete-personal_account-button').click(function(e){
+        e.stopPropagation();
+    });
+    
     $('tr[data-href]').on("click", function() {
         document.location = $(this).data('href');
     });

@@ -4,12 +4,13 @@ from django.urls import reverse_lazy
 from django.utils.http import urlencode
 from django.views.generic.detail import DetailView
 
-from myhouse_admin.utils import db_utils
+from myhouse_admin.utils import db_utils, utils
 
 
-class FlatTariffDetailView(DetailView):
+class FlatTariffDetailView(utils.PermissionRequiredMixin, DetailView):
     template_name = 'summary/tariffs.html'
     context_object_name = 'owner'
+    owner_cabinet = True
     
     def get_object(self):
         if 'owner_ID' in self.request.GET and hasattr(self.request.user, 'employee'):

@@ -10,7 +10,7 @@
             <h1 class="ml-3">Вызов мастера</h1>
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{% url 'myhouse_admin:index' %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'users:summary' %}{% if owner_ID is not None %}?owner_ID={{owner_ID}}{% endif %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Вызов мастера</li>
                 </ol>
             </nav>

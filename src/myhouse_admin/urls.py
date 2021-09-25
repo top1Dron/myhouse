@@ -1,10 +1,7 @@
-from django.contrib.auth import logout
-from myhouse_admin.views.users import employee_views
-from myhouse_admin.views.settings import service_unit_views, tariff_views
 from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import path, reverse_lazy
 
-from myhouse_admin.views import (personal_account_views, statistic_views, 
+from myhouse_admin.views import (message_views, personal_account_views, statistic_views, 
     settings, users, site_management, house_views, flat_views, cashbox_views,
     meters_views, receipt_views, master_calling_views)
 
@@ -33,6 +30,7 @@ urlpatterns = [
     path('flat/load-section-floors', flat_views.load_section_floors, name="load_section_floors"),
     path('flat/load-section-flats', flat_views.load_section_flats, name="load_section_flats"),
     path('flat/load-empty-flats', flat_views.load_empty_flats, name="load_empty_flats"),
+    path('flat/load-floor-flats', flat_views.load_floor_flats, name="load_floor_flats"),
     path('flat/load-section-flats-without-pa/', flat_views.load_section_flats_without_pa, name="load_section_flats_without_pa"),
     path('flat/load-flat-details/', flat_views.load_flat_details, name="load_flat_details"),
     path('flat/load-owner-flats/', flat_views.load_owner_flats, name="load_owner_flats"),
@@ -60,9 +58,17 @@ urlpatterns = [
     # receipt block
     path('invoice/index/', staff_member_required(receipt_views.ReceiptListView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name="receipt_list"),
     path('invoice/create/', receipt_views.receipt_create_view, name="receipt_create"),
+    path('invoice/ajax-delete-many/', receipt_views.receipt_delete_many, name="receipt_delete_many"),
     path('invoice/update/<int:pk>/', receipt_views.receipt_update_view, name="receipt_update"),
     path('invoice/delete/<int:pk>/', receipt_views.delete_receipt_view, name="receipt_delete"),
     path('invoice/<int:pk>/', staff_member_required(receipt_views.ReceiptDetailView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name="receipt_detail"),
+
+    # message block
+    path('message/index/', staff_member_required(message_views.MessageListView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name="message_list"),
+    path('message/create/', staff_member_required(message_views.MessageCreateView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name="message_create"),
+    path('message/ajax-delete-many/', message_views.message_delete_many, name="message_delete_many"),
+    path('message/delete/<int:pk>/',  message_views.delete_message, name="message_delete"),
+    path('message/<int:pk>/', staff_member_required(message_views.MessageDetailView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name="message_detail"),
 
     # master request block
     path('master-request/index', staff_member_required(master_calling_views.TicketListView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name="master_request_list"),

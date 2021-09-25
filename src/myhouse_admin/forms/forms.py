@@ -2,7 +2,7 @@ from django import forms
 from django.forms.models import modelformset_factory
 from django.forms.utils import to_current_timezone
 
-from myhouse_admin.models import (CashboxRecord, Flat, Floor, House, MainPage, MeterReading, PaymentDetails, PaymentType, PersonalAccount, Receipt, ReceiptService, Section, Service, ServicesPage, Tariff, 
+from myhouse_admin.models import (CashboxRecord, Flat, Floor, House, MainPage, Message, MeterReading, PaymentDetails, PaymentType, PersonalAccount, Receipt, ReceiptService, Section, Service, ServicesPage, Tariff, 
     TariffPage, ContactsPage, AboutUsPage, AboutUsPageImage, AboutUsPageAdditionalImage, TariffService, Ticket, Unit)
 from myhouse_admin.utils import db_utils
 from myhouse_admin.utils.utils import get_auto_id, get_current_datetime, get_dt_now_object
@@ -134,7 +134,7 @@ class FlatForm(forms.ModelForm):
     house = forms.ModelChoiceField(queryset=db_utils.get_houses(), empty_label='Выберите...')
     section = forms.ModelChoiceField(queryset=Section.objects.none(), empty_label='Выберите...')
     floor = forms.ModelChoiceField(queryset=Floor.objects.none(), empty_label='Выберите...')
-    owner = forms.ModelChoiceField(queryset=db_utils.get_all_owners(), empty_label='Выберите...')
+    owner = forms.ModelChoiceField(queryset=db_utils.get_active_owners(), empty_label='Выберите...')
     personal_account = forms.ModelChoiceField(queryset=db_utils.get_empty_personal_accounts(), required=False, empty_label='Выберите...')
     tariff = forms.ModelChoiceField(queryset=db_utils.get_tariffs(), required=False, empty_label='Выберите...')
 
@@ -144,6 +144,7 @@ class FlatForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         floor = kwargs.pop('floor', None)
+        pa = kwargs.pop('pa', None)
         super().__init__(*args, **kwargs)
         if floor:
             self.fields['house'].initial = floor.section.house
@@ -151,6 +152,9 @@ class FlatForm(forms.ModelForm):
             self.fields['section'].initial = floor.section
             self.fields['floor'].queryset = db_utils.get_section_floors(floor.section.pk)
             self.fields['floor'].initial = floor
+        if pa:
+            self.fields['personal_account'].queryset = db_utils.get_empty_personal_accounts() | PersonalAccount.objects.filter(pk=pa.pk)
+            self.fields['personal_account'].initial = pa
 
 
 UnitFormSet = modelformset_factory(Unit, fields=('name',), extra=0, can_delete=True)
@@ -214,10 +218,10 @@ class PersonalAccountForm(forms.ModelForm):
 
 
 class CashboxRecordForm(forms.ModelForm):
-    owner = forms.ModelChoiceField(queryset=db_utils.get_all_owners(), empty_label='Выберите...', required=False)
+    owner = forms.ModelChoiceField(queryset=db_utils.get_active_owners(), empty_label='Выберите...', required=False)
     personal_account = forms.ModelChoiceField(queryset=db_utils.get_personal_accounts(), empty_label='Выберите...', required=False)
     manager = forms.ModelChoiceField(queryset=db_utils.get_all_workers(), empty_label='Выберите...', required=False)
-    payment_type = forms.ModelChoiceField(queryset=PaymentType.objects.all(), empty_label='Выберите...', required=False)
+    payment_type = forms.ModelChoiceField(queryset=PaymentType.objects.all(), empty_label='Выберите...')
     
     class Meta:
         model = CashboxRecord
@@ -285,12 +289,26 @@ class ReceiptForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         update = kwargs.pop('update', None)
+        flat = kwargs.pop('flat', None)
+        receipt = kwargs.pop('receipt', None)
         super().__init__(*args, **kwargs)
         if not update:
             self.fields['number'].initial = get_auto_id(Receipt)
             self.fields['creation_date'].initial = get_dt_now_object()
             self.fields['start_date'].initial = get_dt_now_object()
             self.fields['end_date'].initial = get_dt_now_object()
+            if flat:
+                self.fields['house'].initial = flat.floor.section.house
+                self.fields['section'].queryset = db_utils.get_house_sections(flat.floor.section.house.pk)
+                self.fields['section'].initial = flat.floor.section
+                self.fields['flat'].queryset = db_utils.get_current_and_empty_flats(flat.pk, flat.floor.section.pk)
+                self.fields['flat'].initial = flat
+            if receipt:
+                self.fields['house'].initial = receipt.flat.floor.section.house
+                self.fields['section'].queryset = db_utils.get_house_sections(receipt.flat.floor.section.house.pk)
+                self.fields['section'].initial = receipt.flat.floor.section
+                self.fields['flat'].queryset = db_utils.get_current_and_empty_flats(receipt.flat.pk, receipt.flat.floor.section.pk)
+                self.fields['flat'].initial = receipt.flat
         else:
             self.fields['house'].initial = self.instance.flat.floor.section.house
             self.fields['section'].queryset = db_utils.get_house_sections(self.instance.flat.floor.section.house.pk)
@@ -317,7 +335,7 @@ class FlatChoiceField(forms.ModelChoiceField):
 
 
 class TicketForm(forms.ModelForm):
-    owner = forms.ModelChoiceField(queryset=db_utils.get_all_owners(), empty_label='Выберите...', required=False)
+    owner = forms.ModelChoiceField(queryset=db_utils.get_active_owners(), empty_label='Выберите...', required=False)
     flat = FlatChoiceField(queryset=db_utils.get_flats(), empty_label='Выберите...')
     master_type = forms.ModelChoiceField(queryset=db_utils.get_roles(), empty_label='Любой специалист', required=False)
     master = forms.ModelChoiceField(queryset=db_utils.get_all_workers(), empty_label='Выберите...', required=False)
@@ -352,3 +370,14 @@ class OwnerTicketForm(forms.ModelForm):
         owner = kwargs.pop('owner', None)
         super().__init__(*args, **kwargs)
         self.fields['flat'].queryset = db_utils.get_owner_flats(owner=owner)
+
+
+class MessageForm(forms.ModelForm):
+    house = forms.ModelChoiceField(queryset=db_utils.get_houses(), empty_label='Всем...', required=False)
+    section = forms.ModelChoiceField(queryset=Section.objects.none(), empty_label='Всем...', required=False)
+    floor = forms.ModelChoiceField(queryset=Floor.objects.none(), empty_label='Всем...', required=False)
+    flat = forms.ModelChoiceField(queryset=Flat.objects.none(), empty_label='Всем...', required=False)
+
+    class Meta:
+        model = Message
+        fields = ('subject', 'body', 'for_debtors', 'house', 'section', 'floor', 'flat')

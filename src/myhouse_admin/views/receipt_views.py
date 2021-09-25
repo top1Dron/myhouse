@@ -31,31 +31,17 @@ class ReceiptListView(utils.PermissionRequiredMixin, ListView):
         context['cb_balances'] = db_utils.get_flat_balances()
         return context
 
+    def get_queryset(self):
+        queryset = Receipt.objects.all().order_by('-creation_date')
+        if 'flat_id' in self.request.GET:
+            queryset = queryset.filter(flat=self.request.GET['flat_id'])
+        return queryset
+
 
 class ReceiptDetailView(utils.PermissionRequiredMixin, DetailView):
     model = Receipt
     permission_required = '3'
     template_name = 'receipts/receipt_detail.html'
-
-
-
-class ReceiptCreateView(utils.PermissionRequiredMixin, CreateView):
-    model = Receipt
-    form_class = ReceiptForm
-    template_name = 'receipts/receipt_create.html'
-    permission_required = '3'
-
-    def get_success_url(self) -> str:
-        return reverse_lazy('myhouse_admin:receipt_list')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['meters'] = db_utils.get_all_meter_readings()
-        context['load_house_sections_url'] = reverse_lazy('myhouse_admin:load_house_sections')
-        context['load_section_flats_url'] = reverse_lazy('myhouse_admin:load_section_flats')
-        context['load_empty_flats_url'] = reverse_lazy('myhouse_admin:load_empty_flats')
-        context['load_flat_details'] = reverse_lazy('myhouse_admin:load_flat_details')
-        return context
 
 
 @staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
@@ -78,15 +64,15 @@ def receipt_create_view(request):
                     service.receipt = receipt
                     service.save()
             return redirect(reverse_lazy('myhouse_admin:receipt_list'))
-    form = ReceiptForm()
+    form_kwargs = {}
+    if 'invoice_id' in request.GET:
+        form_kwargs['receipt'] = db_utils.get_receipt(pk=request.GET.get('invoice_id'))
+    if 'flat_id' in request.GET:
+        form_kwargs['flat'] = db_utils.get_flat(pk=request.GET.get('flat_id'))
+    form = ReceiptForm(**form_kwargs)
     
     if 'invoice_id' in request.GET:
         receipt = db_utils.get_receipt(pk=request.GET.get('invoice_id'))
-        form.fields['house'].initial = receipt.flat.floor.section.house
-        form.fields['section'].queryset = db_utils.get_house_sections(receipt.flat.floor.section.house.pk)
-        form.fields['section'].initial = receipt.flat.floor.section
-        form.fields['flat'].queryset = db_utils.get_current_and_empty_flats(receipt.flat.pk, receipt.flat.floor.section.pk)
-        form.fields['flat'].initial = receipt.flat
         initial = list(receipt.r_services.values('service', 'consumption', 'unit', 'unit_price', 'total_price'))
         service_formset = ReceiptServiceFormSet(prefix='service', queryset=ReceiptService.objects.none(), initial=initial)
         service_formset.extra = len(initial)
@@ -149,4 +135,13 @@ def receipt_update_view(request, pk):
 @utils.permission_required('3')
 def delete_receipt_view(request, pk):
     db_utils.get_receipt(pk=pk).delete()
+    return JsonResponse({})
+
+
+@staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
+@require_http_methods(['POST'])
+@utils.permission_required('3')
+def receipt_delete_many(request):
+    for receipt_id in request.POST.getlist('ids[]', []):
+        db_utils.get_receipt(pk=receipt_id).delete()
     return JsonResponse({})

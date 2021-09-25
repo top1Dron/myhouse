@@ -20,7 +20,6 @@ logger = logging.getLogger(__name__)
 
 class CashboxListView(PermissionRequiredMixin, ListView):
     model = CashboxRecord
-    queryset = db_utils.get_cashbox_records()
     context_object_name = 'cashbox_records'
     template_name = 'cashbox/cb_list.html'
     permission_required = '2'
@@ -34,6 +33,14 @@ class CashboxListView(PermissionRequiredMixin, ListView):
         context['cb_balances'] = db_utils.get_flat_balances()
         return context
 
+    def get_queryset(self):
+        queryset = db_utils.get_cashbox_records()
+        if 'type' in self.request.GET:
+            queryset = queryset.filter(payment_type__type='0' if self.request.GET['type'] == 'in' else '1')
+        if 'account_id' in self.request.GET:
+            queryset = queryset.filter(personal_account=self.request.GET['account_id'])
+        return queryset
+
 
 class CashboxRecordCreateView(PermissionRequiredMixin, CreateView):
     model = CashboxRecord
@@ -43,6 +50,12 @@ class CashboxRecordCreateView(PermissionRequiredMixin, CreateView):
 
     def get_success_url(self) -> str:
         return reverse_lazy('myhouse_admin:cashbox_list')
+    
+    def get_form_kwargs(self, *args, **kwargs):
+        kwargs = super().get_form_kwargs(*args, **kwargs)
+        if 'account_id' in self.request.GET:
+            kwargs['pa'] = db_utils.get_personal_account(pk=self.request.GET['account_id'])
+        return kwargs
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

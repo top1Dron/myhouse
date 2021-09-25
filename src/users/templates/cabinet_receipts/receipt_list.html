@@ -1,0 +1,71 @@
+{% extends 'cabinet_layout/base.html' %}
+
+{% load static %}
+
+{% block title %}Квитанции на оплату{% endblock title %}
+
+{% block receipts %}active{% endblock receipts %}
+
+{% block main_content %}
+<section class="content-header d-flex justify-content-between">
+    <h1 class="ml-2">Квитанции на оплату</h1>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'users:summary' %}{% if owner_ID is not None %}?owner_ID={{owner_ID}}{% endif %}" class="text-dark"><i class="fa fa-home"></i> Главная</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Квитанции на оплату</li>
+        </ol>
+    </nav>
+</section>
+<div class="dropdown-divider"></div>
+<div class="content">
+    <div class="card mr-2 ml-2">
+        <div class="card-header">
+            <div class="row d-flex justify-content-end mr-3">
+                <a href="{% url 'myhouse_admin:receipt_list' %}" class="btn btn-default">Очистить</a>
+            </div>
+        </div>
+        <div class="card-body table-responsive p-0">
+            {% csrf_token %}
+            <table class="table table-bordered table-striped" id="id_receipts_table">
+                <thead>
+                    <tr>
+                        <th>№ квитанции</th>
+                        <th>Дата</th>
+                        <th>Статус</th>
+                        <th>Сумма (грн)</th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for receipt in receipts %}
+                    <tr data-href="{% url 'users:receipt_detail' receipt.pk %}{% if owner_ID is not None %}?owner_ID={{owner_ID}}{% endif %}">
+                        <td>{{receipt.number}}</td>
+                        <td>{{receipt.creation_date|date:"d.m.Y"}}</td>
+                        {% if receipt.status == '3' %}
+                            <td><span class="badge badge-success">{{ receipt.get_status_display }}</span></td>
+                        {% elif receipt.status == '1' %}
+                            <td><span class="badge badge-danger">{{ receipt.get_status_display }}</span></td>
+                        {% elif receipt.status == '2' %}
+                            <td><span class="badge badge-warning">{{ receipt.get_status_display }}</span></td>
+                        {% endif %}
+                        <td>{{ receipt.summary|stringformat:".2f" }}</td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="4">Квитанций не обнаружено</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}
+
+{% block extra_js %}
+    <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+    <script src="{% static 'js/receipt_list.js' %}" type="module"></script>
+{% endblock extra_js %}

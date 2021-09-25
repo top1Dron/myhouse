@@ -10,7 +10,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
 from myhouse_admin.forms.forms import FlatForm
-from myhouse_admin.models import Flat
+from myhouse_admin.models import Flat, Floor, Section
 from myhouse_admin.utils import db_utils
 from myhouse_admin.utils.utils import permission_required, PermissionRequiredMixin
 
@@ -31,34 +31,24 @@ class FlatCreateView(PermissionRequiredMixin, CreateView):
         context['load_empty_flats_url'] = reverse_lazy('myhouse_admin:load_empty_flats')
         return context
 
-    def form_invalid(self, form):
-        if ('floor' not in self.request.POST
-            or 'number' not in form.cleaned_data
-            or 'square' not in form.cleaned_data
-            or 'owner' not in form.cleaned_data
-            or 'tariff' not in form.cleaned_data
-            or 'personal_account' not in form.cleaned_data):
-            return super().form_invalid(form)
-        else:
-            flat = db_utils.create_flat(
-                number=form.cleaned_data.get('number'),
-                square=form.cleaned_data.get('square'),
-                owner=form.cleaned_data.get('owner'),
-                tariff=form.cleaned_data.get('tariff'),
-                floor=db_utils.get_floor(pk=self.request.POST.get('floor')),
-            )
-            if flat:
-                if form.cleaned_data.get('personal_account') is not None:
-                    pa = db_utils.get_personal_account(
-                        pk=form.cleaned_data.get('personal_account'))
-                    pa.flat = flat
-                    pa.save()
-                if 'another' in self.request.POST:
-                    return redirect(reverse_lazy('myhouse_admin:flat_create'))
-                else:
-                    return redirect(reverse_lazy('myhouse_admin:flat_detail', kwargs={'pk':flat.pk}))
+    def post(self, request, *args, **kwargs):
+        form = FlatForm(request.POST)
+        form.fields['section'].queryset = Section.objects.all()
+        form.fields['floor'].queryset = Floor.objects.all()
+        if form.is_valid():
+            flat = form.save()
+            if form.cleaned_data.get('personal_account') is not None and flat:
+                pa = db_utils.get_personal_account(
+                    pk=form.cleaned_data.get('personal_account'))
+                pa.flat = flat
+                pa.save()
+            if 'another' in self.request.POST:
+                return redirect(reverse_lazy('myhouse_admin:flat_create'))
             else:
-                return super().form_invalid(form)
+                return redirect(reverse_lazy('myhouse_admin:flat_detail', kwargs={'pk':flat.pk}))
+        context = self.get_context_data()
+        context['form'] = form
+        return render(request, 'flats/flat_create.html', context)
 
 
 class FlatDetailView(PermissionRequiredMixin, DetailView):
@@ -84,6 +74,7 @@ class FlatUpdateView(PermissionRequiredMixin, UpdateView):
     def get_form_kwargs(self, *args, **kwargs):
         kwargs = super().get_form_kwargs(*args, **kwargs)
         kwargs['floor'] = self.get_object().floor
+        kwargs['pa'] = self.get_object().flat_personal_account
         return kwargs
 
     def get_success_url(self) -> str:
@@ -196,7 +187,10 @@ def load_flat_details(request):
     if flat is not None:
         owner = f'<a href="{reverse_lazy("myhouse_admin:owner_detail", kwargs={"pk": flat.owner.pk})}">{flat.owner}</a>'
         owner_phone = f'<a href="tel:{flat.owner.user.phone_number}">{flat.owner.user.phone_number}</a>'
-        flat_tariff = f'<a href="{reverse_lazy("myhouse_admin:tariff_detail", kwargs={"pk": flat.tariff.pk})}">{flat.tariff}</a>'
+        try:
+            flat_tariff = f'<a href="{reverse_lazy("myhouse_admin:tariff_detail", kwargs={"pk": flat.tariff.pk})}">{flat.tariff}</a>'
+        except:
+            flat_tariff = 'не выбран'
     else:
         owner = owner_phone = flat_tariff = 'не выбран'
     return JsonResponse({'flat_owner_name': owner, 'flat_owner_phone': owner_phone, 'flat_tariff': flat_tariff})
@@ -219,3 +213,11 @@ def delete_flat(request, pk):
     except:
         pass
     return JsonResponse({})
+
+
+@staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
+@require_http_methods(['GET'])
+@permission_required('5')
+def load_floor_flats(request):
+    flats = db_utils.get_floor_flats(request.GET.get('floor'))
+    return render(request, 'flats/flat_dropdown_list_options.html', {'flats': flats})

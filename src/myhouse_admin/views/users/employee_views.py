@@ -193,7 +193,8 @@ class EmployeeCreateView(PermissionRequiredMixin, CreateView):
 @permission_required('15')
 def delete_employee(request, pk):
     employee = db_utils.get_employee_object_by_params(pk=pk)
-    employee.user.delete()
+    employee.user.status = '0'
+    employee.user.save()
     return JsonResponse({})
     
 

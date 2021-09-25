@@ -11,9 +11,10 @@ from django.views.generic.edit import CreateView
 from myhouse_admin.utils import db_utils, utils
 
 
-class OwnerRequestsDetailView(DetailView):
+class OwnerRequestsDetailView(utils.PermissionRequiredMixin, DetailView):
     template_name = 'master_calling/index.html'
     context_object_name = 'owner'
+    owner_cabinet = True
 
     def get_object(self):
         if 'owner_ID' in self.request.GET and hasattr(self.request.user, 'employee'):
@@ -34,10 +35,11 @@ class OwnerRequestsDetailView(DetailView):
         return context
 
 
-class OwnerRequestCreateView(CreateView):
+class OwnerRequestCreateView(utils.PermissionRequiredMixin, CreateView):
     model = Ticket
     form_class = OwnerTicketForm
     template_name = 'master_calling/create.html'
+    owner_cabinet = True
 
     def get_success_url(self) -> str:
         url = reverse_lazy('users:owner_requests_list')

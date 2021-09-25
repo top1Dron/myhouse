@@ -34,8 +34,6 @@ $(document).ready(function(){
 function deleteUnit(button, totalFormsId, update=false){
     if(!update){
         $(button).parent().parent().remove();
-        var form_idx = $(`#${totalFormsId}`).val();
-        $(`#${totalFormsId}`).val(parseInt(form_idx) - 1);
     }else{
         deleteObject(button, getCookie('csrftoken'), 
         'Вы уверены, что хотите удалить данные этой единицы измерения из базы данных?',
@@ -46,8 +44,6 @@ function deleteUnit(button, totalFormsId, update=false){
 function deleteService(button, totalFormsId, update=false){
     if(!update){
         $(button).parent().parent().parent().remove();
-        var form_idx = $(`#${totalFormsId}`).val();
-        $(`#${totalFormsId}`).val(parseInt(form_idx) - 1);
     }else{
         deleteObject(button, getCookie('csrftoken'), 
         'Вы уверены, что хотите удалить данные этой единицы измерения из базы данных?',

@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.db.models.aggregates import Sum
 from django.shortcuts import get_object_or_404
 
-from myhouse_admin.models import Block, AboutUsPageImage, AboutUsPageAdditionalImage, CashboxRecord, Flat, Floor, House, MeterReading, PaymentType, Receipt, ReceiptService, Section, PersonalAccount, Service, Tariff, TariffService, Ticket, Unit
+from myhouse_admin.models import Block, AboutUsPageImage, AboutUsPageAdditionalImage, CashboxRecord, Flat, Floor, House, Message, MeterReading, PaymentType, Receipt, ReceiptService, Section, PersonalAccount, Service, Tariff, TariffService, Ticket, Unit
 from users.models import Employee, Role, User, Owner 
 
 
@@ -23,6 +23,14 @@ def get_all_workers() -> Iterable[Employee]:
 
 def get_all_owners() -> Iterable[Owner]:
     return Owner.objects.all()
+
+
+def get_active_owners() -> Iterable[Owner]:
+    return get_all_owners().filter(user__status__in=['1', '2'])
+
+
+def get_new_owners() -> Iterable[Owner]:
+    return get_all_owners().filter(user__status='1')
 
 
 def get_owners_choices() -> tuple[int, str]:
@@ -123,6 +131,10 @@ def get_ticket(**kwargs) -> Ticket:
 
 def get_receipt(**kwargs) -> Receipt:
     return get_object_or_404(Receipt, **kwargs)
+
+
+def get_message(**kwargs) -> Message:
+    return get_object_or_404(Message, **kwargs)
 
 
 def delete_house_worker(employee_pk: int, house_pk: int) -> None:
@@ -233,6 +245,9 @@ def get_section_flats(section_id) -> Iterable[Flat]:
         return Flat.objects.filter(floor__section=section_id)
     except:
         return Flat.objects.none()
+
+def get_floor_flats(floor_id) -> Iterable[Flat]:
+    return Flat.objects.filter(floor=floor_id)
 
 
 def get_current_and_empty_flats(flat_id, section_id) -> Iterable[Flat]:
@@ -362,7 +377,64 @@ def get_flats_without_indebtedness() -> Iterable[Flat]:
 
 
 def get_indebtedness() -> float:
-    return -sum([flat.balance for flat in get_flats_with_indebtedness()])
+    indebtedness = Receipt.objects.filter(status__in=['1', '2']).aggregate(Sum('summary'))['summary__sum']
+    return 0.0 if indebtedness is None else indebtedness
 
 def get_flat_balances() -> float:
     return sum([flat.balance for flat in get_flats_without_indebtedness()])
+
+
+def create_cashbox_out(**kwargs) -> CashboxRecord:
+    return CashboxRecord.objects.create(**kwargs)
+
+
+def get_tickets_in_progress() -> Iterable[Ticket]:
+    return Ticket.objects.filter(status='2')
+
+
+def get_new_tickets() -> Iterable[Ticket]:
+    return Ticket.objects.filter(status='1')
+
+
+def get_cashbox_in_per_year(year: int) -> list[float]:
+    result = []
+    for month in range(1, 13):
+        month_in = CashboxRecord.objects.filter(
+            payment_type__type="0", 
+            date__year=year, 
+            date__month=month).aggregate(Sum('summary'))['summary__sum']
+        result.append(0.0 if month_in is None else float(month_in))
+    return result
+
+
+def get_cashbox_out_per_year(year: int) -> list[float]:
+    result = []
+    for month in range(1, 13):
+        month_out = CashboxRecord.objects.filter(
+            payment_type__type="1", 
+            date__year=year, 
+            date__month=month).aggregate(Sum('summary'))['summary__sum']
+        result.append(0.0 if month_out is None else float(month_out))
+    return result
+
+
+def get_indebtedness_per_year(year: int) -> list[float]:
+    result = []
+    for month in range(1, 13):
+        month_indebtedness = Receipt.objects.filter(
+            creation_date__year=year,
+            creation_date__month=month,
+            status__in=['1', '2']).aggregate(Sum('summary'))['summary__sum']
+        result.append(0.0 if month_indebtedness is None else float(month_indebtedness))
+    return result
+
+
+def get_repaid_indebtedness_per_year(year: int) -> list[float]:
+    result = []
+    for month in range(1, 13):
+        month_repaid_indebtedness = Receipt.objects.filter(
+            creation_date__year=year,
+            creation_date__month=month,
+            status='3').aggregate(Sum('summary'))['summary__sum']
+        result.append(0.0 if month_repaid_indebtedness is None else float(month_repaid_indebtedness))
+    return result

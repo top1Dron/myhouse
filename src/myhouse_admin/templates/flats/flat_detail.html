@@ -24,7 +24,7 @@
                 <div class="card-header row d-flex">
                     <h3 class="mr-auto">Просмотр квартиры</h3>
                     {% if flat.flat_personal_account is not None %}
-                    <a href="#" class="btn btn-default mr-1">
+                    <a href="{% url 'myhouse_admin:cashbox_record_create' %}?type=in&account_id={{flat.flat_personal_account.pk}}" class="btn btn-default mr-1">
                     {% else %}
                     <a href="#" class="btn btn-default mr-1 disabled">
                     {% endif %}
@@ -33,7 +33,7 @@
                         </svg>Принять платеж
                     </a>
                     {% if flat.flat_personal_account is not None %}
-                    <a href="#" class="btn btn-default mr-1">
+                    <a href="{% url 'myhouse_admin:receipt_create' %}?flat_id={{flat.pk}}" class="btn btn-default mr-1">
                     {% else %}
                     <a href="#" class="btn btn-default mr-1 disabled">
                     {% endif %}
@@ -96,13 +96,15 @@
                             </table>
                         </div>
                         <div class="col-12 my-2">
-                            <a href="#" class="text-decoration-none">Посмотреть показания счётчиков</a>
+                            <a href="{% url 'myhouse_admin:meter_reading_list' %}?flat_id={{flat.pk}}" class="text-decoration-none">Посмотреть показания счётчиков</a>
                         </div>
+                        {% if flat.flat_personal_account is not None %}
+                            <div class="col-12 mb-2">
+                                <a href="{% url 'myhouse_admin:cashbox_list' %}?type=in&account_id={{flat.flat_personal_account.pk}}" class="text-decoration-none">Посмотреть приходы</a>
+                            </div>
+                        {% endif %}
                         <div class="col-12 mb-2">
-                            <a href="#" class="text-decoration-none">Посмотреть приходы</a>
-                        </div>
-                        <div class="col-12 mb-2">
-                            <a href="#" class="text-decoration-none">Посмотреть квитанции</a>
+                            <a href="{% url 'myhouse_admin:receipt_list' %}?flat_id={{flat.pk}}" class="text-decoration-none">Посмотреть квитанции</a>
                         </div>
                     </div>
                 </div>

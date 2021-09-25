@@ -127,5 +127,6 @@ class OwnerUpdateView(PermissionRequiredMixin, UpdateView):
 @permission_required('6')
 def delete_owner(request, pk):
     owner = db_utils.get_owner_object_by_params(pk=pk)
-    owner.user.delete()
+    owner.user.status = '0'
+    owner.user.save()
     return JsonResponse({})

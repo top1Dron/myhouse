@@ -1,6 +1,10 @@
 import { updateURLParameter, deleteObject, getCookie } from '../../services.js'
 
 $(document).ready(function(){
+    $('.delete-house-button').click(function(e){
+        e.stopPropagation();
+    });
+    
     $('tr[data-href]').on("click", function() {
         document.location = $(this).data('href');
     });

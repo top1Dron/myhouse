@@ -19,6 +19,11 @@ from users.forms import LoginForm
 logger = logging.getLogger(__name__)
 
 
+def cabinet_logout(request):
+    auth_logout(request)
+    return redirect(reverse_lazy('users:login'))
+
+
 def cabinet_login(request):
     form = LoginForm()
 
@@ -55,7 +60,7 @@ def cabinet_login(request):
     return render(request, 'auth/cabinet_login.html', {'form': form})
 
 
-class CabinetDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+class CabinetDetailView(PermissionRequiredMixin, DetailView):
     template_name = 'cabinet/owner_profile.html'
     context_object_name = 'owner'
     owner_cabinet = True

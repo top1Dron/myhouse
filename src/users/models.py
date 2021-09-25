@@ -42,7 +42,16 @@ class User(AbstractUser):
     def save(self, *args, **kwargs):
         if self.status == '0':
             self.is_active = False
+        else:
+            self.is_active = True
         super().save(*args, **kwargs)
+
+    @property
+    def user_owner(self):
+        try:
+            return self.owner
+        except:
+            return None
 
 
 class Role(models.Model):
@@ -127,9 +136,13 @@ class Owner(models.Model):
     @property
     def have_debts(self) -> bool:
         for flat in self.flats.all():
-            if flat.balance < 0:
+            if flat.actual_balance < 0:
                 return True
         return False
+
+    @property
+    def messages(self):
+        return 
     
     def __str__(self) -> str:
         return f'{self.user.last_name} {self.user.first_name}'

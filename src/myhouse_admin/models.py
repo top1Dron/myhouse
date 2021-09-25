@@ -4,7 +4,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.contenttypes.models import ContentType
 from django.core import validators
 from django.db import models
-from django.db.models.aggregates import Sum
+from django.db.models.aggregates import Avg, Sum
 from django.db.models.fields.files import ImageField
 from django.dispatch import receiver
 
@@ -33,6 +33,10 @@ class House(models.Model):
         result = 0
         result += sum(section.floor_set.count() for section in self.section_set.all())
         return result
+
+    @property
+    def owners(self):
+        return set([flat.owner for flat in Flat.objects.filter(floor__section__house=self)])
 
 
 class Unit(models.Model):
@@ -79,6 +83,10 @@ class Section(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    
+    @property
+    def owners(self):
+        return set([flat.owner for flat in Flat.objects.filter(floor__section=self)])
 
 
 class Floor(models.Model):
@@ -90,6 +98,10 @@ class Floor(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+    @property
+    def owners(self):
+        return set([flat.owner for flat in Flat.objects.filter(floor=self)])
 
 
 class Flat(models.Model):
@@ -116,14 +128,33 @@ class Flat(models.Model):
     def __str__(self) -> str:
         return f'{self.number}'
 
-    
     @property
     def balance(self) -> float:
-        flat_cb_in: float = CashboxRecord.objects.filter(personal_account=self.flat_personal_account).aggregate(Sum('summary'))['summary__sum']
+        flat_cb_in: float = CashboxRecord.objects.filter(personal_account__flat=self).aggregate(Sum('summary'))['summary__sum']
+        flat_receipts_summary: float = Receipt.objects.filter(flat=self, status='3').aggregate(Sum('summary'))['summary__sum']
+        flat_cb_in = 0.0 if flat_cb_in is None else flat_cb_in
+        flat_receipts_summary = 0.0 if flat_receipts_summary is None else flat_receipts_summary
+        return flat_cb_in - flat_receipts_summary
+
+    @property
+    def actual_balance(self) -> float:
+        flat_cb_in: float = CashboxRecord.objects.filter(personal_account__flat=self).aggregate(Sum('summary'))['summary__sum']
         flat_receipts_summary: float = Receipt.objects.filter(flat=self).aggregate(Sum('summary'))['summary__sum']
         flat_cb_in = 0.0 if flat_cb_in is None else flat_cb_in
         flat_receipts_summary = 0.0 if flat_receipts_summary is None else flat_receipts_summary
         return flat_cb_in - flat_receipts_summary
+
+    @property
+    def indebtedness(self) -> float:
+        flat_receipts_summary: float = Receipt.objects.filter(flat=self, status__in=['1', '2']).aggregate(Sum('summary'))['summary__sum']
+        return 0.0 if flat_receipts_summary is None else flat_receipts_summary
+
+    @property
+    def avg_spending(self) -> float:
+        try:
+            return float(self.receipts.all().aggregate(Avg('summary'))['summary__avg'])
+        except:
+            return 0.00
 
 
 class PersonalAccount(models.Model):
@@ -181,7 +212,7 @@ class Receipt(models.Model):
     creation_date = models.DateField()
     start_date = models.DateField()
     end_date = models.DateField()
-    flat = models.ForeignKey(Flat, on_delete=models.CASCADE)
+    flat = models.ForeignKey(Flat, on_delete=models.CASCADE, related_name='receipts')
     summary = models.FloatField(validators=[validators.MinValueValidator(0.0)])
 
 
@@ -226,9 +257,28 @@ class Ticket(models.Model):
 
 class Message(models.Model):
     sender = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    text = models.TextField()
+    subject = models.CharField(max_length=255)
+    body = models.TextField()
     send_date = models.DateTimeField(auto_now_add=True)
-    recipients = models.CharField(max_length=100)
+    for_debtors = models.BooleanField(default=False)
+    recipients = models.ManyToManyField(Owner, related_name='messages')
+    house = models.ForeignKey(House, on_delete=models.CASCADE, null=True, blank=True)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, null=True, blank=True)
+    floor = models.ForeignKey(Floor, on_delete=models.CASCADE, null=True, blank=True)
+    flat = models.ForeignKey(Flat, on_delete=models.CASCADE, null=True, blank=True)
+
+    @property
+    def recipients_to_str(self) -> str:
+        if self.flat is not None:
+            return f"{self.flat.floor.section.house}, {self.flat.floor.section}, {self.flat.floor}, кв.{self.flat}"
+        elif self.floor is not None:
+            return f"{self.floor.section.house}, {self.floor.section}, {self.floor}"
+        elif self.section is not None:
+            return f"{self.section.house}, {self.section}"
+        elif self.house is not None:
+            return f"{self.house}"
+        else:
+            return "Всем"
 
 
 class Block(models.Model):

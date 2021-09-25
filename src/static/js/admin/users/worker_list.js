@@ -37,12 +37,13 @@ $(document).ready(function(){
                 document.getElementById('id_email_search_field').value);
         }
     });
-    $('tr[data-href]').on("click", function() {
-        document.location = $(this).data('href');
-    });
     $('.delete-employee-button').click(function(e){
+        e.stopPropagation();
         deleteObject(this, getCookie('csrftoken'), 
             'Вы уверены, что хотите удалить данные этого пользователя из базы данных?',
             'Данные о пользователе удалены успешно!')
+    });
+    $('tr[data-href]').on("click", function() {
+        document.location = $(this).data('href');
     });
 })

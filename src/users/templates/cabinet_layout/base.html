@@ -41,10 +41,81 @@
     </ul>
 
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <p class="text-dark">{{user.get_full_name}}</p>
-            </a>
+        {% if user.user_owner is None %}
+        <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            <i class="fa fa-child fa-lg"></i>
+            <span class="badge badge-warning navbar-badge">{{new_owners_count}}</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <span class="dropdown-header">Новых пользователей: {{new_owners_count}}</span>
+            <div class="dropdown-divider"></div>
+                {% for o in new_owners %}
+                    <a href="{% url 'myhouse_admin:owner_detail' o.pk %}" class="dropdown-item">
+                       {{o}}
+                    </a>
+                <div class="dropdown-divider"></div>
+                {% endfor %}
+                <a href="{% url 'myhouse_admin:owner_list' %}" class="dropdown-item dropdown-footer">Перейти в раздел пользователей</a>
+          </div>
+        </li>
+        {% else %}
+        <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            <i class="far fa-bell fa-lg"></i>
+            <span class="badge badge-warning navbar-badge">{{user.owner.messages.count}}</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <span class="dropdown-header">Новых сообщений: {{user.owner.messages.count}}</span>
+            <div class="dropdown-divider"></div>
+                {% for msg in user.owner.messages.all %}
+                    <a href="{% url 'users:message_detail' msg.pk %}" class="dropdown-item">
+                       {{msg.subject}}
+                    </a>
+                    <div class="dropdown-divider"></div>
+                {% empty %}
+                    <p class="my-2 ml-2">Нет новых сообщений</p>
+                    <div class="dropdown-divider"></div>
+                {% endfor %}
+                <a href="{% url 'users:message_index' %}" class="dropdown-item dropdown-footer">Перейти в раздел сообщений</a>
+          </div>
+        </li>
+        {% endif %}
+        <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            {% if user.user_owner is not None %}
+                {% if user.owner.avatar.url %}
+                    <img src="{{ MEDIA_URL }}{{ user.owner.avatar.url }}" width="32" height="32" class="rounded-circle">
+                {% else %}
+                    <i class="fas fa-user-circle text-purple bg-gray-light img-circle"></i>
+                {% endif %}
+            {% else %}
+                <i class="fas fa-user-circle text-purple bg-gray-light img-circle" width="32" height="32"></i>
+            {% endif %}
+            {{user.get_full_name}}
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <div class="card">
+                <div class="card-body bg-warning text-center" style="height:170px;">
+                    {% if user.owner.avatar.url %}
+                        <img src="{{ MEDIA_URL }}{{ user.owner.avatar.url }}" width="80" height="80" class="rounded-circle">
+                    {% else %}
+                        <i class="fas fa-user-circle text-purple bg-gray-light img-circle" style="font-size: 5.73em;"></i>
+                    {% endif %}
+                    <p class="text-light" style="font-size:20px">{{user.get_full_name}}</p>
+                </div>
+                <div class="card-footer">
+                    <div class="row f-flex justify-content-between">
+                        {% if user.user_owner is not None %}
+                            <a href="{% url 'users:profile_update' %}" class="btn btn-default">Профиль</a>
+                        {% else %}
+                            <a href="{% url 'myhouse_admin:worker_update' user.employee.pk %}" class="btn btn-default">Профиль</a>
+                        {% endif %}
+                        <a href="{% url 'users:logout' %}" class="btn btn-default">Выход</a>
+                    </div>
+                </div>
+            </div>
+          </div>
         </li>
     </ul>
   </nav>
@@ -99,7 +170,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'myhouse_admin:payment_type_list' %}">
+                        <a class="nav-link" href="{% url 'users:receipt_index' %}{% if owner_ID is not None %}?owner_ID={{owner_ID}}{% endif %}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
                                 <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
                             </svg>
@@ -108,7 +179,7 @@
                     </li>
                     {% for flat in flats %}
                     <li class="nav-item">
-                        <a class="nav-link {% block payment_types %}{% endblock payment_types %}" href="{% url 'myhouse_admin:payment_type_list' %}">
+                        <a class="nav-link" href="{% url 'users:receipt_index' %}?flat_id={{flat.pk}}{% if owner_ID is not None %}&owner_ID={{owner_ID}}{% endif %}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
                                 <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
                                 <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
@@ -145,7 +216,7 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link {% block messages %}{% endblock messages %}" href="#">
+                <a class="nav-link {% block messages %}{% endblock messages %}" href="{% url 'users:message_index' %}{% if owner_ID is not None %}?owner_ID={{owner_ID}}{% endif %}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
                         <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
                     </svg>

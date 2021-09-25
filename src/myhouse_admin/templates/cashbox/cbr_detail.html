@@ -83,7 +83,14 @@
                                     </tr>
                                     <tr>
                                         <td class="font-weight-bold">Квитанция</td>
-                                        <td>не указано</td>
+                                        <td>
+                                            {% if cashbox_record.receipt is not None %}
+                                                <a href="{% url 'myhouse_admin:receipt_detail' cashbox_record.receipt.pk %}">{{cashbox_record.receipt.number}}&nbsp; от &nbsp;{{cashbox_record.receipt.creation_date|date:"d.m.Y"}}</a>
+                                            {% else %}
+                                                не указано
+                                            {% endif %}
+                                            
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="font-weight-bold">Услуга</td>
@@ -111,7 +118,7 @@
                                     </tr>
                                     <tr>
                                         <td class="font-weight-bold">Комментарий</td>
-                                        <td>{{cashbox_record.comment}}</td>
+                                        <td>{{cashbox_record.comment|default_if_none:""}}</td>
                                     </tr>
                                 </tbody>
                             </table>

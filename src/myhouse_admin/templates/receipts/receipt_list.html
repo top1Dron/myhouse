@@ -6,6 +6,10 @@
 
 {% block receipts %}bg-light{% endblock receipts %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+{% endblock extra_css %}
+
 {% block main_content %}
 <section class="content-header d-flex justify-content-between">
     <h1 class="ml-2">Квитанции на оплату</h1>
@@ -31,7 +35,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a href="{% url 'myhouse_admin:receipt_create' %}" class="dropdown-item">Создать общую квитанцию</a>
-                    <a class="dropdown-item" href="#">Удалить</a>
+                    <button class="dropdown-item" id="id_delete_many" type="button" delete-url="{% url 'myhouse_admin:receipt_delete_many' %}">Удалить</button>
                 </div>
             </div>
         </div>
@@ -47,7 +51,12 @@
             <table class="table table-bordered table-striped" id="id_receipts_table">
                 <thead>
                     <tr>
-                        <th></th>
+                        <td>
+                            <div class="icheck-primary">
+                                <input type="checkbox" id='id_selection_all' name='selection_all' value="1">
+                                <label for="id_selection_all"></label>
+                            </div>
+                        </td>
                         <th>№ квитанции</th>
                         <th>Статус</th>
                         <th>Дата</th>
@@ -74,7 +83,12 @@
                 <tbody>
                 {% for receipt in receipts %}
                     <tr data-href="{% url 'myhouse_admin:receipt_detail' receipt.pk %}">
-                        <td></td>
+                        <td>
+                            <div class="icheck-primary">
+                                <input type="checkbox" name='receipts_check' value="{{receipt.pk}}" id="id_check_{{forloop.counter}}">
+                                <label for="id_check_{{forloop.counter}}"></label>
+                            </div>
+                        </td>
                         <td>{{receipt.number}}</td>
                         {% if receipt.status == '3' %}
                             <td><span class="badge badge-success">{{ receipt.get_status_display }}</span></td>

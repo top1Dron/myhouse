@@ -36,7 +36,7 @@
                 <div class="card-header row d-flex">
                     <h3 class="mr-auto">Просмотр лицевого счета</h3>
                     {% if personal_account.flat is not None %}
-                    <a href="#" class="btn btn-default mr-1">
+                    <a href="{% url 'myhouse_admin:cashbox_record_create' %}?type=in&account_id={{personal_account.pk}}" class="btn btn-default mr-1">
                     {% else %}
                     <a href="#" class="btn btn-default mr-1 disabled">
                     {% endif %}
@@ -45,7 +45,7 @@
                         </svg>Принять платеж
                     </a>
                     {% if personal_account.flat is not None %}
-                    <a href="#" class="btn btn-default mr-1">
+                    <a href="{% url 'myhouse_admin:receipt_create' %}?flat_id={{personal_account.flat.pk}}" class="btn btn-default mr-1">
                     {% else %}
                     <a href="#" class="btn btn-default mr-1 disabled">
                     {% endif %}
@@ -104,15 +104,17 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col-12 my-2">
-                            <a href="#" class="text-decoration-none">Посмотреть показания счётчиков</a>
-                        </div>
-                        <div class="col-12 mb-2">
-                            <a href="#" class="text-decoration-none">Посмотреть приходы</a>
-                        </div>
-                        <div class="col-12 mb-2">
-                            <a href="#" class="text-decoration-none">Посмотреть квитанции</a>
-                        </div>
+                        {% if personal_account.flat is not None %}
+                            <div class="col-12 my-2">
+                                <a href="{% url 'myhouse_admin:meter_reading_list' %}?flat_id={{personal_account.flat.pk}}" class="text-decoration-none">Посмотреть показания счётчиков</a>
+                            </div>
+                            <div class="col-12 mb-2">
+                                <a href="{% url 'myhouse_admin:cashbox_list' %}?type=in&account_id={{personal_account.pk}}" class="text-decoration-none">Посмотреть приходы</a>
+                            </div>
+                            <div class="col-12 mb-2">
+                                <a href="{% url 'myhouse_admin:receipt_list' %}?flat_id={{personal_account.flat.pk}}" class="text-decoration-none">Посмотреть квитанции</a>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

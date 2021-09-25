@@ -41,10 +41,42 @@
     </ul>
 
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <p class="text-dark">{{user.get_full_name}}</p>
-            </a>
+        <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            <i class="fa fa-child fa-lg"></i>
+            <span class="badge badge-warning navbar-badge">{{new_owners_count}}</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <span class="dropdown-header">Новых пользователей: {{new_owners_count}}</span>
+            <div class="dropdown-divider"></div>
+                {% for o in new_owners %}
+                    <a href="{% url 'myhouse_admin:owner_detail' o.pk %}" class="dropdown-item">
+                       {{o}}
+                    </a>
+                <div class="dropdown-divider"></div>
+                {% endfor %}
+                <a href="{% url 'myhouse_admin:owner_list' %}" class="dropdown-item dropdown-footer">Перейти в раздел пользователей</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            <i class="fas fa-user-circle text-purple bg-gray-light img-circle" width="32" height="32"></i>
+            {{user.get_full_name}}
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <div class="card">
+                <div class="card-body bg-warning text-center" style="height:170px;">
+                    <i class="fas fa-user-circle text-purple bg-gray-light img-circle" style="font-size: 5.73em;"></i>
+                    <p class="text-light" style="font-size:20px">{{user.get_full_name}}</p>
+                </div>
+                <div class="card-footer">
+                    <div class="row f-flex justify-content-between">
+                        <a href="{% url 'myhouse_admin:worker_update' user.employee.pk %}" class="btn btn-default">Профиль</a>
+                        <a href="{% url 'myhouse_admin:logout' %}" class="btn btn-default">Выход</a>
+                    </div>
+                </div>
+            </div>
+          </div>
         </li>
     </ul>
   </nav>
@@ -140,7 +172,7 @@
             {% endif %}
             {% if '8' in user.employee.role.abilities %}
             <li class="nav-item">
-                <a class="nav-link {% block messages %}{% endblock messages %}" href="#">
+                <a class="nav-link {% block messages %}{% endblock messages %}" href="{% url 'myhouse_admin:message_list' %}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
                         <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
                     </svg>
