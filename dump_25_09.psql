@@ -1,0 +1,5072 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.3 (Debian 13.3-1.pgdg100+1)
+-- Dumped by pg_dump version 13.3 (Debian 13.3-1.pgdg100+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.auth_group (
+    id integer NOT NULL,
+    name character varying(150) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO admin;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.auth_group_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO admin;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.auth_group_id_seq OWNED BY public.auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.auth_group_permissions (
+    id bigint NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO admin;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO admin;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.auth_group_permissions_id_seq OWNED BY public.auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO admin;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.auth_permission_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO admin;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.auth_permission_id_seq OWNED BY public.auth_permission.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id bigint NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO admin;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.django_admin_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO admin;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.django_admin_log_id_seq OWNED BY public.django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO admin;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.django_content_type_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO admin;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.django_content_type_id_seq OWNED BY public.django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.django_migrations (
+    id bigint NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO admin;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.django_migrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO admin;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.django_migrations_id_seq OWNED BY public.django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO admin;
+
+--
+-- Name: myhouse_admin_aboutuspage; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_aboutuspage (
+    id bigint NOT NULL,
+    heading character varying(100) NOT NULL,
+    short_text text NOT NULL,
+    director_photo character varying(100) NOT NULL,
+    ai_heading character varying(100) NOT NULL,
+    ai_short_text text NOT NULL,
+    seo_title character varying(255),
+    seo_description text,
+    seo_keywords text
+);
+
+
+ALTER TABLE public.myhouse_admin_aboutuspage OWNER TO admin;
+
+--
+-- Name: myhouse_admin_aboutuspage_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_aboutuspage_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_aboutuspage_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_aboutuspage_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_aboutuspage_id_seq OWNED BY public.myhouse_admin_aboutuspage.id;
+
+
+--
+-- Name: myhouse_admin_aboutuspageadditionalimage; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_aboutuspageadditionalimage (
+    id bigint NOT NULL,
+    image character varying(100) NOT NULL,
+    about_us_page_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.myhouse_admin_aboutuspageadditionalimage OWNER TO admin;
+
+--
+-- Name: myhouse_admin_aboutuspageadditionalimage_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_aboutuspageadditionalimage_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_aboutuspageadditionalimage_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_aboutuspageadditionalimage_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_aboutuspageadditionalimage_id_seq OWNED BY public.myhouse_admin_aboutuspageadditionalimage.id;
+
+
+--
+-- Name: myhouse_admin_aboutuspageimage; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_aboutuspageimage (
+    id bigint NOT NULL,
+    image character varying(100) NOT NULL,
+    about_us_page_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.myhouse_admin_aboutuspageimage OWNER TO admin;
+
+--
+-- Name: myhouse_admin_aboutuspageimage_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_aboutuspageimage_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_aboutuspageimage_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_aboutuspageimage_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_aboutuspageimage_id_seq OWNED BY public.myhouse_admin_aboutuspageimage.id;
+
+
+--
+-- Name: myhouse_admin_block; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_block (
+    id bigint NOT NULL,
+    poster character varying(100),
+    heading character varying(255) NOT NULL,
+    description text NOT NULL,
+    object_id integer NOT NULL,
+    content_type_id integer NOT NULL,
+    CONSTRAINT myhouse_admin_block_object_id_check CHECK ((object_id >= 0))
+);
+
+
+ALTER TABLE public.myhouse_admin_block OWNER TO admin;
+
+--
+-- Name: myhouse_admin_block_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_block_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_block_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_block_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_block_id_seq OWNED BY public.myhouse_admin_block.id;
+
+
+--
+-- Name: myhouse_admin_cashboxrecord; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_cashboxrecord (
+    id bigint NOT NULL,
+    number character varying(50) NOT NULL,
+    date date NOT NULL,
+    is_made boolean NOT NULL,
+    summary double precision NOT NULL,
+    comment text,
+    manager_id bigint,
+    payment_type_id bigint NOT NULL,
+    personal_account_id bigint,
+    receipt_id bigint
+);
+
+
+ALTER TABLE public.myhouse_admin_cashboxrecord OWNER TO admin;
+
+--
+-- Name: myhouse_admin_cashboxrecord_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_cashboxrecord_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_cashboxrecord_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_cashboxrecord_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_cashboxrecord_id_seq OWNED BY public.myhouse_admin_cashboxrecord.id;
+
+
+--
+-- Name: myhouse_admin_contactspage; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_contactspage (
+    id bigint NOT NULL,
+    heading character varying(100) NOT NULL,
+    short_text text NOT NULL,
+    commercial_site_link character varying(200) NOT NULL,
+    fio character varying(255) NOT NULL,
+    location character varying(255) NOT NULL,
+    address character varying(255) NOT NULL,
+    phone_number character varying(20) NOT NULL,
+    email character varying(254) NOT NULL,
+    map text NOT NULL,
+    seo_title character varying(255),
+    seo_description text,
+    seo_keywords text
+);
+
+
+ALTER TABLE public.myhouse_admin_contactspage OWNER TO admin;
+
+--
+-- Name: myhouse_admin_contactspage_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_contactspage_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_contactspage_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_contactspage_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_contactspage_id_seq OWNED BY public.myhouse_admin_contactspage.id;
+
+
+--
+-- Name: myhouse_admin_document; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_document (
+    id bigint NOT NULL,
+    name character varying(255) NOT NULL,
+    file character varying(100) NOT NULL,
+    about_us_page_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.myhouse_admin_document OWNER TO admin;
+
+--
+-- Name: myhouse_admin_document_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_document_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_document_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_document_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_document_id_seq OWNED BY public.myhouse_admin_document.id;
+
+
+--
+-- Name: myhouse_admin_flat; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_flat (
+    id bigint NOT NULL,
+    number integer NOT NULL,
+    square double precision NOT NULL,
+    floor_id bigint,
+    owner_id bigint,
+    tariff_id bigint,
+    CONSTRAINT myhouse_admin_flat_number_3e6ce0de_check CHECK ((number >= 0))
+);
+
+
+ALTER TABLE public.myhouse_admin_flat OWNER TO admin;
+
+--
+-- Name: myhouse_admin_flat_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_flat_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_flat_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_flat_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_flat_id_seq OWNED BY public.myhouse_admin_flat.id;
+
+
+--
+-- Name: myhouse_admin_floor; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_floor (
+    id bigint NOT NULL,
+    name character varying(100) NOT NULL,
+    section_id bigint
+);
+
+
+ALTER TABLE public.myhouse_admin_floor OWNER TO admin;
+
+--
+-- Name: myhouse_admin_floor_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_floor_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_floor_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_floor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_floor_id_seq OWNED BY public.myhouse_admin_floor.id;
+
+
+--
+-- Name: myhouse_admin_house; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_house (
+    id bigint NOT NULL,
+    name character varying(255) NOT NULL,
+    address text NOT NULL,
+    image1 character varying(100) NOT NULL,
+    image2 character varying(100) NOT NULL,
+    image3 character varying(100) NOT NULL,
+    image4 character varying(100) NOT NULL,
+    image5 character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.myhouse_admin_house OWNER TO admin;
+
+--
+-- Name: myhouse_admin_house_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_house_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_house_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_house_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_house_id_seq OWNED BY public.myhouse_admin_house.id;
+
+
+--
+-- Name: myhouse_admin_house_workers; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_house_workers (
+    id bigint NOT NULL,
+    house_id bigint NOT NULL,
+    employee_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.myhouse_admin_house_workers OWNER TO admin;
+
+--
+-- Name: myhouse_admin_house_workers_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_house_workers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_house_workers_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_house_workers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_house_workers_id_seq OWNED BY public.myhouse_admin_house_workers.id;
+
+
+--
+-- Name: myhouse_admin_mainpage; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_mainpage (
+    id bigint NOT NULL,
+    slide1 character varying(100) NOT NULL,
+    slide2 character varying(100) NOT NULL,
+    slide3 character varying(100) NOT NULL,
+    heading character varying(100) NOT NULL,
+    short_text text NOT NULL,
+    show_links_on_apps boolean NOT NULL,
+    seo_title character varying(255),
+    seo_description text,
+    seo_keywords text
+);
+
+
+ALTER TABLE public.myhouse_admin_mainpage OWNER TO admin;
+
+--
+-- Name: myhouse_admin_mainpage_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_mainpage_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_mainpage_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_mainpage_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_mainpage_id_seq OWNED BY public.myhouse_admin_mainpage.id;
+
+
+--
+-- Name: myhouse_admin_message; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_message (
+    id bigint NOT NULL,
+    body text NOT NULL,
+    send_date timestamp with time zone NOT NULL,
+    sender_id bigint NOT NULL,
+    subject character varying(255) NOT NULL,
+    for_debtors boolean NOT NULL,
+    flat_id bigint,
+    floor_id bigint,
+    house_id bigint,
+    section_id bigint
+);
+
+
+ALTER TABLE public.myhouse_admin_message OWNER TO admin;
+
+--
+-- Name: myhouse_admin_message_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_message_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_message_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_message_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_message_id_seq OWNED BY public.myhouse_admin_message.id;
+
+
+--
+-- Name: myhouse_admin_message_recipients; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_message_recipients (
+    id bigint NOT NULL,
+    message_id bigint NOT NULL,
+    owner_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.myhouse_admin_message_recipients OWNER TO admin;
+
+--
+-- Name: myhouse_admin_message_recipients_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_message_recipients_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_message_recipients_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_message_recipients_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_message_recipients_id_seq OWNED BY public.myhouse_admin_message_recipients.id;
+
+
+--
+-- Name: myhouse_admin_meterreading; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_meterreading (
+    id bigint NOT NULL,
+    reading_date date NOT NULL,
+    status character varying(1) NOT NULL,
+    testimony double precision NOT NULL,
+    flat_id bigint NOT NULL,
+    service_id bigint NOT NULL,
+    number character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.myhouse_admin_meterreading OWNER TO admin;
+
+--
+-- Name: myhouse_admin_meterreading_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_meterreading_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_meterreading_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_meterreading_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_meterreading_id_seq OWNED BY public.myhouse_admin_meterreading.id;
+
+
+--
+-- Name: myhouse_admin_paymentdetails; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_paymentdetails (
+    id bigint NOT NULL,
+    company_name character varying(255) NOT NULL,
+    details text NOT NULL
+);
+
+
+ALTER TABLE public.myhouse_admin_paymentdetails OWNER TO admin;
+
+--
+-- Name: myhouse_admin_paymentdetails_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_paymentdetails_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_paymentdetails_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_paymentdetails_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_paymentdetails_id_seq OWNED BY public.myhouse_admin_paymentdetails.id;
+
+
+--
+-- Name: myhouse_admin_paymenttype; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_paymenttype (
+    id bigint NOT NULL,
+    name character varying(50) NOT NULL,
+    type character varying(1) NOT NULL
+);
+
+
+ALTER TABLE public.myhouse_admin_paymenttype OWNER TO admin;
+
+--
+-- Name: myhouse_admin_paymenttype_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_paymenttype_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_paymenttype_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_paymenttype_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_paymenttype_id_seq OWNED BY public.myhouse_admin_paymenttype.id;
+
+
+--
+-- Name: myhouse_admin_personalaccount; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_personalaccount (
+    id bigint NOT NULL,
+    uid character varying(50) NOT NULL,
+    status character varying(1) NOT NULL,
+    flat_id bigint
+);
+
+
+ALTER TABLE public.myhouse_admin_personalaccount OWNER TO admin;
+
+--
+-- Name: myhouse_admin_personalaccount_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_personalaccount_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_personalaccount_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_personalaccount_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_personalaccount_id_seq OWNED BY public.myhouse_admin_personalaccount.id;
+
+
+--
+-- Name: myhouse_admin_receipt; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_receipt (
+    id bigint NOT NULL,
+    number character varying(50) NOT NULL,
+    is_made boolean NOT NULL,
+    status character varying(1) NOT NULL,
+    creation_date date NOT NULL,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    summary double precision NOT NULL,
+    flat_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.myhouse_admin_receipt OWNER TO admin;
+
+--
+-- Name: myhouse_admin_receipt_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_receipt_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_receipt_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_receipt_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_receipt_id_seq OWNED BY public.myhouse_admin_receipt.id;
+
+
+--
+-- Name: myhouse_admin_receiptservice; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_receiptservice (
+    id bigint NOT NULL,
+    consumption double precision NOT NULL,
+    unit_price double precision NOT NULL,
+    total_price double precision NOT NULL,
+    receipt_id bigint NOT NULL,
+    service_id bigint NOT NULL,
+    unit_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.myhouse_admin_receiptservice OWNER TO admin;
+
+--
+-- Name: myhouse_admin_receiptservice_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_receiptservice_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_receiptservice_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_receiptservice_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_receiptservice_id_seq OWNED BY public.myhouse_admin_receiptservice.id;
+
+
+--
+-- Name: myhouse_admin_section; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_section (
+    id bigint NOT NULL,
+    name character varying(100) NOT NULL,
+    house_id bigint
+);
+
+
+ALTER TABLE public.myhouse_admin_section OWNER TO admin;
+
+--
+-- Name: myhouse_admin_section_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_section_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_section_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_section_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_section_id_seq OWNED BY public.myhouse_admin_section.id;
+
+
+--
+-- Name: myhouse_admin_service; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_service (
+    id bigint NOT NULL,
+    name character varying(255) NOT NULL,
+    in_meter boolean NOT NULL,
+    unit_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.myhouse_admin_service OWNER TO admin;
+
+--
+-- Name: myhouse_admin_service_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_service_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_service_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_service_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_service_id_seq OWNED BY public.myhouse_admin_service.id;
+
+
+--
+-- Name: myhouse_admin_servicespage; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_servicespage (
+    id bigint NOT NULL,
+    seo_title character varying(255),
+    seo_description text,
+    seo_keywords text
+);
+
+
+ALTER TABLE public.myhouse_admin_servicespage OWNER TO admin;
+
+--
+-- Name: myhouse_admin_servicespage_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_servicespage_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_servicespage_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_servicespage_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_servicespage_id_seq OWNED BY public.myhouse_admin_servicespage.id;
+
+
+--
+-- Name: myhouse_admin_tariff; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_tariff (
+    id bigint NOT NULL,
+    name character varying(255) NOT NULL,
+    description text NOT NULL,
+    edit_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.myhouse_admin_tariff OWNER TO admin;
+
+--
+-- Name: myhouse_admin_tariff_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_tariff_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_tariff_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_tariff_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_tariff_id_seq OWNED BY public.myhouse_admin_tariff.id;
+
+
+--
+-- Name: myhouse_admin_tariffimage; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_tariffimage (
+    id bigint NOT NULL,
+    image character varying(100),
+    signature character varying(100) NOT NULL,
+    content_type_id integer NOT NULL,
+    object_id integer NOT NULL,
+    CONSTRAINT myhouse_admin_tariffimage_object_id_check CHECK ((object_id >= 0))
+);
+
+
+ALTER TABLE public.myhouse_admin_tariffimage OWNER TO admin;
+
+--
+-- Name: myhouse_admin_tariffimage_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_tariffimage_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_tariffimage_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_tariffimage_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_tariffimage_id_seq OWNED BY public.myhouse_admin_tariffimage.id;
+
+
+--
+-- Name: myhouse_admin_tariffpage; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_tariffpage (
+    id bigint NOT NULL,
+    heading character varying(100) NOT NULL,
+    short_text text NOT NULL,
+    seo_title character varying(255),
+    seo_description text,
+    seo_keywords text
+);
+
+
+ALTER TABLE public.myhouse_admin_tariffpage OWNER TO admin;
+
+--
+-- Name: myhouse_admin_tariffpage_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_tariffpage_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_tariffpage_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_tariffpage_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_tariffpage_id_seq OWNED BY public.myhouse_admin_tariffpage.id;
+
+
+--
+-- Name: myhouse_admin_tariffservice; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_tariffservice (
+    id bigint NOT NULL,
+    price double precision NOT NULL,
+    service_id bigint NOT NULL,
+    tariff_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.myhouse_admin_tariffservice OWNER TO admin;
+
+--
+-- Name: myhouse_admin_tariffservice_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_tariffservice_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_tariffservice_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_tariffservice_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_tariffservice_id_seq OWNED BY public.myhouse_admin_tariffservice.id;
+
+
+--
+-- Name: myhouse_admin_ticket; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_ticket (
+    id bigint NOT NULL,
+    convenient_time timestamp with time zone NOT NULL,
+    description text NOT NULL,
+    status character varying(1) NOT NULL,
+    comment text,
+    flat_id bigint NOT NULL,
+    master_id bigint,
+    master_type_id bigint,
+    added_time timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.myhouse_admin_ticket OWNER TO admin;
+
+--
+-- Name: myhouse_admin_ticket_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_ticket_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_ticket_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_ticket_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_ticket_id_seq OWNED BY public.myhouse_admin_ticket.id;
+
+
+--
+-- Name: myhouse_admin_unit; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.myhouse_admin_unit (
+    id bigint NOT NULL,
+    name character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.myhouse_admin_unit OWNER TO admin;
+
+--
+-- Name: myhouse_admin_unit_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.myhouse_admin_unit_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myhouse_admin_unit_id_seq OWNER TO admin;
+
+--
+-- Name: myhouse_admin_unit_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.myhouse_admin_unit_id_seq OWNED BY public.myhouse_admin_unit.id;
+
+
+--
+-- Name: users_employee; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.users_employee (
+    id bigint NOT NULL,
+    role_id bigint,
+    user_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.users_employee OWNER TO admin;
+
+--
+-- Name: users_employee_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.users_employee_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_employee_id_seq OWNER TO admin;
+
+--
+-- Name: users_employee_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.users_employee_id_seq OWNED BY public.users_employee.id;
+
+
+--
+-- Name: users_owner; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.users_owner (
+    id bigint NOT NULL,
+    birth_date date,
+    avatar character varying(100),
+    "ID" character varying(50) NOT NULL,
+    about text,
+    viber character varying(20),
+    telegram character varying(50),
+    user_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.users_owner OWNER TO admin;
+
+--
+-- Name: users_owner_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.users_owner_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_owner_id_seq OWNER TO admin;
+
+--
+-- Name: users_owner_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.users_owner_id_seq OWNED BY public.users_owner.id;
+
+
+--
+-- Name: users_role; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.users_role (
+    id bigint NOT NULL,
+    name character varying(50) NOT NULL,
+    abilities character varying(38) NOT NULL
+);
+
+
+ALTER TABLE public.users_role OWNER TO admin;
+
+--
+-- Name: users_role_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.users_role_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_role_id_seq OWNER TO admin;
+
+--
+-- Name: users_role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.users_role_id_seq OWNED BY public.users_role.id;
+
+
+--
+-- Name: users_user; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.users_user (
+    id bigint NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    first_name character varying(150) NOT NULL,
+    last_name character varying(150) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL,
+    email character varying(254) NOT NULL,
+    phone_number character varying(20) NOT NULL,
+    status character varying(1) NOT NULL
+);
+
+
+ALTER TABLE public.users_user OWNER TO admin;
+
+--
+-- Name: users_user_groups; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.users_user_groups (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.users_user_groups OWNER TO admin;
+
+--
+-- Name: users_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.users_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_user_groups_id_seq OWNER TO admin;
+
+--
+-- Name: users_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.users_user_groups_id_seq OWNED BY public.users_user_groups.id;
+
+
+--
+-- Name: users_user_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.users_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_user_id_seq OWNER TO admin;
+
+--
+-- Name: users_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.users_user_id_seq OWNED BY public.users_user.id;
+
+
+--
+-- Name: users_user_user_permissions; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.users_user_user_permissions (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.users_user_user_permissions OWNER TO admin;
+
+--
+-- Name: users_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.users_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_user_user_permissions_id_seq OWNER TO admin;
+
+--
+-- Name: users_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.users_user_user_permissions_id_seq OWNED BY public.users_user_user_permissions.id;
+
+
+--
+-- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.auth_group ALTER COLUMN id SET DEFAULT nextval('public.auth_group_id_seq'::regclass);
+
+
+--
+-- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.auth_permission ALTER COLUMN id SET DEFAULT nextval('public.auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.django_admin_log ALTER COLUMN id SET DEFAULT nextval('public.django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.django_content_type ALTER COLUMN id SET DEFAULT nextval('public.django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.django_migrations ALTER COLUMN id SET DEFAULT nextval('public.django_migrations_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_aboutuspage id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_aboutuspage ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_aboutuspage_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_aboutuspageadditionalimage id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_aboutuspageadditionalimage ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_aboutuspageadditionalimage_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_aboutuspageimage id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_aboutuspageimage ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_aboutuspageimage_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_block id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_block ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_block_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_cashboxrecord id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_cashboxrecord ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_cashboxrecord_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_contactspage id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_contactspage ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_contactspage_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_document id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_document ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_document_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_flat id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_flat ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_flat_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_floor id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_floor ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_floor_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_house id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_house ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_house_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_house_workers id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_house_workers ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_house_workers_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_mainpage id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_mainpage ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_mainpage_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_message id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_message ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_message_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_message_recipients id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_message_recipients ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_message_recipients_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_meterreading id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_meterreading ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_meterreading_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_paymentdetails id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_paymentdetails ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_paymentdetails_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_paymenttype id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_paymenttype ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_paymenttype_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_personalaccount id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_personalaccount ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_personalaccount_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_receipt id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_receipt ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_receipt_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_receiptservice id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_receiptservice ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_receiptservice_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_section id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_section ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_section_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_service id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_service ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_service_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_servicespage id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_servicespage ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_servicespage_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_tariff id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_tariff ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_tariff_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_tariffimage id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_tariffimage ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_tariffimage_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_tariffpage id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_tariffpage ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_tariffpage_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_tariffservice id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_tariffservice ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_tariffservice_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_ticket id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_ticket ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_ticket_id_seq'::regclass);
+
+
+--
+-- Name: myhouse_admin_unit id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_unit ALTER COLUMN id SET DEFAULT nextval('public.myhouse_admin_unit_id_seq'::regclass);
+
+
+--
+-- Name: users_employee id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_employee ALTER COLUMN id SET DEFAULT nextval('public.users_employee_id_seq'::regclass);
+
+
+--
+-- Name: users_owner id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_owner ALTER COLUMN id SET DEFAULT nextval('public.users_owner_id_seq'::regclass);
+
+
+--
+-- Name: users_role id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_role ALTER COLUMN id SET DEFAULT nextval('public.users_role_id_seq'::regclass);
+
+
+--
+-- Name: users_user id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_user ALTER COLUMN id SET DEFAULT nextval('public.users_user_id_seq'::regclass);
+
+
+--
+-- Name: users_user_groups id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_user_groups ALTER COLUMN id SET DEFAULT nextval('public.users_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: users_user_user_permissions id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('public.users_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can view log entry	1	view_logentry
+5	Can add permission	2	add_permission
+6	Can change permission	2	change_permission
+7	Can delete permission	2	delete_permission
+8	Can view permission	2	view_permission
+9	Can add group	3	add_group
+10	Can change group	3	change_group
+11	Can delete group	3	delete_group
+12	Can view group	3	view_group
+13	Can add content type	4	add_contenttype
+14	Can change content type	4	change_contenttype
+15	Can delete content type	4	delete_contenttype
+16	Can view content type	4	view_contenttype
+17	Can add session	5	add_session
+18	Can change session	5	change_session
+19	Can delete session	5	delete_session
+20	Can view session	5	view_session
+21	Can add about us page	6	add_aboutuspage
+22	Can change about us page	6	change_aboutuspage
+23	Can delete about us page	6	delete_aboutuspage
+24	Can view about us page	6	view_aboutuspage
+25	Can add block	7	add_block
+26	Can change block	7	change_block
+27	Can delete block	7	delete_block
+28	Can view block	7	view_block
+29	Can add cashbox record	8	add_cashboxrecord
+30	Can change cashbox record	8	change_cashboxrecord
+31	Can delete cashbox record	8	delete_cashboxrecord
+32	Can view cashbox record	8	view_cashboxrecord
+33	Can add contacts page	9	add_contactspage
+34	Can change contacts page	9	change_contactspage
+35	Can delete contacts page	9	delete_contactspage
+36	Can view contacts page	9	view_contactspage
+37	Can add document	10	add_document
+38	Can change document	10	change_document
+39	Can delete document	10	delete_document
+40	Can view document	10	view_document
+41	Can add flat	11	add_flat
+42	Can change flat	11	change_flat
+43	Can delete flat	11	delete_flat
+44	Can view flat	11	view_flat
+45	Can add floor	12	add_floor
+46	Can change floor	12	change_floor
+47	Can delete floor	12	delete_floor
+48	Can view floor	12	view_floor
+49	Can add house	13	add_house
+50	Can change house	13	change_house
+51	Can delete house	13	delete_house
+52	Can view house	13	view_house
+53	Can add main page	14	add_mainpage
+54	Can change main page	14	change_mainpage
+55	Can delete main page	14	delete_mainpage
+56	Can view main page	14	view_mainpage
+57	Can add message	15	add_message
+58	Can change message	15	change_message
+59	Can delete message	15	delete_message
+60	Can view message	15	view_message
+61	Can add meter reading	16	add_meterreading
+62	Can change meter reading	16	change_meterreading
+63	Can delete meter reading	16	delete_meterreading
+64	Can view meter reading	16	view_meterreading
+65	Can add payment details	17	add_paymentdetails
+66	Can change payment details	17	change_paymentdetails
+67	Can delete payment details	17	delete_paymentdetails
+68	Can view payment details	17	view_paymentdetails
+69	Can add payment type	18	add_paymenttype
+70	Can change payment type	18	change_paymenttype
+71	Can delete payment type	18	delete_paymenttype
+72	Can view payment type	18	view_paymenttype
+73	Can add personal account	19	add_personalaccount
+74	Can change personal account	19	change_personalaccount
+75	Can delete personal account	19	delete_personalaccount
+76	Can view personal account	19	view_personalaccount
+77	Can add receipt	20	add_receipt
+78	Can change receipt	20	change_receipt
+79	Can delete receipt	20	delete_receipt
+80	Can view receipt	20	view_receipt
+81	Can add receipt service	21	add_receiptservice
+82	Can change receipt service	21	change_receiptservice
+83	Can delete receipt service	21	delete_receiptservice
+84	Can view receipt service	21	view_receiptservice
+85	Can add section	22	add_section
+86	Can change section	22	change_section
+87	Can delete section	22	delete_section
+88	Can view section	22	view_section
+89	Can add service	23	add_service
+90	Can change service	23	change_service
+91	Can delete service	23	delete_service
+92	Can view service	23	view_service
+93	Can add services page	24	add_servicespage
+94	Can change services page	24	change_servicespage
+95	Can delete services page	24	delete_servicespage
+96	Can view services page	24	view_servicespage
+97	Can add tariff	25	add_tariff
+98	Can change tariff	25	change_tariff
+99	Can delete tariff	25	delete_tariff
+100	Can view tariff	25	view_tariff
+101	Can add tariff image	26	add_tariffimage
+102	Can change tariff image	26	change_tariffimage
+103	Can delete tariff image	26	delete_tariffimage
+104	Can view tariff image	26	view_tariffimage
+105	Can add tariff page	27	add_tariffpage
+106	Can change tariff page	27	change_tariffpage
+107	Can delete tariff page	27	delete_tariffpage
+108	Can view tariff page	27	view_tariffpage
+109	Can add tariff service	28	add_tariffservice
+110	Can change tariff service	28	change_tariffservice
+111	Can delete tariff service	28	delete_tariffservice
+112	Can view tariff service	28	view_tariffservice
+113	Can add unit	29	add_unit
+114	Can change unit	29	change_unit
+115	Can delete unit	29	delete_unit
+116	Can view unit	29	view_unit
+117	Can add ticket	30	add_ticket
+118	Can change ticket	30	change_ticket
+119	Can delete ticket	30	delete_ticket
+120	Can view ticket	30	view_ticket
+121	Can add user	31	add_user
+122	Can change user	31	change_user
+123	Can delete user	31	delete_user
+124	Can view user	31	view_user
+125	Can add owner	32	add_owner
+126	Can change owner	32	change_owner
+127	Can delete owner	32	delete_owner
+128	Can view owner	32	view_owner
+129	Can add role	33	add_role
+130	Can change role	33	change_role
+131	Can delete role	33	delete_role
+132	Can view role	33	view_role
+133	Can add employee	34	add_employee
+134	Can change employee	34	change_employee
+135	Can delete employee	34	delete_employee
+136	Can view employee	34	view_employee
+137	Can add about us page image	35	add_aboutuspageimage
+138	Can change about us page image	35	change_aboutuspageimage
+139	Can delete about us page image	35	delete_aboutuspageimage
+140	Can view about us page image	35	view_aboutuspageimage
+141	Can add about us page additional image	36	add_aboutuspageadditionalimage
+142	Can change about us page additional image	36	change_aboutuspageadditionalimage
+143	Can delete about us page additional image	36	delete_aboutuspageadditionalimage
+144	Can view about us page additional image	36	view_aboutuspageadditionalimage
+\.
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+2	2021-08-01 14:31:25.172193+00	3	admin1@admin.com	3		31	1
+3	2021-08-01 14:32:30.753786+00	1	Role object (1)	1	[{"added": {}}]	33	1
+4	2021-08-01 14:32:53.946337+00	2	Role object (2)	1	[{"added": {}}]	33	1
+5	2021-08-01 14:33:43.668251+00	3	Role object (3)	1	[{"added": {}}]	33	1
+6	2021-08-01 14:34:01.818205+00	4	Role object (4)	1	[{"added": {}}]	33	1
+7	2021-08-01 14:34:17.844112+00	5	Role object (5)	1	[{"added": {}}]	33	1
+8	2021-08-01 15:25:11.81846+00	1	pro100moneyfarmer@gmail.com	2	[{"changed": {"fields": ["First name", "Last name"]}}]	31	1
+9	2021-08-01 16:21:51.74754+00	5	Сантехник	2	[{"changed": {"fields": ["Abilities"]}}]	33	1
+10	2021-08-01 16:22:03.408901+00	4	Электрик	2	[{"changed": {"fields": ["Abilities"]}}]	33	1
+11	2021-08-01 16:22:36.852188+00	3	Бухгалтер	2	[{"changed": {"fields": ["Abilities"]}}]	33	1
+12	2021-08-01 16:22:52.149546+00	2	Управляющий	2	[{"changed": {"fields": ["Abilities"]}}]	33	1
+13	2021-08-01 16:23:05.676453+00	1	Директор	2	[{"changed": {"fields": ["Abilities"]}}]	33	1
+14	2021-08-01 17:03:47.139868+00	1	Employee object (1)	1	[{"added": {}}]	34	1
+15	2021-08-02 17:19:16.743709+00	6	test_electric@employee.com	2	[{"changed": {"fields": ["Staff status"]}}]	31	1
+16	2021-08-02 17:19:24.274426+00	5	asdasd@dasd.com	2	[{"changed": {"fields": ["Staff status"]}}]	31	1
+17	2021-08-03 09:44:10.234712+00	1	Owner object (1)	1	[{"added": {}}]	32	1
+18	2021-08-03 09:46:04.691558+00	1	Owner object (1)	2	[{"changed": {"fields": ["Avatar"]}}]	32	1
+19	2021-08-03 16:36:01.452089+00	7	Block object (7)	1	[{"added": {}}]	7	1
+20	2021-08-04 01:54:36.40711+00	1	ServicesPage object (1)	3		24	1
+21	2021-08-05 07:42:41.478261+00	1	AboutUsPage object (1)	3		6	1
+22	2021-08-06 08:20:06.978966+00	2	AboutUsPage object (2)	1	[{"added": {}}]	6	1
+23	2021-08-15 09:09:39.381282+00	2	AboutUsPage object (2)	3		6	1
+24	2021-08-18 21:40:17.639733+00	6	Section object (6)	3		22	1
+25	2021-08-18 21:40:17.647306+00	5	Section object (5)	3		22	1
+26	2021-08-18 21:40:17.652491+00	4	Section object (4)	3		22	1
+27	2021-08-18 21:40:17.66178+00	3	Section object (3)	3		22	1
+28	2021-08-18 21:40:17.6713+00	2	Section object (2)	3		22	1
+29	2021-08-18 21:40:17.682049+00	1	Section object (1)	3		22	1
+30	2021-08-18 21:40:25.674378+00	6	House object (6)	3		13	1
+31	2021-08-18 21:40:25.687702+00	5	House object (5)	3		13	1
+32	2021-08-18 21:40:25.695256+00	4	House object (4)	3		13	1
+33	2021-08-18 21:40:25.700728+00	3	House object (3)	3		13	1
+34	2021-08-18 21:40:25.70897+00	2	House object (2)	3		13	1
+35	2021-08-18 21:40:25.715634+00	1	House object (1)	3		13	1
+36	2021-08-18 22:03:36.97863+00	14	8: 8	3		13	1
+37	2021-08-18 22:03:36.984476+00	13	7: 7	3		13	1
+38	2021-08-18 22:03:36.988514+00	12	5: 5	3		13	1
+39	2021-08-18 22:03:36.995493+00	11	4: 4	3		13	1
+40	2021-08-18 22:03:36.999346+00	10	1: 23	3		13	1
+41	2021-08-18 22:03:37.00349+00	9	3: 4	3		13	1
+42	2021-08-18 22:03:37.007961+00	8	house2: test address	3		13	1
+43	2021-08-18 22:03:37.012467+00	7	1: 2	3		13	1
+44	2021-08-18 22:03:58.692672+00	16	Section object (16)	3		22	1
+45	2021-08-18 22:03:58.710056+00	15	Section object (15)	3		22	1
+46	2021-08-18 22:03:58.715684+00	14	Section object (14)	3		22	1
+47	2021-08-18 22:03:58.725032+00	13	Section object (13)	3		22	1
+48	2021-08-18 22:03:58.72998+00	12	Section object (12)	3		22	1
+49	2021-08-18 22:03:58.737071+00	11	Section object (11)	3		22	1
+50	2021-08-18 22:03:58.744449+00	10	Section object (10)	3		22	1
+51	2021-08-18 22:03:58.750475+00	9	Section object (9)	3		22	1
+52	2021-08-18 22:03:58.755898+00	8	Section object (8)	3		22	1
+53	2021-08-18 22:03:58.762208+00	7	Section object (7)	3		22	1
+54	2021-08-18 22:04:12.510356+00	69	Floor object (69)	3		12	1
+55	2021-08-18 22:04:12.519425+00	68	Floor object (68)	3		12	1
+56	2021-08-18 22:04:12.525872+00	67	Floor object (67)	3		12	1
+57	2021-08-18 22:04:12.533484+00	66	Floor object (66)	3		12	1
+58	2021-08-18 22:04:12.538517+00	65	Floor object (65)	3		12	1
+59	2021-08-18 22:04:12.543318+00	64	Floor object (64)	3		12	1
+60	2021-08-18 22:04:12.548928+00	63	Floor object (63)	3		12	1
+61	2021-08-18 22:04:12.552927+00	62	Floor object (62)	3		12	1
+62	2021-08-18 22:04:12.557305+00	61	Floor object (61)	3		12	1
+63	2021-08-18 22:04:12.562269+00	60	Floor object (60)	3		12	1
+64	2021-08-18 22:04:12.568586+00	59	Floor object (59)	3		12	1
+65	2021-08-18 22:04:12.573949+00	58	Floor object (58)	3		12	1
+66	2021-08-18 22:04:12.578664+00	57	Floor object (57)	3		12	1
+67	2021-08-18 22:04:12.582603+00	56	Floor object (56)	3		12	1
+68	2021-08-18 22:04:12.587084+00	55	Floor object (55)	3		12	1
+69	2021-08-18 22:04:12.591851+00	54	Floor object (54)	3		12	1
+70	2021-08-18 22:04:12.596252+00	53	Floor object (53)	3		12	1
+71	2021-08-18 22:04:12.601731+00	52	Floor object (52)	3		12	1
+72	2021-08-18 22:04:12.606183+00	51	Floor object (51)	3		12	1
+73	2021-08-18 22:04:12.610205+00	50	Floor object (50)	3		12	1
+74	2021-08-18 22:04:12.614266+00	49	Floor object (49)	3		12	1
+75	2021-08-18 22:04:12.619639+00	48	Floor object (48)	3		12	1
+76	2021-08-18 22:04:12.626231+00	47	Floor object (47)	3		12	1
+77	2021-08-18 22:04:12.631518+00	46	Floor object (46)	3		12	1
+78	2021-08-18 22:04:12.63597+00	45	Floor object (45)	3		12	1
+79	2021-08-18 22:04:12.641982+00	44	Floor object (44)	3		12	1
+80	2021-08-18 22:04:12.647315+00	43	Floor object (43)	3		12	1
+81	2021-08-18 22:04:12.652926+00	42	Floor object (42)	3		12	1
+82	2021-08-18 22:04:12.658129+00	41	Floor object (41)	3		12	1
+83	2021-08-18 22:04:12.662811+00	40	Floor object (40)	3		12	1
+84	2021-08-18 22:04:12.667922+00	39	Floor object (39)	3		12	1
+85	2021-08-18 22:04:12.672715+00	38	Floor object (38)	3		12	1
+86	2021-08-18 22:04:12.679571+00	37	Floor object (37)	3		12	1
+87	2021-08-18 22:04:12.685559+00	36	Floor object (36)	3		12	1
+88	2021-08-18 22:04:12.689136+00	35	Floor object (35)	3		12	1
+89	2021-08-18 22:04:12.69411+00	34	Floor object (34)	3		12	1
+90	2021-08-18 22:04:12.697913+00	33	Floor object (33)	3		12	1
+91	2021-08-18 22:04:12.702948+00	32	Floor object (32)	3		12	1
+92	2021-08-18 22:04:12.712797+00	31	Floor object (31)	3		12	1
+93	2021-08-18 22:04:12.718302+00	30	Floor object (30)	3		12	1
+94	2021-08-18 22:04:12.723651+00	29	Floor object (29)	3		12	1
+95	2021-08-18 22:04:12.730154+00	28	Floor object (28)	3		12	1
+96	2021-08-18 22:04:12.73622+00	27	Floor object (27)	3		12	1
+97	2021-08-18 22:04:12.741246+00	26	Floor object (26)	3		12	1
+98	2021-08-18 22:04:12.745716+00	25	Floor object (25)	3		12	1
+99	2021-08-18 22:04:12.750631+00	24	Floor object (24)	3		12	1
+100	2021-08-18 22:04:12.755125+00	23	Floor object (23)	3		12	1
+101	2021-08-18 22:04:12.760596+00	22	Floor object (22)	3		12	1
+102	2021-08-18 22:04:12.76665+00	21	Floor object (21)	3		12	1
+103	2021-08-18 22:04:12.770601+00	20	Floor object (20)	3		12	1
+104	2021-08-18 22:04:12.776539+00	19	Floor object (19)	3		12	1
+105	2021-08-18 22:04:12.782814+00	18	Floor object (18)	3		12	1
+106	2021-08-18 22:04:12.790291+00	17	Floor object (17)	3		12	1
+107	2021-08-18 22:04:12.799518+00	16	Floor object (16)	3		12	1
+108	2021-08-18 22:04:12.804564+00	15	Floor object (15)	3		12	1
+109	2021-08-18 22:04:12.81016+00	14	Floor object (14)	3		12	1
+110	2021-08-18 22:04:12.817535+00	13	Floor object (13)	3		12	1
+111	2021-08-18 22:04:12.822698+00	12	Floor object (12)	3		12	1
+112	2021-08-18 22:04:12.830048+00	11	Floor object (11)	3		12	1
+113	2021-08-18 22:04:12.834651+00	10	Floor object (10)	3		12	1
+114	2021-08-18 22:04:12.839463+00	9	Floor object (9)	3		12	1
+115	2021-08-18 22:04:12.846014+00	8	Floor object (8)	3		12	1
+116	2021-08-18 22:04:12.851331+00	7	Floor object (7)	3		12	1
+117	2021-08-18 22:04:12.85566+00	6	Floor object (6)	3		12	1
+118	2021-08-18 22:04:12.862354+00	5	Floor object (5)	3		12	1
+119	2021-08-18 22:04:12.867516+00	4	Floor object (4)	3		12	1
+120	2021-08-18 22:04:12.873112+00	3	Floor object (3)	3		12	1
+121	2021-08-18 22:04:12.879114+00	2	Floor object (2)	3		12	1
+122	2021-08-18 22:04:12.884278+00	1	Floor object (1)	3		12	1
+123	2021-08-18 22:11:55.67652+00	20	Section object (20)	3		22	1
+124	2021-08-18 22:11:55.686468+00	19	Section object (19)	3		22	1
+125	2021-08-18 22:11:55.692014+00	18	Section object (18)	3		22	1
+126	2021-08-18 22:11:55.697442+00	17	Section object (17)	3		22	1
+127	2021-08-18 22:13:57.338909+00	15	ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55	3		13	1
+128	2021-08-18 22:17:21.27985+00	16	ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55	3		13	1
+129	2021-08-19 08:05:44.044882+00	17	ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55	3		13	1
+130	2021-08-19 08:10:15.83795+00	18	ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55	3		13	1
+131	2021-08-19 08:13:24.454159+00	287	Floor object (287)	3		12	1
+132	2021-08-19 08:13:24.460327+00	286	Floor object (286)	3		12	1
+133	2021-08-19 08:13:24.466238+00	285	Floor object (285)	3		12	1
+134	2021-08-19 08:13:24.471959+00	284	Floor object (284)	3		12	1
+135	2021-08-19 08:13:24.476898+00	283	Floor object (283)	3		12	1
+136	2021-08-19 08:13:24.481537+00	282	Floor object (282)	3		12	1
+137	2021-08-19 08:13:24.486899+00	281	Floor object (281)	3		12	1
+138	2021-08-19 08:13:24.493227+00	280	Floor object (280)	3		12	1
+139	2021-08-19 08:13:24.497466+00	279	Floor object (279)	3		12	1
+140	2021-08-19 08:13:24.501703+00	278	Floor object (278)	3		12	1
+141	2021-08-19 08:13:24.505846+00	277	Floor object (277)	3		12	1
+142	2021-08-19 08:13:24.510218+00	276	Floor object (276)	3		12	1
+143	2021-08-19 08:13:24.514557+00	275	Floor object (275)	3		12	1
+144	2021-08-19 08:13:24.518945+00	274	Floor object (274)	3		12	1
+145	2021-08-19 08:13:24.52314+00	273	Floor object (273)	3		12	1
+146	2021-08-19 08:13:24.528661+00	272	Floor object (272)	3		12	1
+147	2021-08-19 08:13:24.533466+00	271	Floor object (271)	3		12	1
+148	2021-08-19 08:13:24.53774+00	270	Floor object (270)	3		12	1
+149	2021-08-19 08:13:24.543938+00	269	Floor object (269)	3		12	1
+150	2021-08-19 08:13:24.550535+00	268	Floor object (268)	3		12	1
+151	2021-08-19 08:13:24.556188+00	267	Floor object (267)	3		12	1
+152	2021-08-19 08:13:24.560817+00	266	Floor object (266)	3		12	1
+153	2021-08-19 08:13:24.565204+00	265	Floor object (265)	3		12	1
+154	2021-08-19 08:13:24.570368+00	264	Floor object (264)	3		12	1
+155	2021-08-19 08:13:24.574726+00	263	Floor object (263)	3		12	1
+156	2021-08-19 08:13:24.580657+00	262	Floor object (262)	3		12	1
+157	2021-08-19 08:13:24.585662+00	261	Floor object (261)	3		12	1
+158	2021-08-19 08:13:24.596716+00	260	Floor object (260)	3		12	1
+159	2021-08-19 08:13:24.603491+00	259	Floor object (259)	3		12	1
+160	2021-08-19 08:13:24.608979+00	258	Floor object (258)	3		12	1
+161	2021-08-19 08:13:24.613076+00	257	Floor object (257)	3		12	1
+162	2021-08-19 08:13:24.616926+00	256	Floor object (256)	3		12	1
+163	2021-08-19 08:13:24.626538+00	255	Floor object (255)	3		12	1
+164	2021-08-19 08:13:24.631612+00	254	Floor object (254)	3		12	1
+165	2021-08-19 08:13:24.636616+00	253	Floor object (253)	3		12	1
+166	2021-08-19 08:13:24.643621+00	252	Floor object (252)	3		12	1
+167	2021-08-19 08:13:24.649572+00	251	Floor object (251)	3		12	1
+168	2021-08-19 08:13:24.657999+00	250	Floor object (250)	3		12	1
+169	2021-08-19 08:13:24.662028+00	249	Floor object (249)	3		12	1
+170	2021-08-19 08:13:24.666319+00	248	Floor object (248)	3		12	1
+171	2021-08-19 08:13:24.674997+00	247	Floor object (247)	3		12	1
+172	2021-08-19 08:13:24.680888+00	246	Floor object (246)	3		12	1
+173	2021-08-19 08:13:24.685897+00	245	Floor object (245)	3		12	1
+174	2021-08-19 08:13:24.696716+00	244	Floor object (244)	3		12	1
+175	2021-08-19 08:13:24.708273+00	243	Floor object (243)	3		12	1
+176	2021-08-19 08:13:24.718376+00	242	Floor object (242)	3		12	1
+177	2021-08-19 08:13:24.725935+00	241	Floor object (241)	3		12	1
+178	2021-08-19 08:13:24.73488+00	240	Floor object (240)	3		12	1
+179	2021-08-19 08:13:24.738513+00	239	Floor object (239)	3		12	1
+180	2021-08-19 08:13:24.747046+00	238	Floor object (238)	3		12	1
+181	2021-08-19 08:13:24.751657+00	237	Floor object (237)	3		12	1
+182	2021-08-19 08:13:24.758146+00	236	Floor object (236)	3		12	1
+183	2021-08-19 08:13:24.775054+00	235	Floor object (235)	3		12	1
+184	2021-08-19 08:13:24.783159+00	234	Floor object (234)	3		12	1
+185	2021-08-19 08:13:24.793416+00	233	Floor object (233)	3		12	1
+186	2021-08-19 08:13:24.805358+00	232	Floor object (232)	3		12	1
+187	2021-08-19 08:13:24.816038+00	231	Floor object (231)	3		12	1
+188	2021-08-19 08:13:24.825768+00	230	Floor object (230)	3		12	1
+189	2021-08-19 08:13:24.837514+00	229	Floor object (229)	3		12	1
+190	2021-08-19 08:13:24.841572+00	228	Floor object (228)	3		12	1
+191	2021-08-19 08:13:24.850152+00	227	Floor object (227)	3		12	1
+192	2021-08-19 08:13:24.855891+00	226	Floor object (226)	3		12	1
+193	2021-08-19 08:13:24.868464+00	225	Floor object (225)	3		12	1
+194	2021-08-19 08:13:24.884669+00	224	Floor object (224)	3		12	1
+195	2021-08-19 08:13:24.890699+00	223	Floor object (223)	3		12	1
+196	2021-08-19 08:13:24.894456+00	222	Floor object (222)	3		12	1
+197	2021-08-19 08:13:24.898991+00	221	Floor object (221)	3		12	1
+198	2021-08-19 08:13:24.906069+00	220	Floor object (220)	3		12	1
+199	2021-08-19 08:13:24.911188+00	219	Floor object (219)	3		12	1
+200	2021-08-19 08:13:24.916+00	218	Floor object (218)	3		12	1
+201	2021-08-19 08:13:24.920692+00	217	Floor object (217)	3		12	1
+202	2021-08-19 08:13:24.926458+00	216	Floor object (216)	3		12	1
+203	2021-08-19 08:13:24.93347+00	215	Floor object (215)	3		12	1
+204	2021-08-19 08:13:24.939441+00	214	Floor object (214)	3		12	1
+205	2021-08-19 08:13:24.943411+00	213	Floor object (213)	3		12	1
+206	2021-08-19 08:13:24.950188+00	212	Floor object (212)	3		12	1
+207	2021-08-19 08:13:24.954971+00	211	Floor object (211)	3		12	1
+208	2021-08-19 08:13:24.959617+00	210	Floor object (210)	3		12	1
+209	2021-08-19 08:13:24.972504+00	209	Floor object (209)	3		12	1
+210	2021-08-19 08:13:24.981457+00	208	Floor object (208)	3		12	1
+211	2021-08-19 08:13:24.987006+00	207	Floor object (207)	3		12	1
+212	2021-08-19 08:13:24.990968+00	206	Floor object (206)	3		12	1
+213	2021-08-19 08:13:24.995047+00	205	Floor object (205)	3		12	1
+214	2021-08-19 08:13:24.999519+00	204	Floor object (204)	3		12	1
+215	2021-08-19 08:13:25.007147+00	203	Floor object (203)	3		12	1
+216	2021-08-19 08:13:25.011065+00	202	Floor object (202)	3		12	1
+217	2021-08-19 08:13:25.018059+00	201	Floor object (201)	3		12	1
+218	2021-08-19 08:13:25.022879+00	200	Floor object (200)	3		12	1
+219	2021-08-19 08:13:25.030419+00	199	Floor object (199)	3		12	1
+220	2021-08-19 08:13:25.034396+00	198	Floor object (198)	3		12	1
+221	2021-08-19 08:13:25.048696+00	197	Floor object (197)	3		12	1
+222	2021-08-19 08:13:25.055294+00	196	Floor object (196)	3		12	1
+223	2021-08-19 08:13:25.059903+00	195	Floor object (195)	3		12	1
+224	2021-08-19 08:13:25.064058+00	194	Floor object (194)	3		12	1
+225	2021-08-19 08:13:25.072289+00	193	Floor object (193)	3		12	1
+226	2021-08-19 08:13:25.077218+00	192	Floor object (192)	3		12	1
+227	2021-08-19 08:13:25.082936+00	191	Floor object (191)	3		12	1
+228	2021-08-19 08:13:25.087317+00	190	Floor object (190)	3		12	1
+229	2021-08-19 08:13:25.094315+00	189	Floor object (189)	3		12	1
+230	2021-08-19 08:13:25.104362+00	188	Floor object (188)	3		12	1
+231	2021-08-19 08:13:33.946494+00	187	Floor object (187)	3		12	1
+232	2021-08-19 08:13:33.952383+00	186	Floor object (186)	3		12	1
+233	2021-08-19 08:13:33.956377+00	185	Floor object (185)	3		12	1
+234	2021-08-19 08:13:33.960381+00	184	Floor object (184)	3		12	1
+235	2021-08-19 08:13:33.965836+00	183	Floor object (183)	3		12	1
+236	2021-08-19 08:13:33.970849+00	182	Floor object (182)	3		12	1
+237	2021-08-19 08:13:33.975012+00	181	Floor object (181)	3		12	1
+238	2021-08-19 08:13:33.981387+00	180	Floor object (180)	3		12	1
+239	2021-08-19 08:13:33.98656+00	179	Floor object (179)	3		12	1
+240	2021-08-19 08:13:33.99302+00	178	Floor object (178)	3		12	1
+241	2021-08-19 08:13:34.000718+00	177	Floor object (177)	3		12	1
+242	2021-08-19 08:13:34.005638+00	176	Floor object (176)	3		12	1
+243	2021-08-19 08:13:34.01062+00	175	Floor object (175)	3		12	1
+244	2021-08-19 08:13:34.014586+00	174	Floor object (174)	3		12	1
+245	2021-08-19 08:13:34.019539+00	173	Floor object (173)	3		12	1
+246	2021-08-19 08:13:34.023861+00	172	Floor object (172)	3		12	1
+247	2021-08-19 08:13:34.028267+00	171	Floor object (171)	3		12	1
+248	2021-08-19 08:13:34.032413+00	170	Floor object (170)	3		12	1
+249	2021-08-19 08:13:34.03709+00	169	Floor object (169)	3		12	1
+250	2021-08-19 08:13:34.041419+00	168	Floor object (168)	3		12	1
+251	2021-08-19 08:13:34.045701+00	167	Floor object (167)	3		12	1
+252	2021-08-19 08:13:34.049772+00	166	Floor object (166)	3		12	1
+253	2021-08-19 08:13:34.053723+00	165	Floor object (165)	3		12	1
+254	2021-08-19 08:13:34.058589+00	164	Floor object (164)	3		12	1
+255	2021-08-19 08:13:34.062905+00	163	Floor object (163)	3		12	1
+256	2021-08-19 08:13:34.067417+00	162	Floor object (162)	3		12	1
+257	2021-08-19 08:13:34.071194+00	161	Floor object (161)	3		12	1
+258	2021-08-19 08:13:34.075075+00	160	Floor object (160)	3		12	1
+259	2021-08-19 08:13:34.079234+00	159	Floor object (159)	3		12	1
+260	2021-08-19 08:13:34.084188+00	158	Floor object (158)	3		12	1
+261	2021-08-19 08:13:34.08805+00	157	Floor object (157)	3		12	1
+262	2021-08-19 08:13:34.093406+00	156	Floor object (156)	3		12	1
+263	2021-08-19 08:13:34.097757+00	155	Floor object (155)	3		12	1
+264	2021-08-19 08:13:34.101841+00	154	Floor object (154)	3		12	1
+265	2021-08-19 08:13:34.105509+00	153	Floor object (153)	3		12	1
+266	2021-08-19 08:13:34.110951+00	152	Floor object (152)	3		12	1
+267	2021-08-19 08:13:34.115507+00	151	Floor object (151)	3		12	1
+268	2021-08-19 08:13:34.120399+00	150	Floor object (150)	3		12	1
+269	2021-08-19 08:13:34.125138+00	149	Floor object (149)	3		12	1
+270	2021-08-19 08:13:34.130968+00	148	Floor object (148)	3		12	1
+271	2021-08-19 08:13:34.135539+00	147	Floor object (147)	3		12	1
+272	2021-08-19 08:13:34.141378+00	146	Floor object (146)	3		12	1
+273	2021-08-19 08:13:34.146139+00	145	Floor object (145)	3		12	1
+274	2021-08-19 08:13:34.153496+00	144	Floor object (144)	3		12	1
+275	2021-08-19 08:13:34.160225+00	143	Floor object (143)	3		12	1
+276	2021-08-19 08:13:34.166863+00	142	Floor object (142)	3		12	1
+277	2021-08-19 08:13:34.176304+00	141	Floor object (141)	3		12	1
+278	2021-08-19 08:13:34.181814+00	140	Floor object (140)	3		12	1
+279	2021-08-19 08:13:34.187005+00	139	Floor object (139)	3		12	1
+280	2021-08-19 08:13:34.192571+00	138	Floor object (138)	3		12	1
+281	2021-08-19 08:13:34.199374+00	137	Floor object (137)	3		12	1
+282	2021-08-19 08:13:34.20429+00	136	Floor object (136)	3		12	1
+283	2021-08-19 08:13:34.211333+00	135	Floor object (135)	3		12	1
+284	2021-08-19 08:13:34.217187+00	134	Floor object (134)	3		12	1
+285	2021-08-19 08:13:34.228329+00	133	Floor object (133)	3		12	1
+286	2021-08-19 08:13:34.23608+00	132	Floor object (132)	3		12	1
+287	2021-08-19 08:13:34.241485+00	131	Floor object (131)	3		12	1
+288	2021-08-19 08:13:34.248248+00	130	Floor object (130)	3		12	1
+289	2021-08-19 08:13:34.252789+00	129	Floor object (129)	3		12	1
+290	2021-08-19 08:13:34.257261+00	128	Floor object (128)	3		12	1
+291	2021-08-19 08:13:34.263042+00	127	Floor object (127)	3		12	1
+292	2021-08-19 08:13:34.269385+00	126	Floor object (126)	3		12	1
+293	2021-08-19 08:13:34.274199+00	125	Floor object (125)	3		12	1
+294	2021-08-19 08:13:34.280331+00	124	Floor object (124)	3		12	1
+295	2021-08-19 08:13:34.28515+00	123	Floor object (123)	3		12	1
+296	2021-08-19 08:13:34.2914+00	122	Floor object (122)	3		12	1
+297	2021-08-19 08:13:34.298273+00	121	Floor object (121)	3		12	1
+298	2021-08-19 08:13:34.306281+00	120	Floor object (120)	3		12	1
+299	2021-08-19 08:13:34.312263+00	119	Floor object (119)	3		12	1
+300	2021-08-19 08:13:34.318142+00	118	Floor object (118)	3		12	1
+301	2021-08-19 08:13:34.338206+00	117	Floor object (117)	3		12	1
+302	2021-08-19 08:13:34.343116+00	116	Floor object (116)	3		12	1
+303	2021-08-19 08:13:34.348332+00	115	Floor object (115)	3		12	1
+304	2021-08-19 08:13:34.35746+00	114	Floor object (114)	3		12	1
+305	2021-08-19 08:13:34.363578+00	113	Floor object (113)	3		12	1
+306	2021-08-19 08:13:34.368605+00	112	Floor object (112)	3		12	1
+307	2021-08-19 08:13:34.376245+00	111	Floor object (111)	3		12	1
+308	2021-08-19 08:13:34.381807+00	110	Floor object (110)	3		12	1
+309	2021-08-19 08:13:34.388993+00	109	Floor object (109)	3		12	1
+310	2021-08-19 08:13:34.393744+00	108	Floor object (108)	3		12	1
+311	2021-08-19 08:13:34.40015+00	107	Floor object (107)	3		12	1
+312	2021-08-19 08:13:34.405423+00	106	Floor object (106)	3		12	1
+313	2021-08-19 08:13:34.412931+00	105	Floor object (105)	3		12	1
+314	2021-08-19 08:13:34.417179+00	104	Floor object (104)	3		12	1
+315	2021-08-19 08:13:34.423677+00	103	Floor object (103)	3		12	1
+316	2021-08-19 08:13:34.433133+00	102	Floor object (102)	3		12	1
+317	2021-08-19 08:13:34.438646+00	101	Floor object (101)	3		12	1
+318	2021-08-19 08:13:34.444225+00	100	Floor object (100)	3		12	1
+319	2021-08-19 08:13:34.450749+00	99	Floor object (99)	3		12	1
+320	2021-08-19 08:13:34.456931+00	98	Floor object (98)	3		12	1
+321	2021-08-19 08:13:34.462017+00	97	Floor object (97)	3		12	1
+322	2021-08-19 08:13:34.467927+00	96	Floor object (96)	3		12	1
+323	2021-08-19 08:13:34.473575+00	95	Floor object (95)	3		12	1
+324	2021-08-19 08:13:34.481767+00	94	Floor object (94)	3		12	1
+325	2021-08-19 08:13:34.488438+00	93	Floor object (93)	3		12	1
+326	2021-08-19 08:13:34.493779+00	92	Floor object (92)	3		12	1
+327	2021-08-19 08:13:34.498237+00	91	Floor object (91)	3		12	1
+328	2021-08-19 08:13:34.505336+00	90	Floor object (90)	3		12	1
+329	2021-08-19 08:13:34.511245+00	89	Floor object (89)	3		12	1
+330	2021-08-19 08:13:34.517792+00	88	Floor object (88)	3		12	1
+331	2021-08-19 08:13:40.059087+00	87	Floor object (87)	3		12	1
+332	2021-08-19 08:13:40.070689+00	86	Floor object (86)	3		12	1
+333	2021-08-19 08:13:40.081439+00	85	Floor object (85)	3		12	1
+334	2021-08-19 08:13:40.089542+00	84	Floor object (84)	3		12	1
+335	2021-08-19 08:13:40.097433+00	83	Floor object (83)	3		12	1
+336	2021-08-19 08:13:40.106244+00	82	Floor object (82)	3		12	1
+337	2021-08-19 08:13:40.112059+00	81	Floor object (81)	3		12	1
+338	2021-08-19 08:13:40.118653+00	80	Floor object (80)	3		12	1
+339	2021-08-19 08:13:40.12395+00	79	Floor object (79)	3		12	1
+340	2021-08-19 08:13:40.131454+00	78	Floor object (78)	3		12	1
+341	2021-08-19 08:13:40.137156+00	77	Floor object (77)	3		12	1
+342	2021-08-19 08:13:40.142749+00	76	Floor object (76)	3		12	1
+343	2021-08-19 08:13:40.147885+00	75	Floor object (75)	3		12	1
+344	2021-08-19 08:13:40.15278+00	74	Floor object (74)	3		12	1
+345	2021-08-19 08:13:40.159245+00	73	Floor object (73)	3		12	1
+346	2021-08-19 08:13:40.164366+00	72	Floor object (72)	3		12	1
+347	2021-08-19 08:13:40.170666+00	71	Floor object (71)	3		12	1
+348	2021-08-19 08:13:40.176979+00	70	Floor object (70)	3		12	1
+349	2021-08-19 08:13:50.166203+00	31	Section object (31)	3		22	1
+350	2021-08-19 08:13:50.174445+00	30	Section object (30)	3		22	1
+351	2021-08-19 08:13:50.184253+00	29	Section object (29)	3		22	1
+352	2021-08-19 08:13:50.190191+00	28	Section object (28)	3		22	1
+353	2021-08-19 08:13:50.197609+00	27	Section object (27)	3		22	1
+354	2021-08-19 08:13:50.204942+00	26	Section object (26)	3		22	1
+355	2021-08-19 08:13:50.211336+00	25	Section object (25)	3		22	1
+356	2021-08-19 08:13:50.223555+00	24	Section object (24)	3		22	1
+357	2021-08-19 08:13:50.230775+00	23	Section object (23)	3		22	1
+358	2021-08-19 08:13:50.236771+00	22	Section object (22)	3		22	1
+359	2021-08-19 08:13:50.242975+00	21	Section object (21)	3		22	1
+360	2021-08-19 08:14:14.335359+00	19	ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55	3		13	1
+361	2021-08-19 08:18:53.582136+00	20	ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55	3		13	1
+362	2021-08-19 08:30:35.279586+00	36	Section object (36)	3		22	1
+363	2021-08-19 08:30:35.287859+00	35	Section object (35)	3		22	1
+364	2021-08-19 08:30:35.301678+00	34	Section object (34)	3		22	1
+365	2021-08-19 08:30:35.310495+00	33	Section object (33)	3		22	1
+366	2021-08-19 08:30:35.322035+00	32	Section object (32)	3		22	1
+367	2021-08-19 08:30:41.931323+00	21	ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55	3		13	1
+368	2021-08-19 08:30:54.59931+00	359	Floor object (359)	3		12	1
+369	2021-08-19 08:30:54.60631+00	358	Floor object (358)	3		12	1
+370	2021-08-19 08:30:54.616163+00	357	Floor object (357)	3		12	1
+371	2021-08-19 08:30:54.622509+00	356	Floor object (356)	3		12	1
+372	2021-08-19 08:30:54.629185+00	355	Floor object (355)	3		12	1
+373	2021-08-19 08:30:54.634238+00	354	Floor object (354)	3		12	1
+374	2021-08-19 08:30:54.639652+00	353	Floor object (353)	3		12	1
+375	2021-08-19 08:30:54.645709+00	352	Floor object (352)	3		12	1
+376	2021-08-19 08:30:54.652227+00	351	Floor object (351)	3		12	1
+377	2021-08-19 08:30:54.657848+00	350	Floor object (350)	3		12	1
+378	2021-08-19 08:30:54.665038+00	349	Floor object (349)	3		12	1
+379	2021-08-19 08:30:54.669521+00	348	Floor object (348)	3		12	1
+380	2021-08-19 08:30:54.673969+00	347	Floor object (347)	3		12	1
+381	2021-08-19 08:30:54.678569+00	346	Floor object (346)	3		12	1
+382	2021-08-19 08:30:54.684251+00	345	Floor object (345)	3		12	1
+383	2021-08-19 08:30:54.689568+00	344	Floor object (344)	3		12	1
+384	2021-08-19 08:30:54.697577+00	343	Floor object (343)	3		12	1
+385	2021-08-19 08:30:54.704031+00	342	Floor object (342)	3		12	1
+386	2021-08-19 08:30:54.709895+00	341	Floor object (341)	3		12	1
+387	2021-08-19 08:30:54.718736+00	340	Floor object (340)	3		12	1
+388	2021-08-19 08:30:54.724674+00	339	Floor object (339)	3		12	1
+389	2021-08-19 08:30:54.730933+00	338	Floor object (338)	3		12	1
+390	2021-08-19 08:30:54.736754+00	337	Floor object (337)	3		12	1
+391	2021-08-19 08:30:54.742529+00	336	Floor object (336)	3		12	1
+392	2021-08-19 08:30:54.749688+00	335	Floor object (335)	3		12	1
+393	2021-08-19 08:30:54.755853+00	334	Floor object (334)	3		12	1
+394	2021-08-19 08:30:54.762561+00	333	Floor object (333)	3		12	1
+395	2021-08-19 08:30:54.769268+00	332	Floor object (332)	3		12	1
+396	2021-08-19 08:30:54.77702+00	331	Floor object (331)	3		12	1
+397	2021-08-19 08:30:54.785712+00	330	Floor object (330)	3		12	1
+398	2021-08-19 08:30:54.79229+00	329	Floor object (329)	3		12	1
+399	2021-08-19 08:30:54.79784+00	328	Floor object (328)	3		12	1
+400	2021-08-19 08:30:54.803751+00	327	Floor object (327)	3		12	1
+401	2021-08-19 08:30:54.809858+00	326	Floor object (326)	3		12	1
+402	2021-08-19 08:30:54.823996+00	325	Floor object (325)	3		12	1
+403	2021-08-19 08:30:54.829551+00	324	Floor object (324)	3		12	1
+404	2021-08-19 08:30:54.83656+00	323	Floor object (323)	3		12	1
+405	2021-08-19 08:30:54.841925+00	322	Floor object (322)	3		12	1
+406	2021-08-19 08:30:54.847435+00	321	Floor object (321)	3		12	1
+407	2021-08-19 08:30:54.853812+00	320	Floor object (320)	3		12	1
+408	2021-08-19 08:30:54.860742+00	319	Floor object (319)	3		12	1
+409	2021-08-19 08:30:54.8677+00	318	Floor object (318)	3		12	1
+410	2021-08-19 08:30:54.873217+00	317	Floor object (317)	3		12	1
+411	2021-08-19 08:30:54.879507+00	316	Floor object (316)	3		12	1
+412	2021-08-19 08:30:54.885291+00	315	Floor object (315)	3		12	1
+413	2021-08-19 08:30:54.890896+00	314	Floor object (314)	3		12	1
+414	2021-08-19 08:30:54.897028+00	313	Floor object (313)	3		12	1
+415	2021-08-19 08:30:54.904211+00	312	Floor object (312)	3		12	1
+416	2021-08-19 08:30:54.911427+00	311	Floor object (311)	3		12	1
+417	2021-08-19 08:30:54.91744+00	310	Floor object (310)	3		12	1
+418	2021-08-19 08:30:54.923892+00	309	Floor object (309)	3		12	1
+419	2021-08-19 08:30:54.930541+00	308	Floor object (308)	3		12	1
+420	2021-08-19 08:30:54.936762+00	307	Floor object (307)	3		12	1
+421	2021-08-19 08:30:54.943193+00	306	Floor object (306)	3		12	1
+422	2021-08-19 08:30:54.949686+00	305	Floor object (305)	3		12	1
+423	2021-08-19 08:30:54.961017+00	304	Floor object (304)	3		12	1
+424	2021-08-19 08:30:54.967878+00	303	Floor object (303)	3		12	1
+425	2021-08-19 08:30:54.974742+00	302	Floor object (302)	3		12	1
+426	2021-08-19 08:30:54.980407+00	301	Floor object (301)	3		12	1
+427	2021-08-19 08:30:54.985517+00	300	Floor object (300)	3		12	1
+428	2021-08-19 08:30:54.990917+00	299	Floor object (299)	3		12	1
+429	2021-08-19 08:30:54.996911+00	298	Floor object (298)	3		12	1
+430	2021-08-19 08:30:55.001446+00	297	Floor object (297)	3		12	1
+431	2021-08-19 08:30:55.006835+00	296	Floor object (296)	3		12	1
+432	2021-08-19 08:30:55.011628+00	295	Floor object (295)	3		12	1
+433	2021-08-19 08:30:55.016476+00	294	Floor object (294)	3		12	1
+434	2021-08-19 08:30:55.022397+00	293	Floor object (293)	3		12	1
+435	2021-08-19 08:30:55.028526+00	292	Floor object (292)	3		12	1
+436	2021-08-19 08:30:55.033961+00	291	Floor object (291)	3		12	1
+437	2021-08-19 08:30:55.040535+00	290	Floor object (290)	3		12	1
+438	2021-08-19 08:30:55.045997+00	289	Floor object (289)	3		12	1
+439	2021-08-19 08:30:55.054573+00	288	Floor object (288)	3		12	1
+440	2021-08-19 08:33:06.607887+00	22	ОСМД 1001 ЖК "Альтаир": Люстдорфская дорога, 55	3		13	1
+441	2021-09-08 08:29:14.770178+00	1	Unit object (1)	1	[{"added": {}}]	29	1
+442	2021-09-08 08:44:27.67529+00	2	Unit object (2)	1	[{"added": {}}]	29	1
+443	2021-09-08 12:30:55.050881+00	1	Service object (1)	1	[{"added": {}}]	23	1
+444	2021-09-08 14:49:08.10358+00	1	Холодная вода	2	[{"changed": {"fields": ["In meter"]}}]	23	1
+445	2021-09-08 14:49:16.719015+00	1	Холодная вода	2	[{"changed": {"fields": ["In meter"]}}]	23	1
+\.
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.django_content_type (id, app_label, model) FROM stdin;
+1	admin	logentry
+2	auth	permission
+3	auth	group
+4	contenttypes	contenttype
+5	sessions	session
+6	myhouse_admin	aboutuspage
+7	myhouse_admin	block
+8	myhouse_admin	cashboxrecord
+9	myhouse_admin	contactspage
+10	myhouse_admin	document
+11	myhouse_admin	flat
+12	myhouse_admin	floor
+13	myhouse_admin	house
+14	myhouse_admin	mainpage
+15	myhouse_admin	message
+16	myhouse_admin	meterreading
+17	myhouse_admin	paymentdetails
+18	myhouse_admin	paymenttype
+19	myhouse_admin	personalaccount
+20	myhouse_admin	receipt
+21	myhouse_admin	receiptservice
+22	myhouse_admin	section
+23	myhouse_admin	service
+24	myhouse_admin	servicespage
+25	myhouse_admin	tariff
+26	myhouse_admin	tariffimage
+27	myhouse_admin	tariffpage
+28	myhouse_admin	tariffservice
+29	myhouse_admin	unit
+30	myhouse_admin	ticket
+31	users	user
+32	users	owner
+33	users	role
+34	users	employee
+35	myhouse_admin	aboutuspageimage
+36	myhouse_admin	aboutuspageadditionalimage
+\.
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2021-08-01 12:09:32.190881+00
+2	contenttypes	0002_remove_content_type_name	2021-08-01 12:09:32.221947+00
+3	auth	0001_initial	2021-08-01 12:09:32.390878+00
+4	auth	0002_alter_permission_name_max_length	2021-08-01 12:09:32.40403+00
+5	auth	0003_alter_user_email_max_length	2021-08-01 12:09:32.427598+00
+6	auth	0004_alter_user_username_opts	2021-08-01 12:09:32.470856+00
+7	auth	0005_alter_user_last_login_null	2021-08-01 12:09:32.493334+00
+8	auth	0006_require_contenttypes_0002	2021-08-01 12:09:32.511588+00
+9	auth	0007_alter_validators_add_error_messages	2021-08-01 12:09:32.548277+00
+10	auth	0008_alter_user_username_max_length	2021-08-01 12:09:32.580123+00
+11	auth	0009_alter_user_last_name_max_length	2021-08-01 12:09:32.608477+00
+12	auth	0010_alter_group_name_max_length	2021-08-01 12:09:32.63409+00
+13	auth	0011_update_proxy_permissions	2021-08-01 12:09:32.666487+00
+14	auth	0012_alter_user_first_name_max_length	2021-08-01 12:09:32.689437+00
+15	users	0001_initial	2021-08-01 12:09:32.902443+00
+16	admin	0001_initial	2021-08-01 12:09:32.973473+00
+17	admin	0002_logentry_remove_auto_add	2021-08-01 12:09:33.00627+00
+18	admin	0003_logentry_add_action_flag_choices	2021-08-01 12:09:33.031572+00
+19	myhouse_admin	0001_initial	2021-08-01 12:09:33.564746+00
+20	myhouse_admin	0002_initial	2021-08-01 12:09:34.577901+00
+21	sessions	0001_initial	2021-08-01 12:09:34.629598+00
+22	users	0002_auto_20210803_1245	2021-08-03 09:45:45.117928+00
+23	myhouse_admin	0003_auto_20210804_0540	2021-08-04 02:40:41.797005+00
+24	myhouse_admin	0004_auto_20210804_1302	2021-08-04 10:02:43.053009+00
+25	myhouse_admin	0005_aboutuspageadditionalimage	2021-08-04 10:03:17.510725+00
+26	myhouse_admin	0006_auto_20210804_1552	2021-08-04 12:53:09.497229+00
+27	myhouse_admin	0007_auto_20210829_1745	2021-08-29 14:45:24.423192+00
+28	users	0003_alter_owner_id	2021-08-29 14:45:24.490486+00
+29	myhouse_admin	0008_auto_20210906_1430	2021-09-06 11:31:40.694539+00
+30	myhouse_admin	0009_alter_personalaccount_flat	2021-09-07 15:45:43.042273+00
+31	myhouse_admin	0010_alter_service_unit	2021-09-08 12:32:45.794649+00
+32	myhouse_admin	0011_auto_20210910_1116	2021-09-10 08:16:47.968247+00
+33	myhouse_admin	0012_personalaccount_summary	2021-09-12 17:47:00.310293+00
+34	myhouse_admin	0013_alter_cashboxrecord_summary	2021-09-13 13:29:25.616497+00
+35	myhouse_admin	0014_auto_20210913_1855	2021-09-13 15:55:47.489266+00
+36	myhouse_admin	0015_alter_cashboxrecord_personal_account	2021-09-13 15:56:24.50706+00
+37	myhouse_admin	0016_meterreading_number	2021-09-14 18:19:42.976931+00
+38	myhouse_admin	0017_alter_meterreading_reading_date	2021-09-15 14:35:41.093585+00
+39	myhouse_admin	0018_alter_meterreading_reading_date	2021-09-15 14:41:07.252772+00
+40	myhouse_admin	0019_auto_20210918_2112	2021-09-18 18:12:42.328433+00
+41	myhouse_admin	0020_alter_receiptservice_receipt	2021-09-22 12:59:46.757294+00
+42	myhouse_admin	0021_remove_personalaccount_summary	2021-09-24 07:02:36.986096+00
+43	myhouse_admin	0022_cashboxrecord_receipt	2021-09-24 08:14:44.147231+00
+44	myhouse_admin	0023_auto_20210925_0039	2021-09-24 21:40:10.356584+00
+45	myhouse_admin	0024_rename_text_message_body	2021-09-24 21:41:40.378775+00
+46	myhouse_admin	0025_message_for_debtors	2021-09-24 21:47:20.278752+00
+47	myhouse_admin	0026_auto_20210925_0220	2021-09-24 23:20:29.717362+00
+\.
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+lhdmtwarzq3zp5pyo8yorn1s5wdqfg62	.eJxVjE0OwiAYBe_C2hCgUMCle89Avh8qVQNJaVfGu2uTLnT7Zua9RIJtLWnreUkzi7PQ4vS7IdAj1x3wHeqtSWp1XWaUuyIP2uW1cX5eDvfvoEAv31oNkbRFpEmPQIqHiQejsneAZEd02joFASJazmjYBE-A2ZMP6LyOJN4f_M84qw:1mACUm:XdhYMenZNgrDHjwnuQn3NBx_s4tdhKAxMa-VxB5RU2Y	2021-08-15 14:31:16.51314+00
+w2gzyj0z4i1x0r0880hka5lb49ikfnsc	.eJxVjMsOwiAQRf-FtSEDnYK4dN9vIMNjpGogKe3K-O_apAvd3nPOfQlP21r81vPi5yQuQonT7xYoPnLdQbpTvTUZW12XOchdkQftcmopP6-H-3dQqJdvbRzAaDEN2mlAR9ZYYD2qxINhIGbEiGdWOQ-AFKNNMQBqtmACsdPi_QG75TeZ:1mAaGG:QJ1BG82evY7N0CgbdON8eicNzxHazSanlsWO1u7t4RI	2021-08-16 15:53:52.229398+00
+u7nrhmxcknt4jc6sjzdsa1fey17822lb	.eJxVjMsOwiAQRf-FtSEDnYK4dN9vIMNjpGogKe3K-O_apAvd3nPOfQlP21r81vPi5yQuQonT7xYoPnLdQbpTvTUZW12XOchdkQftcmopP6-H-3dQqJdvbRzAaDEN2mlAR9ZYYD2qxINhIGbEiGdWOQ-AFKNNMQBqtmACsdPi_QG75TeZ:1mAqpX:Wv3Lks34IpZ7pU3ec43OvSNdJapUYsni84dZvuG_5CY	2021-08-17 09:35:23.63846+00
+ixomc215jzcg8rt13k41e5zpyglyq4z5	.eJxVjMsOwiAQRf-FtSEDnYK4dN9vIMNjpGogKe3K-O_apAvd3nPOfQlP21r81vPi5yQuQonT7xYoPnLdQbpTvTUZW12XOchdkQftcmopP6-H-3dQqJdvbRzAaDEN2mlAR9ZYYD2qxINhIGbEiGdWOQ-AFKNNMQBqtmACsdPi_QG75TeZ:1mAs3c:yW7fhYlsU3gD4B-rwLOhsKB4v-WDXuwGpvojtU--spI	2021-08-17 10:54:00.76921+00
+4t4r47v7xviawg7o3tdwse5qzx4a7uvo	.eJxVjMsOwiAQRf-FtSEDnYK4dN9vIMNjpGogKe3K-O_apAvd3nPOfQlP21r81vPi5yQuQonT7xYoPnLdQbpTvTUZW12XOchdkQftcmopP6-H-3dQqJdvbRzAaDEN2mlAR9ZYYD2qxINhIGbEiGdWOQ-AFKNNMQBqtmACsdPi_QG75TeZ:1mAs8G:ahKoqVJ5wkIX53WbWmVxflXBxzEC1xwj4XH_O6FLu6o	2021-08-17 10:58:48.534597+00
+5qbr3li7xeekyctvmeqsz9971dp32fw5	.eJxVjMsOwiAQRf-FtSEDnYK4dN9vIMNjpGogKe3K-O_apAvd3nPOfQlP21r81vPi5yQuQonT7xYoPnLdQbpTvTUZW12XOchdkQftcmopP6-H-3dQqJdvbRzAaDEN2mlAR9ZYYD2qxINhIGbEiGdWOQ-AFKNNMQBqtmACsdPi_QG75TeZ:1mB2mC:DhxiI92vAnE8-0iBynH2AcF7Fam-Tza0u9hFalgBYl4	2021-08-17 22:20:44.649365+00
+1k5o1xzqrhal4scymlwjv7y4zyiz0uxg	.eJxVjMsOwiAQRf-FtSEDnYK4dN9vIMNjpGogKe3K-O_apAvd3nPOfQlP21r81vPi5yQuQonT7xYoPnLdQbpTvTUZW12XOchdkQftcmopP6-H-3dQqJdvbRzAaDEN2mlAR9ZYYD2qxINhIGbEiGdWOQ-AFKNNMQBqtmACsdPi_QG75TeZ:1mB2tb:dwsC858c3Qw_UJpkoLO_jhyWqp0xQxaxWzomXsU16WE	2021-08-17 22:28:23.535546+00
+1erzavc1cqhuuud5cdqka3bnvz0zbu18	.eJxVjMsOwiAQRf-FtSEDnYK4dN9vIMNjpGogKe3K-O_apAvd3nPOfQlP21r81vPi5yQuQonT7xYoPnLdQbpTvTUZW12XOchdkQftcmopP6-H-3dQqJdvbRzAaDEN2mlAR9ZYYD2qxINhIGbEiGdWOQ-AFKNNMQBqtmACsdPi_QG75TeZ:1mB3OZ:3IDG0dzfmZ2tB7Oh8ew0jdb43FMDZZKeEWb4Oi3BXGo	2021-08-17 23:00:23.208698+00
+1cx2xonqdvd2pah1owd5objhv8w5snid	.eJxVjMsOwiAQRf-FtSEDnYK4dN9vIMNjpGogKe3K-O_apAvd3nPOfQlP21r81vPi5yQuQonT7xYoPnLdQbpTvTUZW12XOchdkQftcmopP6-H-3dQqJdvbRzAaDEN2mlAR9ZYYD2qxINhIGbEiGdWOQ-AFKNNMQBqtmACsdPi_QG75TeZ:1mB7Oy:ruBPwHOGaRlQQDqhLsz_ScG8vsCqff9By83AhL5aReA	2021-08-18 03:17:04.74523+00
+b20lgmdd2ok43ketrg987085z1do3esq	.eJxVjMsOwiAQRf-FtSEDnYK4dN9vIMNjpGogKe3K-O_apAvd3nPOfQlP21r81vPi5yQuQonT7xYoPnLdQbpTvTUZW12XOchdkQftcmopP6-H-3dQqJdvbRzAaDEN2mlAR9ZYYD2qxINhIGbEiGdWOQ-AFKNNMQBqtmACsdPi_QG75TeZ:1mBFAR:q5YRibMEw7v0lrCxQZcuQz9nGLrIsw7Y3rzVTeSCZ9k	2021-08-18 11:34:35.712301+00
+u6otr5bt51vdzj1fggtp75e5unp2yaep	.eJxVjMsOwiAQRf-FtSEDnYK4dN9vIMNjpGogKe3K-O_apAvd3nPOfQlP21r81vPi5yQuQonT7xYoPnLdQbpTvTUZW12XOchdkQftcmopP6-H-3dQqJdvbRzAaDEN2mlAR9ZYYD2qxINhIGbEiGdWOQ-AFKNNMQBqtmACsdPi_QG75TeZ:1mBGk1:zbYCy-BjOSiAoeU3i0MaaMWLIFIt8NNCGyJRjKxsJ7Y	2021-08-18 13:15:25.546031+00
+apwtcri7js6uw7lsla77p7qtkyqth4m3	.eJxVjMsOwiAQRf-FtSEDnYK4dN9vIMNjpGogKe3K-O_apAvd3nPOfQlP21r81vPi5yQuQonT7xYoPnLdQbpTvTUZW12XOchdkQftcmopP6-H-3dQqJdvbRzAaDEN2mlAR9ZYYD2qxINhIGbEiGdWOQ-AFKNNMQBqtmACsdPi_QG75TeZ:1mU6rM:MUYqjDtzwBpSkYfJPRUvYyN5duZsmgPtPTXgZbfIAJc	2021-10-09 12:32:52.548+00
+bljzx3z9n7mi0bxifcv34avxf8ovi8j9	.eJxVjMsOwiAQRf-FtSEDnYK4dN9vIMNjpGogKe3K-O_apAvd3nPOfQlP21r81vPi5yQuQonT7xYoPnLdQbpTvTUZW12XOchdkQftcmopP6-H-3dQqJdvbRzAaDEN2mlAR9ZYYD2qxINhIGbEiGdWOQ-AFKNNMQBqtmACsdPi_QG75TeZ:1mBH9D:pzdvUiSJKs5cJprzhGxLnbYP4RBdx3DSpvl9vbPuuuU	2021-08-18 13:41:27.286068+00
+coj8qga3h5g8yiem36ap1udsve33nvd4	.eJxVjMsOwiAQRf-FtSEDnYK4dN9vIMNjpGogKe3K-O_apAvd3nPOfQlP21r81vPi5yQuQonT7xYoPnLdQbpTvTUZW12XOchdkQftcmopP6-H-3dQqJdvbRzAaDEN2mlAR9ZYYD2qxINhIGbEiGdWOQ-AFKNNMQBqtmACsdPi_QG75TeZ:1mBOUf:0MDO4AMlr7Xub7Xx3vqjdoRPg4D5o2oyDQ1mbxRaoJQ	2021-08-18 21:32:05.086217+00
+1zooz0rpajlyymo4voq6irc845728hc7	.eJxVjMsOwiAQRf-FtSEDnYK4dN9vIMNjpGogKe3K-O_apAvd3nPOfQlP21r81vPi5yQuQonT7xYoPnLdQbpTvTUZW12XOchdkQftcmopP6-H-3dQqJdvbRzAaDEN2mlAR9ZYYD2qxINhIGbEiGdWOQ-AFKNNMQBqtmACsdPi_QG75TeZ:1mBPG7:KrhjvRmcdTk1qYQPIjex-IDExDqtoQ3r6PE3l3Pog-E	2021-08-18 22:21:07.300902+00
+tisg98xcxsvdvm8cgq2cv33hg6b617oq	.eJxVjMsOwiAQRf-FtSEDnYK4dN9vIMNjpGogKe3K-O_apAvd3nPOfQlP21r81vPi5yQuQonT7xYoPnLdQbpTvTUZW12XOchdkQftcmopP6-H-3dQqJdvbRzAaDEN2mlAR9ZYYD2qxINhIGbEiGdWOQ-AFKNNMQBqtmACsdPi_QG75TeZ:1mFwth:aDTJC9BBB5w_5LkA8Q_PgqCAFDVABpiKr7ugR8scRhE	2021-08-31 11:04:45.703075+00
+xg0f6c2a2tai18n6wdmrtruedcftdj79	.eJxVjMsOwiAQRf-FtSEDnYK4dN9vIMNjpGogKe3K-O_apAvd3nPOfQlP21r81vPi5yQuQonT7xYoPnLdQbpTvTUZW12XOchdkQftcmopP6-H-3dQqJdvbRzAaDEN2mlAR9ZYYD2qxINhIGbEiGdWOQ-AFKNNMQBqtmACsdPi_QG75TeZ:1mMRMw:Zu_H3lq_fcGgfd-kL7kW4KhEAr_rTjuv5fNSaGoQgOk	2021-09-18 08:49:46.764183+00
+\.
+
+
+--
+-- Data for Name: myhouse_admin_aboutuspage; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_aboutuspage (id, heading, short_text, director_photo, ai_heading, ai_short_text, seo_title, seo_description, seo_keywords) FROM stdin;
+3	О управляющей компании	<p>Компания-застройщик не только создала этот объект для своих покупателей, но и после окончания строительства взяла на себя все услуги по обеспечению удобного проживания своих жильцов. Для этого была организована управляющая компания «Морская симфония», которая осуществляет комплексное обслуживание коммунальной сферы жизнедеятельности своих клиентов.<br></p><p><b><i>Миссией управляющей компании является такая схема взаимодействия с жильцами дома, при которой услуги компании не отвлекают их от проживания и отдыха и создают максимально комфортную экосистему в доме. Незаметный сервис и максимально эффективная работа являются визитной карточкой компании.</i></b></p><p><br>В функции управляющей компании входят как содержание и управление хозяйством комплекса, так и охраняемой придомовой территории – уборка, техническое обслуживание лифтового хозяйства, системы электро и водоснабжения дома, котельной и пожарной систем, диспетчеризация, охрана, содержание придомовой территории и многое другое. В штате компании собраны только профессионалы своего дела, которые помогут жильцам в самых трудных и критических ситуациях решить их жилищно-коммунальные проблемы семь дней в неделю круглосуточно – электрики и сантехники, инженеры, монтеры и другие специалисты имеют многолетний опыт и высокий уровень квалификации. </p><p>Все это делает жилой комплекс&nbsp; уникальным, комфортным и безопасным местом для проживания и отдыха всей семьи круглый год. Доверьте заботу о вашем доме и вашей квартире управляющей компании&nbsp; и вы сможете круглый год наслаждаться проживанием на берегу моря и прекрасной природой Одессы.</p>	uploads/2021/08-16/director-photo_K4cuJGt.png	Дополнительные услуги	<p>Главной обязанностью управляющей компании является поддержка комфортных условий для жильцов, оперативное реагирование на их просьбы и пожелания</p><p><b>К дополнительным услугам управляющей компании также относятся: 24-часовая охрана придомовой территории и паркинга, уборка территории и вывоз мусора, обслуживание пирса и пляжа. Также при желании жильцы дома могут заказать любые строительно-ремонтные работы от штатной бригады компании</b></p>	CRM-система для управляющей компании ЖКХ - "МОЙ ДОМ 24"	Система учета услуг и расходов для жильцов многоквартирных домов - crm для  упавляющей компании ЖКХ и ОСМД. Система "Мой Дом 24" состоит из ПЯТИ компонентов:  сайт управляющей компании,  панель администратора,  персональные кабинеты жильцов дома,  мобильное приложение для IPhone и  Android	Система Мой Дом 24,  сайт управляющей компании,  панель администратора,  персональные кабинеты жильцов дома,  мобильное приложение для IPhone,  мобильное приложение для Android, црм для ОСМД, управление квартирами для ОСМД, система управляющей компании жкх
+\.
+
+
+--
+-- Data for Name: myhouse_admin_aboutuspageadditionalimage; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_aboutuspageadditionalimage (id, image, about_us_page_id) FROM stdin;
+4	uploads/2021/08-16/gallery2.jpeg	3
+\.
+
+
+--
+-- Data for Name: myhouse_admin_aboutuspageimage; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_aboutuspageimage (id, image, about_us_page_id) FROM stdin;
+16	uploads/2021/08-17/gallery1.jpeg	3
+17	uploads/2021/08-17/gallery2_GsZ3o8F.jpeg	3
+\.
+
+
+--
+-- Data for Name: myhouse_admin_block; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_block (id, poster, heading, description, object_id, content_type_id) FROM stdin;
+4	uploads/2021/08-03/block4.jpeg	Спортивный Комплекс	Всего в 5 минутах ходьбы от жилого комплекса  находится Спортивный комплекс Международного гуманитарного университета - это современный оборудованный комплекс с залами для проведения волейбольных соревнований, соревнований по танцам и борьбе и других спортивных мероприятий	1	14
+5	uploads/2021/08-03/block5.jpeg	Клубная Жизнь	Район расположения жилого комплекса  Аркадия является культовым местом ночного отдыха и развлечения – буквально в 5-10 минутах ходьбы от комплекса находятся такие места сосредоточения клубной жизни страны	1	14
+6	uploads/2021/08-03/block6.jpeg	Удобная транспортная развязка	ЖК  расположена на берегу Черного моря в районе Аркадии и имеет удобную транспортную развязку, позволяющую даже в час Пик быстро и без проблем доехать в течение десяти минут до центра города или выехать на автострады Одесской обл	1	14
+24	uploads/2021/08-04/service3_xXSegxt.jpeg	Обслуживание лифтов	<p>Лифтовое хозяйство жилого комплекса представлена современными высокоскоростными пассажирскими и грузопассажирскими лифтовыми системами от мирового производителя.</p><p>Обслуживание лифтового хозяйства включает в себя:&nbsp; Уборку в кабинах лифтов и обеспечение сохранности лифтов,</p>	2	24
+3	uploads/2021/08-03/block3_AXjl5pI.jpeg	Пляж	Жилой комплекс расположен на берегу Черного моря в районе Аркадия. В десяти минутах ходьбы от него находится знаменитые пляжи Аркадия и Чайка, а чуть дальше – пляжи курортный, 13-ая станция Большого Фонтана, Пляжник и другие знаменитые пляжи Одессы	1	14
+1	uploads/2021/08-03/block1.jpeg	Магазины, Банки, Школы	Район расположения жилого комплекса  имеет всю необходимую для проживания социальную инфраструктуру – в непосредственной близости находятся лечебно-профилактические учреждения, аптеки, магазины, отделения банков, частные и коммерческие детские сады, школы	1	14
+2	uploads/2021/08-03/block2.jpeg	Рестораны и Кафе	В непосредственной близости от жилого комплекса&nbsp; расположены рыбный ресторан&nbsp; и итальянская пиццерия. Кроме того, всего в десяти минутах ходьбы от комплекса находятся  рестораны испанской, итальянской, американской, украинской и русской кухни, пиццерии, кафе и лаунж-бары на любой вкус.	1	14
+22	uploads/2021/08-04/service1_oCS3KT4.jpeg	Уборка комплекса (парадных) и территории, вывоз мусора	<p>&nbsp;Уборка комплекса (парадных) и территории, вывоз мусоразимнее время года территория жилого комплекса своевременно очищается от снега и льда, пешеходные пандусы, дорожки и проезжая часть обрабатываются анти скользящими составами. Специалисты управляющей компании осуществляют регулярный уход за зелеными насаждениям.<br></p>	2	24
+23	uploads/2021/08-04/service2_xvmFarM.jpeg	Обслуживание паркинга	<p>Жилой комплекс&nbsp; имеет собственный четырехуровневый надземный паркинг, обслуживание которого осуществляет управляющая компания.</p><p>Обслуживание паркинга включает в себя следующие работы и услуги: Уборка территории,&nbsp; Поддержание функционирования инженерных сетей паркинга,&nbsp; Обслуживание системы выезда-въезда в паркинг, Обеспечение функционирования пропускного режима для въезда на территорию паркинга,&nbsp; Охрана и обеспечение безопасности жильцов и автомобильного транспорта.</p>	2	24
+28	uploads/2021/08-04/service4_JMb3dCo.jpeg	Охрана жилого комплекса	<p>Охрана жилого комплекса осуществляется штатными специалистами управляющей компании. Охрана жилого комплекса охватывает апартаменты жильцов, придомовую территорию и надземный паркинг с автотранспортом. Охрана жилого комплекса осуществляется с использованием современной системы контроля доступа и видеонаблюдения за территорией. Попасть на территорию комплекса жильцы могут только при наличие электронного ключа, а гости – через систему заявок от жильцов дома на посещение.<br></p>	2	24
+\.
+
+
+--
+-- Data for Name: myhouse_admin_cashboxrecord; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_cashboxrecord (id, number, date, is_made, summary, comment, manager_id, payment_type_id, personal_account_id, receipt_id) FROM stdin;
+1	1392021201041	2021-09-13	t	322	test in	\N	3	\N	\N
+3	1392021201458	2021-09-13	f	312		1	4	\N	\N
+4	149202112342	2021-09-13	t	1300	test_change	1	6	2	\N
+5	1492021125620	2021-09-14	t	300	test copy	1	6	2	\N
+7	24092100006	2021-09-24	f	5000		1	6	2	\N
+16	24092100008	2021-09-24	t	904	\N	\N	7	\N	21
+\.
+
+
+--
+-- Data for Name: myhouse_admin_contactspage; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_contactspage (id, heading, short_text, commercial_site_link, fio, location, address, phone_number, email, map, seo_title, seo_description, seo_keywords) FROM stdin;
+1	Разработчик системы "Мой Дом 24"	<p>Разработчиком системы&nbsp;"Мой Дом 24" является компания<b> AVADA-MEDIA </b>- компания специализирующаяся на разработке web и мобильных приложений разного уровня сложности, но неизменно высокого качества&nbsp;</p><p><b><i></i><i>Официальный сайт компании -&nbsp;</i></b><a target="_blank" rel="nofollow" href="https://avada-media.ua/"><b><i>https://avada-media.ua/</i></b></a></p>	https://avada-media.ua/moydom24/	AVADA-MEDIA	ул. Космонавтов, 32	Малиновский р-н, г. Одесса	+38(097)179-96-63	info@avada-media.com.ua	<div class="map">\r\n        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2749.8611266486014!2d30.713265815873395!3d46.43163207638925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40c633a651e3fd09%3A0x9331380952bbfd2c!2z0LLRg9C70LjRhtGPINCa0L7RgdC80L7QvdCw0LLRgtGW0LIsIDMyLCDQntC00LXRgdCwLCDQntC00LXRgdGM0LrQsCDQvtCx0LvQsNGB0YLRjCwgNjUwMDA!5e0!3m2!1suk!2sua!4v1524221669656" width="100%" height="800" frameborder="0" style="border:0" allowfullscreen></iframe>\r\n</div>	Система "МОЙ ДОМ 24" - Контакты	Украина, г. Одесса, Космонавтов, 32   Телефон, Viber: +38 097 179-96-63  Telegram: SergeyMeleshkevych  Skype: SergeyMeleshkevych	Система, МОЙ ДОМ 24, Контакты
+\.
+
+
+--
+-- Data for Name: myhouse_admin_document; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_document (id, name, file, about_us_page_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: myhouse_admin_flat; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_flat (id, number, square, floor_id, owner_id, tariff_id) FROM stdin;
+8	3	40.3	1464	3	6
+10	2	32.14	1384	4	\N
+4	1	40.28	1384	3	6
+11	5	42	1384	3	6
+\.
+
+
+--
+-- Data for Name: myhouse_admin_floor; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_floor (id, name, section_id) FROM stdin;
+1456	Этаж №1	64
+1457	Этаж №2	64
+1458	Этаж №3	64
+1459	Этаж №4	64
+1460	Этаж №5	64
+1461	Этаж №1	65
+1462	Этаж №2	65
+1463	Этаж №3	65
+1464	Этаж №4	65
+1465	Этаж №5	65
+1466	Этаж №1	66
+1467	Этаж №2	66
+1468	Этаж №3	66
+1469	Этаж №4	66
+1470	Этаж №5	66
+1072	Этаж №1	\N
+1073	Этаж №2	\N
+1074	Этаж №3	\N
+1075	Этаж №4	\N
+1076	Этаж №5	\N
+1077	Этаж №6	\N
+1078	Этаж №7	\N
+1079	Этаж №8	\N
+1080	Этаж №9	\N
+1081	Этаж №10	\N
+1082	Этаж №11	\N
+1083	Этаж №12	\N
+1084	Этаж №13	\N
+1085	Этаж №14	\N
+1086	Этаж №15	\N
+1087	Этаж №16	\N
+1088	Этаж №17	\N
+1089	Этаж №18	\N
+1090	Этаж №19	\N
+1091	Этаж №20	\N
+1092	Этаж №21	\N
+1093	Этаж №22	\N
+1094	Этаж №23	\N
+1095	Этаж №24	\N
+408	Этаж №1	39
+409	Этаж №2	39
+410	Этаж №3	39
+411	Этаж №4	39
+412	Этаж №5	39
+413	Этаж №1	40
+414	Этаж №2	40
+415	Этаж №3	40
+416	Этаж №4	40
+417	Этаж №5	40
+418	Этаж №1	41
+419	Этаж №2	41
+420	Этаж №3	41
+421	Этаж №4	41
+422	Этаж №5	41
+1288	Этаж №1	\N
+1289	Этаж №2	\N
+1290	Этаж №3	\N
+1291	Этаж №4	\N
+1292	Этаж №5	\N
+1293	Этаж №6	\N
+1294	Этаж №7	\N
+1295	Этаж №8	\N
+1296	Этаж №9	\N
+1297	Этаж №10	\N
+1298	Этаж №11	\N
+1096	Этаж №1	\N
+1097	Этаж №2	\N
+1098	Этаж №3	\N
+1099	Этаж №4	\N
+1100	Этаж №5	\N
+1101	Этаж №6	\N
+1102	Этаж №7	\N
+1103	Этаж №8	\N
+1104	Этаж №9	\N
+1105	Этаж №10	\N
+1106	Этаж №11	\N
+1107	Этаж №12	\N
+1108	Этаж №13	\N
+1109	Этаж №14	\N
+1110	Этаж №15	\N
+1111	Этаж №16	\N
+1112	Этаж №17	\N
+1113	Этаж №18	\N
+1114	Этаж №19	\N
+1115	Этаж №20	\N
+1116	Этаж №21	\N
+1117	Этаж №22	\N
+1118	Этаж №23	\N
+1119	Этаж №24	\N
+1120	Этаж №1	\N
+1121	Этаж №2	\N
+1122	Этаж №3	\N
+1123	Этаж №4	\N
+1124	Этаж №5	\N
+1125	Этаж №6	\N
+1126	Этаж №7	\N
+1127	Этаж №8	\N
+1128	Этаж №9	\N
+1129	Этаж №10	\N
+1130	Этаж №11	\N
+1131	Этаж №12	\N
+1132	Этаж №13	\N
+1133	Этаж №14	\N
+1134	Этаж №15	\N
+1135	Этаж №16	\N
+1136	Этаж №17	\N
+1137	Этаж №18	\N
+1138	Этаж №19	\N
+1139	Этаж №20	\N
+1140	Этаж №21	\N
+1141	Этаж №22	\N
+1142	Этаж №23	\N
+1143	Этаж №24	\N
+1144	Этаж №1	\N
+1145	Этаж №2	\N
+1146	Этаж №3	\N
+1147	Этаж №4	\N
+1148	Этаж №5	\N
+1149	Этаж №6	\N
+1150	Этаж №7	\N
+1151	Этаж №8	\N
+1152	Этаж №9	\N
+1153	Этаж №10	\N
+1154	Этаж №11	\N
+1155	Этаж №12	\N
+1156	Этаж №13	\N
+1157	Этаж №14	\N
+1158	Этаж №15	\N
+1159	Этаж №16	\N
+1160	Этаж №17	\N
+1161	Этаж №18	\N
+1162	Этаж №19	\N
+1163	Этаж №20	\N
+1164	Этаж №21	\N
+1165	Этаж №22	\N
+1166	Этаж №23	\N
+1167	Этаж №24	\N
+1168	Этаж №1	\N
+1169	Этаж №2	\N
+1170	Этаж №3	\N
+1171	Этаж №4	\N
+1172	Этаж №5	\N
+1173	Этаж №6	\N
+1174	Этаж №7	\N
+1175	Этаж №8	\N
+1176	Этаж №9	\N
+1177	Этаж №10	\N
+1178	Этаж №11	\N
+1179	Этаж №12	\N
+1180	Этаж №13	\N
+1181	Этаж №14	\N
+1182	Этаж №15	\N
+1183	Этаж №16	\N
+1184	Этаж №17	\N
+1185	Этаж №18	\N
+1186	Этаж №19	\N
+1187	Этаж №20	\N
+1188	Этаж №21	\N
+1189	Этаж №22	\N
+1190	Этаж №23	\N
+1191	Этаж №24	\N
+1299	Этаж №12	\N
+1300	Этаж №13	\N
+1301	Этаж №14	\N
+1302	Этаж №15	\N
+1303	Этаж №16	\N
+1304	Этаж №17	\N
+1305	Этаж №18	\N
+1306	Этаж №19	\N
+1307	Этаж №20	\N
+1308	Этаж №21	\N
+1309	Этаж №22	\N
+1192	Этаж №1	\N
+1193	Этаж №2	\N
+1194	Этаж №3	\N
+1195	Этаж №4	\N
+1196	Этаж №5	\N
+1197	Этаж №6	\N
+1198	Этаж №7	\N
+1199	Этаж №8	\N
+1200	Этаж №9	\N
+1201	Этаж №10	\N
+1202	Этаж №11	\N
+1203	Этаж №12	\N
+1204	Этаж №13	\N
+1205	Этаж №14	\N
+1206	Этаж №15	\N
+1207	Этаж №16	\N
+1208	Этаж №17	\N
+1209	Этаж №18	\N
+1210	Этаж №19	\N
+1211	Этаж №20	\N
+1212	Этаж №21	\N
+1213	Этаж №22	\N
+1214	Этаж №23	\N
+1215	Этаж №24	\N
+1216	Этаж №1	\N
+1217	Этаж №2	\N
+1218	Этаж №3	\N
+1219	Этаж №4	\N
+1220	Этаж №5	\N
+1221	Этаж №6	\N
+1222	Этаж №7	\N
+1223	Этаж №8	\N
+1224	Этаж №9	\N
+1225	Этаж №10	\N
+1226	Этаж №11	\N
+1227	Этаж №12	\N
+1228	Этаж №13	\N
+1229	Этаж №14	\N
+1230	Этаж №15	\N
+1231	Этаж №16	\N
+1232	Этаж №17	\N
+1233	Этаж №18	\N
+1234	Этаж №19	\N
+1235	Этаж №20	\N
+1236	Этаж №21	\N
+1237	Этаж №22	\N
+1238	Этаж №23	\N
+1239	Этаж №24	\N
+1310	Этаж №23	\N
+1311	Этаж №24	\N
+1264	Этаж №1	\N
+1265	Этаж №2	\N
+1266	Этаж №3	\N
+1267	Этаж №4	\N
+1268	Этаж №5	\N
+1269	Этаж №6	\N
+1270	Этаж №7	\N
+1271	Этаж №8	\N
+1272	Этаж №9	\N
+1273	Этаж №10	\N
+1274	Этаж №11	\N
+1275	Этаж №12	\N
+1276	Этаж №13	\N
+1277	Этаж №14	\N
+1278	Этаж №15	\N
+1279	Этаж №16	\N
+1280	Этаж №17	\N
+1281	Этаж №18	\N
+1282	Этаж №19	\N
+1283	Этаж №20	\N
+1284	Этаж №21	\N
+1285	Этаж №22	\N
+1286	Этаж №23	\N
+1287	Этаж №24	\N
+1240	Этаж №1	\N
+1241	Этаж №2	\N
+1242	Этаж №3	\N
+1243	Этаж №4	\N
+1244	Этаж №5	\N
+1245	Этаж №6	\N
+1246	Этаж №7	\N
+1247	Этаж №8	\N
+1248	Этаж №9	\N
+1249	Этаж №10	\N
+1250	Этаж №11	\N
+1251	Этаж №12	\N
+1252	Этаж №13	\N
+1253	Этаж №14	\N
+1254	Этаж №15	\N
+1255	Этаж №16	\N
+1256	Этаж №17	\N
+1257	Этаж №18	\N
+1258	Этаж №19	\N
+1259	Этаж №20	\N
+1260	Этаж №21	\N
+1261	Этаж №22	\N
+1262	Этаж №23	\N
+1263	Этаж №24	\N
+1312	Этаж №1	\N
+1313	Этаж №2	\N
+1314	Этаж №3	\N
+1315	Этаж №4	\N
+1316	Этаж №5	\N
+1317	Этаж №6	\N
+1318	Этаж №7	\N
+1319	Этаж №8	\N
+1320	Этаж №9	\N
+1321	Этаж №10	\N
+1322	Этаж №11	\N
+1323	Этаж №12	\N
+1324	Этаж №13	\N
+1325	Этаж №14	\N
+1326	Этаж №15	\N
+1327	Этаж №16	\N
+1328	Этаж №17	\N
+1329	Этаж №18	\N
+1330	Этаж №19	\N
+1331	Этаж №20	\N
+1332	Этаж №21	\N
+1333	Этаж №22	\N
+1334	Этаж №23	\N
+1335	Этаж №24	\N
+1336	Этаж №1	\N
+1337	Этаж №2	\N
+1338	Этаж №3	\N
+1339	Этаж №4	\N
+1340	Этаж №5	\N
+1341	Этаж №6	\N
+1342	Этаж №7	\N
+1343	Этаж №8	\N
+1344	Этаж №9	\N
+1345	Этаж №10	\N
+1346	Этаж №11	\N
+1347	Этаж №12	\N
+1348	Этаж №13	\N
+1349	Этаж №14	\N
+1350	Этаж №15	\N
+1351	Этаж №16	\N
+1352	Этаж №17	\N
+1353	Этаж №18	\N
+1354	Этаж №19	\N
+1355	Этаж №20	\N
+1356	Этаж №21	\N
+1357	Этаж №22	\N
+1358	Этаж №23	\N
+1359	Этаж №24	\N
+1360	Этаж №1	\N
+1361	Этаж №2	\N
+1362	Этаж №3	\N
+1363	Этаж №4	\N
+1364	Этаж №5	\N
+1365	Этаж №6	\N
+1366	Этаж №7	\N
+1367	Этаж №8	\N
+1368	Этаж №9	\N
+1369	Этаж №10	\N
+1370	Этаж №11	\N
+1371	Этаж №12	\N
+1372	Этаж №13	\N
+1373	Этаж №14	\N
+1374	Этаж №15	\N
+1375	Этаж №16	\N
+1376	Этаж №17	\N
+1377	Этаж №18	\N
+1378	Этаж №19	\N
+1379	Этаж №20	\N
+1380	Этаж №21	\N
+1381	Этаж №22	\N
+1382	Этаж №23	\N
+1383	Этаж №24	\N
+1024	Этаж №1	\N
+1025	Этаж №2	\N
+1026	Этаж №3	\N
+1027	Этаж №4	\N
+1028	Этаж №5	\N
+1029	Этаж №6	\N
+1030	Этаж №7	\N
+1031	Этаж №8	\N
+1032	Этаж №9	\N
+1033	Этаж №10	\N
+1034	Этаж №11	\N
+1035	Этаж №12	\N
+1036	Этаж №13	\N
+1037	Этаж №14	\N
+1038	Этаж №15	\N
+1039	Этаж №16	\N
+1000	Этаж №1	\N
+1001	Этаж №2	\N
+1002	Этаж №3	\N
+1003	Этаж №4	\N
+1004	Этаж №5	\N
+1005	Этаж №6	\N
+1006	Этаж №7	\N
+1007	Этаж №8	\N
+1008	Этаж №9	\N
+1009	Этаж №10	\N
+1010	Этаж №11	\N
+1011	Этаж №12	\N
+1012	Этаж №13	\N
+1013	Этаж №14	\N
+1014	Этаж №15	\N
+1015	Этаж №16	\N
+1016	Этаж №17	\N
+1017	Этаж №18	\N
+1018	Этаж №19	\N
+1019	Этаж №20	\N
+1020	Этаж №21	\N
+1021	Этаж №22	\N
+1022	Этаж №23	\N
+1023	Этаж №24	\N
+1384	Этаж №1	61
+1385	Этаж №2	61
+1386	Этаж №3	61
+1387	Этаж №4	61
+1388	Этаж №5	61
+1389	Этаж №6	61
+1390	Этаж №7	61
+1391	Этаж №8	61
+1392	Этаж №9	61
+1393	Этаж №10	61
+1394	Этаж №11	61
+1395	Этаж №12	61
+1396	Этаж №13	61
+1397	Этаж №14	61
+1398	Этаж №15	61
+1399	Этаж №16	61
+1400	Этаж №17	61
+1401	Этаж №18	61
+1402	Этаж №19	61
+1403	Этаж №20	61
+1404	Этаж №21	61
+1405	Этаж №22	61
+1406	Этаж №23	61
+1407	Этаж №24	61
+1408	Этаж №1	62
+1409	Этаж №2	62
+1410	Этаж №3	62
+1411	Этаж №4	62
+1412	Этаж №5	62
+1413	Этаж №6	62
+1414	Этаж №7	62
+1415	Этаж №8	62
+1416	Этаж №9	62
+1417	Этаж №10	62
+1418	Этаж №11	62
+1419	Этаж №12	62
+1420	Этаж №13	62
+1421	Этаж №14	62
+1422	Этаж №15	62
+1423	Этаж №16	62
+1424	Этаж №17	62
+1425	Этаж №18	62
+1426	Этаж №19	62
+1427	Этаж №20	62
+1428	Этаж №21	62
+1429	Этаж №22	62
+1430	Этаж №23	62
+1431	Этаж №24	62
+1432	Этаж №1	63
+1433	Этаж №2	63
+1434	Этаж №3	63
+1435	Этаж №4	63
+1436	Этаж №5	63
+1437	Этаж №6	63
+1438	Этаж №7	63
+1439	Этаж №8	63
+1440	Этаж №9	63
+1441	Этаж №10	63
+1442	Этаж №11	63
+1443	Этаж №12	63
+1444	Этаж №13	63
+1445	Этаж №14	63
+1446	Этаж №15	63
+1447	Этаж №16	63
+1448	Этаж №17	63
+1449	Этаж №18	63
+1450	Этаж №19	63
+1451	Этаж №20	63
+1452	Этаж №21	63
+1453	Этаж №22	63
+1454	Этаж №23	63
+1455	Этаж №24	63
+1040	Этаж №17	\N
+1041	Этаж №18	\N
+1042	Этаж №19	\N
+1043	Этаж №20	\N
+1044	Этаж №21	\N
+1045	Этаж №22	\N
+1046	Этаж №23	\N
+1047	Этаж №24	\N
+1048	Этаж №1	\N
+1049	Этаж №2	\N
+1050	Этаж №3	\N
+1051	Этаж №4	\N
+1052	Этаж №5	\N
+1053	Этаж №6	\N
+1054	Этаж №7	\N
+1055	Этаж №8	\N
+1056	Этаж №9	\N
+1057	Этаж №10	\N
+1058	Этаж №11	\N
+1059	Этаж №12	\N
+1060	Этаж №13	\N
+1061	Этаж №14	\N
+1062	Этаж №15	\N
+1063	Этаж №16	\N
+1064	Этаж №17	\N
+1065	Этаж №18	\N
+1066	Этаж №19	\N
+1067	Этаж №20	\N
+1068	Этаж №21	\N
+1069	Этаж №22	\N
+1070	Этаж №23	\N
+1071	Этаж №24	\N
+\.
+
+
+--
+-- Data for Name: myhouse_admin_house; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_house (id, name, address, image1, image2, image3, image4, image5) FROM stdin;
+23	ОСМД 1001 ЖК "Альтаир"	Люстдорфская дорога, 55	uploads/2021/08-19/house1.jpeg	uploads/2021/08-19/house1_GN7K8QM.jpeg	uploads/2021/08-19/house1_oSNCXfd.jpeg	uploads/2021/08-19/house1_b7jqPSF.jpeg	uploads/2021/08-19/house1_RjVivJK.jpeg
+25	ОСМД 1002 ЖК "Альтаир 2"	Люстдорфская дорога, 90	uploads/2021/09-07/house1.jpeg	uploads/2021/09-07/house1_yGzUEgc.jpeg	uploads/2021/09-07/house1_BGNFdOk.jpeg	uploads/2021/09-07/house1_RArEzxl.jpeg	uploads/2021/09-07/house1_x8tXMZK.jpeg
+\.
+
+
+--
+-- Data for Name: myhouse_admin_house_workers; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_house_workers (id, house_id, employee_id) FROM stdin;
+5	23	1
+8	23	7
+9	25	7
+\.
+
+
+--
+-- Data for Name: myhouse_admin_mainpage; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_mainpage (id, slide1, slide2, slide3, heading, short_text, show_links_on_apps, seo_title, seo_description, seo_keywords) FROM stdin;
+1	uploads/2021/08-16/slide1.jpeg	uploads/2021/08-16/slide1_SVaKQGp.jpeg	uploads/2021/08-16/slide1_3FsbVOc.jpeg	Управляющая компания	<h3>О ЖИЛОМ КОМПЛЕКСЕ<br></h3><p>\r\n\r\n\r\n\r\n\r\n\r\nЖилой комплекс «NORD» расположен на берегу Черного моря в живописном районе Одессы. Оригинальная архитектура комплекса делает его уникальным объектом не только для Одессы, но и для всей Украины – дом прекрасно вписывается в архитектуру берега и открывает свои жильцам и гостям прекрасный вид на бескрайнее море. Ярким преимуществом жилого комплекса является его месторасположения – удобная транспортная развязка, социальная инфраструктура, парк и прекрасный морской воздух создают все условия для комфортного проживания.</p>	t	Сайт Управляющей Компании ЖКХ - "МОЙ ДОМ 24"	Универсальная система для управляющей компании ЖКХ многоквартирного дома "МОЙ ДОМ 24" - сайт управляющей компании + база управления квартирами + мобильное приложение - гибкая индивидуальная настройка для любой организации. Удобная комьютерная программа для ОСМД	программа для ОСМД, управление домом, управление многоквартирным домом, система учета квартир, программа для жильцов дома,  сайт управляющей компании, мой дом 21, crm для жильцов
+\.
+
+
+--
+-- Data for Name: myhouse_admin_message; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_message (id, body, send_date, sender_id, subject, for_debtors, flat_id, floor_id, house_id, section_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: myhouse_admin_message_recipients; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_message_recipients (id, message_id, owner_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: myhouse_admin_meterreading; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_meterreading (id, reading_date, status, testimony, flat_id, service_id, number) FROM stdin;
+3	2021-09-15	1	8	4	10	1592021155247
+4	2021-09-15	3	5	4	9	1592021173358
+6	2021-09-16	3	6	4	9	1692021101014
+7	2021-09-22	3	8	4	9	22092100007
+\.
+
+
+--
+-- Data for Name: myhouse_admin_paymentdetails; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_paymentdetails (id, company_name, details) FROM stdin;
+1	Управляющая компания	р.с.: 123456789000001\r\nеще данные: УК12345678\r\nи еще: 11005557777777
+\.
+
+
+--
+-- Data for Name: myhouse_admin_paymenttype; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_paymenttype (id, name, type) FROM stdin;
+2	Оплата воды отдельно	1
+3	Прочий приход	0
+4	Вывод средств	1
+6	Оплата за квартиру	0
+7	Погашение квитанции	1
+\.
+
+
+--
+-- Data for Name: myhouse_admin_personalaccount; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_personalaccount (id, uid, status, flat_id) FROM stdin;
+2	139202100001	1	4
+4	139202100002	1	8
+5	25092100005	1	10
+\.
+
+
+--
+-- Data for Name: myhouse_admin_receipt; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_receipt (id, number, is_made, status, creation_date, start_date, end_date, summary, flat_id) FROM stdin;
+21	24092100001	t	3	2021-09-24	2021-09-24	2021-09-24	904	4
+22	25092100022	t	1	2021-09-25	2021-08-01	2021-09-01	996.46	8
+\.
+
+
+--
+-- Data for Name: myhouse_admin_receiptservice; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_receiptservice (id, consumption, unit_price, total_price, receipt_id, service_id, unit_id) FROM stdin;
+25	300	1.68	504	21	7	10
+26	20	20	400	21	10	1
+27	200	1.68	336	22	7	10
+28	14	20	280	22	10	1
+29	60.2	6.32	380.46	22	12	11
+\.
+
+
+--
+-- Data for Name: myhouse_admin_section; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_section (id, name, house_id) FROM stdin;
+39	Секция №1	\N
+40	Секция №2	\N
+41	Секция №3	\N
+64	Секция №1	25
+65	Секция №2	25
+66	Секция №3	25
+61	Секция №1	23
+62	Секция №2	23
+63	Секция №3	23
+\.
+
+
+--
+-- Data for Name: myhouse_admin_service; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_service (id, name, in_meter, unit_id) FROM stdin;
+7	Электроэнергия	t	10
+9	Отопление	t	2
+10	Холодная вода	t	1
+11	Горячая вода	t	1
+12	Уборка территории	f	11
+13	Полив	f	1
+14	Охрана	t	7
+\.
+
+
+--
+-- Data for Name: myhouse_admin_servicespage; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_servicespage (id, seo_title, seo_description, seo_keywords) FROM stdin;
+2	СRM система для ОСМД - "МОЙ ДОМ 24"	Все возможности системы для ОСМД или управляющей компании ЖКХ: учет квартир, жильцов, показаний счетчиков, выставление счетов. Мобильные приложения для оплаты коммунальных услуг для жильцов многоквартиных домов.	Все возможности системы для ОСМД или управляющей компании ЖКХ: учет квартир, жильцов, показаний счетчиков, выставление счетов. Мобильные приложения для оплаты коммунальных услуг для жильцов многоквартиных домов.
+\.
+
+
+--
+-- Data for Name: myhouse_admin_tariff; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_tariff (id, name, description, edit_date) FROM stdin;
+7	Дополнительный тариф	Дополнительный тариф, применяется к жильцам имеющим дополнительные льготы.	2021-09-10 08:36:19.006039+00
+6	Основной тариф	Основной тариф, применяется ко все пользователям, если у них нет льгот.	2021-09-10 16:51:48.548218+00
+19	Пенсионный тариф	Пенсионный тариф, применяется ко всем одиноким пенсионерам живущим в доме...	2021-09-12 11:01:39.208158+00
+\.
+
+
+--
+-- Data for Name: myhouse_admin_tariffimage; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_tariffimage (id, image, signature, content_type_id, object_id) FROM stdin;
+1	uploads/2021/08-04/service1_tQ72n8q.jpeg	asd	27	1
+\.
+
+
+--
+-- Data for Name: myhouse_admin_tariffpage; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_tariffpage (id, heading, short_text, seo_title, seo_description, seo_keywords) FROM stdin;
+1	Тариф А	<p><b>фыаыф</b><br></p>	\N		
+\.
+
+
+--
+-- Data for Name: myhouse_admin_tariffservice; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_tariffservice (id, price, service_id, tariff_id) FROM stdin;
+3	1.68	7	6
+4	18.8	10	6
+5	123	9	6
+6	69.5	11	6
+8	3	7	7
+9	4	10	7
+10	15	9	7
+11	24	11	7
+22	5.5	12	6
+28	2	7	19
+29	3	10	19
+30	7	9	19
+\.
+
+
+--
+-- Data for Name: myhouse_admin_ticket; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_ticket (id, convenient_time, description, status, comment, flat_id, master_id, master_type_id, added_time) FROM stdin;
+4	2021-09-23 12:00:00+00	Test owner request	1		4	\N	3	2021-09-21 09:55:57.366412+00
+7	2021-09-22 15:36:00+00	что-то сломалось	2		4	7	\N	2021-09-22 17:19:38.312491+00
+\.
+
+
+--
+-- Data for Name: myhouse_admin_unit; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.myhouse_admin_unit (id, name) FROM stdin;
+1	м3
+2	кв.м.кКал
+7	кв.м
+8	ед.
+9	мес.
+10	кВт.ч
+11	грн/м2
+\.
+
+
+--
+-- Data for Name: users_employee; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.users_employee (id, role_id, user_id) FROM stdin;
+1	1	1
+7	2	9
+\.
+
+
+--
+-- Data for Name: users_owner; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.users_owner (id, birth_date, avatar, "ID", about, viber, telegram, user_id) FROM stdin;
+3	2000-07-30	uploads/2021/09-21/гнів_людський_poster.jpg	0001	Разработчик системы и тестировщик	+38(093)1350239	@last1war	11
+4	\N		0002		\N	\N	12
+\.
+
+
+--
+-- Data for Name: users_role; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.users_role (id, name, abilities) FROM stdin;
+1	Директор	1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16
+2	Управляющий	1,2,3,4,5,6,7,8,9,10,11,12,13,15,16
+3	Бухгалтер	2,3,4,5,6,7,8,10,12,13,16
+4	Электрик	9,10
+5	Сантехник	15
+\.
+
+
+--
+-- Data for Name: users_user; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.users_user (id, password, last_login, is_superuser, first_name, last_name, is_staff, is_active, date_joined, email, phone_number, status) FROM stdin;
+12	pbkdf2_sha256$260000$fb2Y1ahHZdATqeQQRq3Erq$K0nySCaBxg4sXhlNLqHpxBmmTBAG4j2kR1QXv/5PLEw=	2021-09-25 01:53:42.275781+00	f	asdas asdasd	sd	f	t	2021-09-21 12:31:11.805757+00	pro100takvoin@gmail.com	+38(066)843-93-63	1
+11	pbkdf2_sha256$260000$NFLr1zE60msXS31ZHGYLvZ$YQW4x0tJlg2Bf/a1o0Z51W2V/7ZUCn5vO1WeWt1Ac1Q=	2021-09-25 12:20:40.208845+00	f	Андрей Викторович	Мошко	f	t	2021-08-29 15:02:30.509315+00	andrew.moshko@gmail.com	+38(099)513-56-82	2
+1	pbkdf2_sha256$260000$AUaJVrpHVgMXrj2peUCwkn$5gIyba3HoeWZ+OilZz7pDmN8WWKg5HC7GHuV3BlyMEs=	2021-09-25 12:32:52.537799+00	t	Андрей	Мошко	t	t	2021-08-01 14:21:53+00	pro100moneyfarmer@gmail.com	+38(093)135-02-39	2
+9	pbkdf2_sha256$260000$k1yFoYPTIzmevpcMEaGG0c$nvvTCP7SBlvWQ8f34jAULmx0gqqiTlFJPPd94SZZUrE=	2021-09-24 12:57:18.601368+00	f	user	test	t	t	2021-08-02 21:02:37.670264+00	admin@admin.com	+38(098)321-23-54	1
+\.
+
+
+--
+-- Data for Name: users_user_groups; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.users_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: users_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.users_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 144, true);
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 445, true);
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 36, true);
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 47, true);
+
+
+--
+-- Name: myhouse_admin_aboutuspage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_aboutuspage_id_seq', 3, true);
+
+
+--
+-- Name: myhouse_admin_aboutuspageadditionalimage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_aboutuspageadditionalimage_id_seq', 4, true);
+
+
+--
+-- Name: myhouse_admin_aboutuspageimage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_aboutuspageimage_id_seq', 17, true);
+
+
+--
+-- Name: myhouse_admin_block_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_block_id_seq', 28, true);
+
+
+--
+-- Name: myhouse_admin_cashboxrecord_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_cashboxrecord_id_seq', 16, true);
+
+
+--
+-- Name: myhouse_admin_contactspage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_contactspage_id_seq', 1, true);
+
+
+--
+-- Name: myhouse_admin_document_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_document_id_seq', 11, true);
+
+
+--
+-- Name: myhouse_admin_flat_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_flat_id_seq', 11, true);
+
+
+--
+-- Name: myhouse_admin_floor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_floor_id_seq', 1470, true);
+
+
+--
+-- Name: myhouse_admin_house_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_house_id_seq', 25, true);
+
+
+--
+-- Name: myhouse_admin_house_workers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_house_workers_id_seq', 9, true);
+
+
+--
+-- Name: myhouse_admin_mainpage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_mainpage_id_seq', 1, true);
+
+
+--
+-- Name: myhouse_admin_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_message_id_seq', 12, true);
+
+
+--
+-- Name: myhouse_admin_message_recipients_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_message_recipients_id_seq', 16, true);
+
+
+--
+-- Name: myhouse_admin_meterreading_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_meterreading_id_seq', 7, true);
+
+
+--
+-- Name: myhouse_admin_paymentdetails_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_paymentdetails_id_seq', 1, true);
+
+
+--
+-- Name: myhouse_admin_paymenttype_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_paymenttype_id_seq', 7, true);
+
+
+--
+-- Name: myhouse_admin_personalaccount_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_personalaccount_id_seq', 5, true);
+
+
+--
+-- Name: myhouse_admin_receipt_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_receipt_id_seq', 22, true);
+
+
+--
+-- Name: myhouse_admin_receiptservice_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_receiptservice_id_seq', 29, true);
+
+
+--
+-- Name: myhouse_admin_section_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_section_id_seq', 66, true);
+
+
+--
+-- Name: myhouse_admin_service_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_service_id_seq', 18, true);
+
+
+--
+-- Name: myhouse_admin_servicespage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_servicespage_id_seq', 2, true);
+
+
+--
+-- Name: myhouse_admin_tariff_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_tariff_id_seq', 19, true);
+
+
+--
+-- Name: myhouse_admin_tariffimage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_tariffimage_id_seq', 2, true);
+
+
+--
+-- Name: myhouse_admin_tariffpage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_tariffpage_id_seq', 1, true);
+
+
+--
+-- Name: myhouse_admin_tariffservice_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_tariffservice_id_seq', 30, true);
+
+
+--
+-- Name: myhouse_admin_ticket_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_ticket_id_seq', 7, true);
+
+
+--
+-- Name: myhouse_admin_unit_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.myhouse_admin_unit_id_seq', 12, true);
+
+
+--
+-- Name: users_employee_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.users_employee_id_seq', 7, true);
+
+
+--
+-- Name: users_owner_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.users_owner_id_seq', 4, true);
+
+
+--
+-- Name: users_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.users_role_id_seq', 5, true);
+
+
+--
+-- Name: users_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.users_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.users_user_id_seq', 12, true);
+
+
+--
+-- Name: users_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.users_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: myhouse_admin_aboutuspage myhouse_admin_aboutuspage_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_aboutuspage
+    ADD CONSTRAINT myhouse_admin_aboutuspage_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_aboutuspageadditionalimage myhouse_admin_aboutuspageadditionalimage_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_aboutuspageadditionalimage
+    ADD CONSTRAINT myhouse_admin_aboutuspageadditionalimage_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_aboutuspageimage myhouse_admin_aboutuspageimage_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_aboutuspageimage
+    ADD CONSTRAINT myhouse_admin_aboutuspageimage_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_block myhouse_admin_block_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_block
+    ADD CONSTRAINT myhouse_admin_block_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_cashboxrecord myhouse_admin_cashboxrecord_number_key; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_cashboxrecord
+    ADD CONSTRAINT myhouse_admin_cashboxrecord_number_key UNIQUE (number);
+
+
+--
+-- Name: myhouse_admin_cashboxrecord myhouse_admin_cashboxrecord_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_cashboxrecord
+    ADD CONSTRAINT myhouse_admin_cashboxrecord_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_contactspage myhouse_admin_contactspage_phone_number_key; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_contactspage
+    ADD CONSTRAINT myhouse_admin_contactspage_phone_number_key UNIQUE (phone_number);
+
+
+--
+-- Name: myhouse_admin_contactspage myhouse_admin_contactspage_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_contactspage
+    ADD CONSTRAINT myhouse_admin_contactspage_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_document myhouse_admin_document_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_document
+    ADD CONSTRAINT myhouse_admin_document_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_flat myhouse_admin_flat_number_floor_id_bbef269d_uniq; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_flat
+    ADD CONSTRAINT myhouse_admin_flat_number_floor_id_bbef269d_uniq UNIQUE (number, floor_id);
+
+
+--
+-- Name: myhouse_admin_flat myhouse_admin_flat_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_flat
+    ADD CONSTRAINT myhouse_admin_flat_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_floor myhouse_admin_floor_name_section_id_5dfa40ac_uniq; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_floor
+    ADD CONSTRAINT myhouse_admin_floor_name_section_id_5dfa40ac_uniq UNIQUE (name, section_id);
+
+
+--
+-- Name: myhouse_admin_floor myhouse_admin_floor_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_floor
+    ADD CONSTRAINT myhouse_admin_floor_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_house myhouse_admin_house_name_address_1c5a176c_uniq; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_house
+    ADD CONSTRAINT myhouse_admin_house_name_address_1c5a176c_uniq UNIQUE (name, address);
+
+
+--
+-- Name: myhouse_admin_house myhouse_admin_house_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_house
+    ADD CONSTRAINT myhouse_admin_house_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_house_workers myhouse_admin_house_workers_house_id_employee_id_52a5631d_uniq; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_house_workers
+    ADD CONSTRAINT myhouse_admin_house_workers_house_id_employee_id_52a5631d_uniq UNIQUE (house_id, employee_id);
+
+
+--
+-- Name: myhouse_admin_house_workers myhouse_admin_house_workers_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_house_workers
+    ADD CONSTRAINT myhouse_admin_house_workers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_mainpage myhouse_admin_mainpage_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_mainpage
+    ADD CONSTRAINT myhouse_admin_mainpage_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_message myhouse_admin_message_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_message
+    ADD CONSTRAINT myhouse_admin_message_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_message_recipients myhouse_admin_message_re_message_id_owner_id_40c771e2_uniq; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_message_recipients
+    ADD CONSTRAINT myhouse_admin_message_re_message_id_owner_id_40c771e2_uniq UNIQUE (message_id, owner_id);
+
+
+--
+-- Name: myhouse_admin_message_recipients myhouse_admin_message_recipients_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_message_recipients
+    ADD CONSTRAINT myhouse_admin_message_recipients_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_meterreading myhouse_admin_meterreading_number_key; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_meterreading
+    ADD CONSTRAINT myhouse_admin_meterreading_number_key UNIQUE (number);
+
+
+--
+-- Name: myhouse_admin_meterreading myhouse_admin_meterreading_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_meterreading
+    ADD CONSTRAINT myhouse_admin_meterreading_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_paymentdetails myhouse_admin_paymentdetails_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_paymentdetails
+    ADD CONSTRAINT myhouse_admin_paymentdetails_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_paymenttype myhouse_admin_paymenttype_name_type_83c8f6cd_uniq; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_paymenttype
+    ADD CONSTRAINT myhouse_admin_paymenttype_name_type_83c8f6cd_uniq UNIQUE (name, type);
+
+
+--
+-- Name: myhouse_admin_paymenttype myhouse_admin_paymenttype_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_paymenttype
+    ADD CONSTRAINT myhouse_admin_paymenttype_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_personalaccount myhouse_admin_personalaccount_flat_id_key; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_personalaccount
+    ADD CONSTRAINT myhouse_admin_personalaccount_flat_id_key UNIQUE (flat_id);
+
+
+--
+-- Name: myhouse_admin_personalaccount myhouse_admin_personalaccount_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_personalaccount
+    ADD CONSTRAINT myhouse_admin_personalaccount_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_personalaccount myhouse_admin_personalaccount_uid_key; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_personalaccount
+    ADD CONSTRAINT myhouse_admin_personalaccount_uid_key UNIQUE (uid);
+
+
+--
+-- Name: myhouse_admin_receipt myhouse_admin_receipt_number_key; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_receipt
+    ADD CONSTRAINT myhouse_admin_receipt_number_key UNIQUE (number);
+
+
+--
+-- Name: myhouse_admin_receipt myhouse_admin_receipt_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_receipt
+    ADD CONSTRAINT myhouse_admin_receipt_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_receiptservice myhouse_admin_receiptservice_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_receiptservice
+    ADD CONSTRAINT myhouse_admin_receiptservice_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_section myhouse_admin_section_name_house_id_821b1189_uniq; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_section
+    ADD CONSTRAINT myhouse_admin_section_name_house_id_821b1189_uniq UNIQUE (name, house_id);
+
+
+--
+-- Name: myhouse_admin_section myhouse_admin_section_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_section
+    ADD CONSTRAINT myhouse_admin_section_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_service myhouse_admin_service_name_f8aec650_uniq; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_service
+    ADD CONSTRAINT myhouse_admin_service_name_f8aec650_uniq UNIQUE (name);
+
+
+--
+-- Name: myhouse_admin_service myhouse_admin_service_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_service
+    ADD CONSTRAINT myhouse_admin_service_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_servicespage myhouse_admin_servicespage_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_servicespage
+    ADD CONSTRAINT myhouse_admin_servicespage_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_tariff myhouse_admin_tariff_name_key; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_tariff
+    ADD CONSTRAINT myhouse_admin_tariff_name_key UNIQUE (name);
+
+
+--
+-- Name: myhouse_admin_tariff myhouse_admin_tariff_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_tariff
+    ADD CONSTRAINT myhouse_admin_tariff_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_tariffimage myhouse_admin_tariffimage_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_tariffimage
+    ADD CONSTRAINT myhouse_admin_tariffimage_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_tariffpage myhouse_admin_tariffpage_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_tariffpage
+    ADD CONSTRAINT myhouse_admin_tariffpage_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_tariffservice myhouse_admin_tariffservice_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_tariffservice
+    ADD CONSTRAINT myhouse_admin_tariffservice_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_ticket myhouse_admin_ticket_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_ticket
+    ADD CONSTRAINT myhouse_admin_ticket_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myhouse_admin_unit myhouse_admin_unit_name_key; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_unit
+    ADD CONSTRAINT myhouse_admin_unit_name_key UNIQUE (name);
+
+
+--
+-- Name: myhouse_admin_unit myhouse_admin_unit_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_unit
+    ADD CONSTRAINT myhouse_admin_unit_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_employee users_employee_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_employee
+    ADD CONSTRAINT users_employee_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_employee users_employee_user_id_key; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_employee
+    ADD CONSTRAINT users_employee_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: users_owner users_owner_ID_07deeb1e_uniq; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_owner
+    ADD CONSTRAINT "users_owner_ID_07deeb1e_uniq" UNIQUE ("ID");
+
+
+--
+-- Name: users_owner users_owner_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_owner
+    ADD CONSTRAINT users_owner_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_owner users_owner_user_id_key; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_owner
+    ADD CONSTRAINT users_owner_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: users_role users_role_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_role
+    ADD CONSTRAINT users_role_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_user users_user_email_key; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_user
+    ADD CONSTRAINT users_user_email_key UNIQUE (email);
+
+
+--
+-- Name: users_user_groups users_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_user_groups
+    ADD CONSTRAINT users_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_user_groups users_user_groups_user_id_group_id_b88eab82_uniq; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_user_groups
+    ADD CONSTRAINT users_user_groups_user_id_group_id_b88eab82_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: users_user users_user_phone_number_key; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_user
+    ADD CONSTRAINT users_user_phone_number_key UNIQUE (phone_number);
+
+
+--
+-- Name: users_user users_user_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_user
+    ADD CONSTRAINT users_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_user_user_permissions users_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_user_user_permissions
+    ADD CONSTRAINT users_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_user_user_permissions users_user_user_permissions_user_id_permission_id_43338c45_uniq; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_user_user_permissions
+    ADD CONSTRAINT users_user_user_permissions_user_id_permission_id_43338c45_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: myhouse_admin_aboutuspagea_about_us_page_id_fcc82122; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_aboutuspagea_about_us_page_id_fcc82122 ON public.myhouse_admin_aboutuspageadditionalimage USING btree (about_us_page_id);
+
+
+--
+-- Name: myhouse_admin_aboutuspageimage_about_us_page_id_07f6c4d9; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_aboutuspageimage_about_us_page_id_07f6c4d9 ON public.myhouse_admin_aboutuspageimage USING btree (about_us_page_id);
+
+
+--
+-- Name: myhouse_admin_block_content_type_id_6f146913; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_block_content_type_id_6f146913 ON public.myhouse_admin_block USING btree (content_type_id);
+
+
+--
+-- Name: myhouse_admin_cashboxrecord_manager_id_83406afc; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_cashboxrecord_manager_id_83406afc ON public.myhouse_admin_cashboxrecord USING btree (manager_id);
+
+
+--
+-- Name: myhouse_admin_cashboxrecord_number_f16038fe_like; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_cashboxrecord_number_f16038fe_like ON public.myhouse_admin_cashboxrecord USING btree (number varchar_pattern_ops);
+
+
+--
+-- Name: myhouse_admin_cashboxrecord_payment_type_id_8fe2cea4; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_cashboxrecord_payment_type_id_8fe2cea4 ON public.myhouse_admin_cashboxrecord USING btree (payment_type_id);
+
+
+--
+-- Name: myhouse_admin_cashboxrecord_personal_account_id_ef681ae6; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_cashboxrecord_personal_account_id_ef681ae6 ON public.myhouse_admin_cashboxrecord USING btree (personal_account_id);
+
+
+--
+-- Name: myhouse_admin_cashboxrecord_receipt_id_6250f5eb; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_cashboxrecord_receipt_id_6250f5eb ON public.myhouse_admin_cashboxrecord USING btree (receipt_id);
+
+
+--
+-- Name: myhouse_admin_contactspage_phone_number_a4fbd3ef_like; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_contactspage_phone_number_a4fbd3ef_like ON public.myhouse_admin_contactspage USING btree (phone_number varchar_pattern_ops);
+
+
+--
+-- Name: myhouse_admin_document_about_us_page_id_0a6ca7f1; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_document_about_us_page_id_0a6ca7f1 ON public.myhouse_admin_document USING btree (about_us_page_id);
+
+
+--
+-- Name: myhouse_admin_flat_floor_id_5a80d9ba; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_flat_floor_id_5a80d9ba ON public.myhouse_admin_flat USING btree (floor_id);
+
+
+--
+-- Name: myhouse_admin_flat_owner_id_18eaf44f; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_flat_owner_id_18eaf44f ON public.myhouse_admin_flat USING btree (owner_id);
+
+
+--
+-- Name: myhouse_admin_flat_tariff_id_621ff212; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_flat_tariff_id_621ff212 ON public.myhouse_admin_flat USING btree (tariff_id);
+
+
+--
+-- Name: myhouse_admin_floor_section_id_de49c3d7; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_floor_section_id_de49c3d7 ON public.myhouse_admin_floor USING btree (section_id);
+
+
+--
+-- Name: myhouse_admin_house_workers_employee_id_ad6c6ba0; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_house_workers_employee_id_ad6c6ba0 ON public.myhouse_admin_house_workers USING btree (employee_id);
+
+
+--
+-- Name: myhouse_admin_house_workers_house_id_b379e270; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_house_workers_house_id_b379e270 ON public.myhouse_admin_house_workers USING btree (house_id);
+
+
+--
+-- Name: myhouse_admin_message_flat_id_eb003e2a; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_message_flat_id_eb003e2a ON public.myhouse_admin_message USING btree (flat_id);
+
+
+--
+-- Name: myhouse_admin_message_floor_id_ad5b1df4; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_message_floor_id_ad5b1df4 ON public.myhouse_admin_message USING btree (floor_id);
+
+
+--
+-- Name: myhouse_admin_message_house_id_3749a6bc; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_message_house_id_3749a6bc ON public.myhouse_admin_message USING btree (house_id);
+
+
+--
+-- Name: myhouse_admin_message_recipients_message_id_c80bffa2; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_message_recipients_message_id_c80bffa2 ON public.myhouse_admin_message_recipients USING btree (message_id);
+
+
+--
+-- Name: myhouse_admin_message_recipients_owner_id_32ce5aab; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_message_recipients_owner_id_32ce5aab ON public.myhouse_admin_message_recipients USING btree (owner_id);
+
+
+--
+-- Name: myhouse_admin_message_section_id_13f3085d; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_message_section_id_13f3085d ON public.myhouse_admin_message USING btree (section_id);
+
+
+--
+-- Name: myhouse_admin_message_sender_id_6e86a76a; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_message_sender_id_6e86a76a ON public.myhouse_admin_message USING btree (sender_id);
+
+
+--
+-- Name: myhouse_admin_meterreading_flat_id_02c74e33; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_meterreading_flat_id_02c74e33 ON public.myhouse_admin_meterreading USING btree (flat_id);
+
+
+--
+-- Name: myhouse_admin_meterreading_number_3a5609c2_like; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_meterreading_number_3a5609c2_like ON public.myhouse_admin_meterreading USING btree (number varchar_pattern_ops);
+
+
+--
+-- Name: myhouse_admin_meterreading_service_id_e72119fe; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_meterreading_service_id_e72119fe ON public.myhouse_admin_meterreading USING btree (service_id);
+
+
+--
+-- Name: myhouse_admin_personalaccount_uid_28b8455a_like; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_personalaccount_uid_28b8455a_like ON public.myhouse_admin_personalaccount USING btree (uid varchar_pattern_ops);
+
+
+--
+-- Name: myhouse_admin_receipt_flat_id_0f2482fc; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_receipt_flat_id_0f2482fc ON public.myhouse_admin_receipt USING btree (flat_id);
+
+
+--
+-- Name: myhouse_admin_receipt_number_4dbea2df_like; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_receipt_number_4dbea2df_like ON public.myhouse_admin_receipt USING btree (number varchar_pattern_ops);
+
+
+--
+-- Name: myhouse_admin_receiptservice_receipt_id_a187f7a7; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_receiptservice_receipt_id_a187f7a7 ON public.myhouse_admin_receiptservice USING btree (receipt_id);
+
+
+--
+-- Name: myhouse_admin_receiptservice_service_id_734a8336; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_receiptservice_service_id_734a8336 ON public.myhouse_admin_receiptservice USING btree (service_id);
+
+
+--
+-- Name: myhouse_admin_receiptservice_unit_id_4a468751; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_receiptservice_unit_id_4a468751 ON public.myhouse_admin_receiptservice USING btree (unit_id);
+
+
+--
+-- Name: myhouse_admin_section_house_id_ab0d9742; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_section_house_id_ab0d9742 ON public.myhouse_admin_section USING btree (house_id);
+
+
+--
+-- Name: myhouse_admin_service_unit_id_37bab3b0; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_service_unit_id_37bab3b0 ON public.myhouse_admin_service USING btree (unit_id);
+
+
+--
+-- Name: myhouse_admin_tariff_name_7b74728f_like; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_tariff_name_7b74728f_like ON public.myhouse_admin_tariff USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: myhouse_admin_tariffimage_content_type_id_ccc26e4a; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_tariffimage_content_type_id_ccc26e4a ON public.myhouse_admin_tariffimage USING btree (content_type_id);
+
+
+--
+-- Name: myhouse_admin_tariffservice_service_id_dff8be60; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_tariffservice_service_id_dff8be60 ON public.myhouse_admin_tariffservice USING btree (service_id);
+
+
+--
+-- Name: myhouse_admin_tariffservice_tariff_id_aef227bf; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_tariffservice_tariff_id_aef227bf ON public.myhouse_admin_tariffservice USING btree (tariff_id);
+
+
+--
+-- Name: myhouse_admin_ticket_flat_id_11491137; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_ticket_flat_id_11491137 ON public.myhouse_admin_ticket USING btree (flat_id);
+
+
+--
+-- Name: myhouse_admin_ticket_master_id_e7cc1cc2; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_ticket_master_id_e7cc1cc2 ON public.myhouse_admin_ticket USING btree (master_id);
+
+
+--
+-- Name: myhouse_admin_ticket_master_type_id_a17ee50e; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_ticket_master_type_id_a17ee50e ON public.myhouse_admin_ticket USING btree (master_type_id);
+
+
+--
+-- Name: myhouse_admin_unit_name_b22620a3_like; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX myhouse_admin_unit_name_b22620a3_like ON public.myhouse_admin_unit USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: users_employee_role_id_97bf5c2f; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX users_employee_role_id_97bf5c2f ON public.users_employee USING btree (role_id);
+
+
+--
+-- Name: users_owner_ID_07deeb1e_like; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX "users_owner_ID_07deeb1e_like" ON public.users_owner USING btree ("ID" varchar_pattern_ops);
+
+
+--
+-- Name: users_user_email_243f6e77_like; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX users_user_email_243f6e77_like ON public.users_user USING btree (email varchar_pattern_ops);
+
+
+--
+-- Name: users_user_groups_group_id_9afc8d0e; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX users_user_groups_group_id_9afc8d0e ON public.users_user_groups USING btree (group_id);
+
+
+--
+-- Name: users_user_groups_user_id_5f6f5a90; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX users_user_groups_user_id_5f6f5a90 ON public.users_user_groups USING btree (user_id);
+
+
+--
+-- Name: users_user_phone_number_aff54ffd_like; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX users_user_phone_number_aff54ffd_like ON public.users_user USING btree (phone_number varchar_pattern_ops);
+
+
+--
+-- Name: users_user_user_permissions_permission_id_0b93982e; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX users_user_user_permissions_permission_id_0b93982e ON public.users_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: users_user_user_permissions_user_id_20aca447; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX users_user_user_permissions_user_id_20aca447 ON public.users_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_users_user_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_users_user_id FOREIGN KEY (user_id) REFERENCES public.users_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_aboutuspageimage myhouse_admin_aboutu_about_us_page_id_07f6c4d9_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_aboutuspageimage
+    ADD CONSTRAINT myhouse_admin_aboutu_about_us_page_id_07f6c4d9_fk_myhouse_a FOREIGN KEY (about_us_page_id) REFERENCES public.myhouse_admin_aboutuspage(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_aboutuspageadditionalimage myhouse_admin_aboutu_about_us_page_id_fcc82122_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_aboutuspageadditionalimage
+    ADD CONSTRAINT myhouse_admin_aboutu_about_us_page_id_fcc82122_fk_myhouse_a FOREIGN KEY (about_us_page_id) REFERENCES public.myhouse_admin_aboutuspage(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_block myhouse_admin_block_content_type_id_6f146913_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_block
+    ADD CONSTRAINT myhouse_admin_block_content_type_id_6f146913_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_cashboxrecord myhouse_admin_cashbo_manager_id_83406afc_fk_users_emp; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_cashboxrecord
+    ADD CONSTRAINT myhouse_admin_cashbo_manager_id_83406afc_fk_users_emp FOREIGN KEY (manager_id) REFERENCES public.users_employee(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_cashboxrecord myhouse_admin_cashbo_payment_type_id_8fe2cea4_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_cashboxrecord
+    ADD CONSTRAINT myhouse_admin_cashbo_payment_type_id_8fe2cea4_fk_myhouse_a FOREIGN KEY (payment_type_id) REFERENCES public.myhouse_admin_paymenttype(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_cashboxrecord myhouse_admin_cashbo_personal_account_id_ef681ae6_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_cashboxrecord
+    ADD CONSTRAINT myhouse_admin_cashbo_personal_account_id_ef681ae6_fk_myhouse_a FOREIGN KEY (personal_account_id) REFERENCES public.myhouse_admin_personalaccount(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_cashboxrecord myhouse_admin_cashbo_receipt_id_6250f5eb_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_cashboxrecord
+    ADD CONSTRAINT myhouse_admin_cashbo_receipt_id_6250f5eb_fk_myhouse_a FOREIGN KEY (receipt_id) REFERENCES public.myhouse_admin_receipt(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_document myhouse_admin_docume_about_us_page_id_0a6ca7f1_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_document
+    ADD CONSTRAINT myhouse_admin_docume_about_us_page_id_0a6ca7f1_fk_myhouse_a FOREIGN KEY (about_us_page_id) REFERENCES public.myhouse_admin_aboutuspage(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_flat myhouse_admin_flat_floor_id_5a80d9ba_fk_myhouse_admin_floor_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_flat
+    ADD CONSTRAINT myhouse_admin_flat_floor_id_5a80d9ba_fk_myhouse_admin_floor_id FOREIGN KEY (floor_id) REFERENCES public.myhouse_admin_floor(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_flat myhouse_admin_flat_owner_id_18eaf44f_fk_users_owner_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_flat
+    ADD CONSTRAINT myhouse_admin_flat_owner_id_18eaf44f_fk_users_owner_id FOREIGN KEY (owner_id) REFERENCES public.users_owner(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_flat myhouse_admin_flat_tariff_id_621ff212_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_flat
+    ADD CONSTRAINT myhouse_admin_flat_tariff_id_621ff212_fk_myhouse_a FOREIGN KEY (tariff_id) REFERENCES public.myhouse_admin_tariff(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_floor myhouse_admin_floor_section_id_de49c3d7_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_floor
+    ADD CONSTRAINT myhouse_admin_floor_section_id_de49c3d7_fk_myhouse_a FOREIGN KEY (section_id) REFERENCES public.myhouse_admin_section(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_house_workers myhouse_admin_house__employee_id_ad6c6ba0_fk_users_emp; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_house_workers
+    ADD CONSTRAINT myhouse_admin_house__employee_id_ad6c6ba0_fk_users_emp FOREIGN KEY (employee_id) REFERENCES public.users_employee(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_house_workers myhouse_admin_house__house_id_b379e270_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_house_workers
+    ADD CONSTRAINT myhouse_admin_house__house_id_b379e270_fk_myhouse_a FOREIGN KEY (house_id) REFERENCES public.myhouse_admin_house(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_message myhouse_admin_messag_floor_id_ad5b1df4_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_message
+    ADD CONSTRAINT myhouse_admin_messag_floor_id_ad5b1df4_fk_myhouse_a FOREIGN KEY (floor_id) REFERENCES public.myhouse_admin_floor(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_message myhouse_admin_messag_house_id_3749a6bc_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_message
+    ADD CONSTRAINT myhouse_admin_messag_house_id_3749a6bc_fk_myhouse_a FOREIGN KEY (house_id) REFERENCES public.myhouse_admin_house(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_message_recipients myhouse_admin_messag_message_id_c80bffa2_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_message_recipients
+    ADD CONSTRAINT myhouse_admin_messag_message_id_c80bffa2_fk_myhouse_a FOREIGN KEY (message_id) REFERENCES public.myhouse_admin_message(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_message_recipients myhouse_admin_messag_owner_id_32ce5aab_fk_users_own; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_message_recipients
+    ADD CONSTRAINT myhouse_admin_messag_owner_id_32ce5aab_fk_users_own FOREIGN KEY (owner_id) REFERENCES public.users_owner(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_message myhouse_admin_messag_section_id_13f3085d_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_message
+    ADD CONSTRAINT myhouse_admin_messag_section_id_13f3085d_fk_myhouse_a FOREIGN KEY (section_id) REFERENCES public.myhouse_admin_section(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_message myhouse_admin_message_flat_id_eb003e2a_fk_myhouse_admin_flat_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_message
+    ADD CONSTRAINT myhouse_admin_message_flat_id_eb003e2a_fk_myhouse_admin_flat_id FOREIGN KEY (flat_id) REFERENCES public.myhouse_admin_flat(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_message myhouse_admin_message_sender_id_6e86a76a_fk_users_employee_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_message
+    ADD CONSTRAINT myhouse_admin_message_sender_id_6e86a76a_fk_users_employee_id FOREIGN KEY (sender_id) REFERENCES public.users_employee(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_meterreading myhouse_admin_meterr_flat_id_02c74e33_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_meterreading
+    ADD CONSTRAINT myhouse_admin_meterr_flat_id_02c74e33_fk_myhouse_a FOREIGN KEY (flat_id) REFERENCES public.myhouse_admin_flat(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_meterreading myhouse_admin_meterr_service_id_e72119fe_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_meterreading
+    ADD CONSTRAINT myhouse_admin_meterr_service_id_e72119fe_fk_myhouse_a FOREIGN KEY (service_id) REFERENCES public.myhouse_admin_service(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_personalaccount myhouse_admin_person_flat_id_ca3d7121_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_personalaccount
+    ADD CONSTRAINT myhouse_admin_person_flat_id_ca3d7121_fk_myhouse_a FOREIGN KEY (flat_id) REFERENCES public.myhouse_admin_flat(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_receiptservice myhouse_admin_receip_receipt_id_a187f7a7_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_receiptservice
+    ADD CONSTRAINT myhouse_admin_receip_receipt_id_a187f7a7_fk_myhouse_a FOREIGN KEY (receipt_id) REFERENCES public.myhouse_admin_receipt(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_receiptservice myhouse_admin_receip_service_id_734a8336_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_receiptservice
+    ADD CONSTRAINT myhouse_admin_receip_service_id_734a8336_fk_myhouse_a FOREIGN KEY (service_id) REFERENCES public.myhouse_admin_service(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_receiptservice myhouse_admin_receip_unit_id_4a468751_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_receiptservice
+    ADD CONSTRAINT myhouse_admin_receip_unit_id_4a468751_fk_myhouse_a FOREIGN KEY (unit_id) REFERENCES public.myhouse_admin_unit(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_receipt myhouse_admin_receipt_flat_id_0f2482fc_fk_myhouse_admin_flat_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_receipt
+    ADD CONSTRAINT myhouse_admin_receipt_flat_id_0f2482fc_fk_myhouse_admin_flat_id FOREIGN KEY (flat_id) REFERENCES public.myhouse_admin_flat(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_section myhouse_admin_sectio_house_id_ab0d9742_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_section
+    ADD CONSTRAINT myhouse_admin_sectio_house_id_ab0d9742_fk_myhouse_a FOREIGN KEY (house_id) REFERENCES public.myhouse_admin_house(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_service myhouse_admin_service_unit_id_37bab3b0_fk_myhouse_admin_unit_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_service
+    ADD CONSTRAINT myhouse_admin_service_unit_id_37bab3b0_fk_myhouse_admin_unit_id FOREIGN KEY (unit_id) REFERENCES public.myhouse_admin_unit(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_tariffimage myhouse_admin_tariff_content_type_id_ccc26e4a_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_tariffimage
+    ADD CONSTRAINT myhouse_admin_tariff_content_type_id_ccc26e4a_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_tariffservice myhouse_admin_tariff_service_id_dff8be60_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_tariffservice
+    ADD CONSTRAINT myhouse_admin_tariff_service_id_dff8be60_fk_myhouse_a FOREIGN KEY (service_id) REFERENCES public.myhouse_admin_service(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_tariffservice myhouse_admin_tariff_tariff_id_aef227bf_fk_myhouse_a; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_tariffservice
+    ADD CONSTRAINT myhouse_admin_tariff_tariff_id_aef227bf_fk_myhouse_a FOREIGN KEY (tariff_id) REFERENCES public.myhouse_admin_tariff(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_ticket myhouse_admin_ticket_flat_id_11491137_fk_myhouse_admin_flat_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_ticket
+    ADD CONSTRAINT myhouse_admin_ticket_flat_id_11491137_fk_myhouse_admin_flat_id FOREIGN KEY (flat_id) REFERENCES public.myhouse_admin_flat(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_ticket myhouse_admin_ticket_master_id_e7cc1cc2_fk_users_employee_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_ticket
+    ADD CONSTRAINT myhouse_admin_ticket_master_id_e7cc1cc2_fk_users_employee_id FOREIGN KEY (master_id) REFERENCES public.users_employee(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myhouse_admin_ticket myhouse_admin_ticket_master_type_id_a17ee50e_fk_users_role_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.myhouse_admin_ticket
+    ADD CONSTRAINT myhouse_admin_ticket_master_type_id_a17ee50e_fk_users_role_id FOREIGN KEY (master_type_id) REFERENCES public.users_role(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: users_employee users_employee_role_id_97bf5c2f_fk_users_role_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_employee
+    ADD CONSTRAINT users_employee_role_id_97bf5c2f_fk_users_role_id FOREIGN KEY (role_id) REFERENCES public.users_role(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: users_employee users_employee_user_id_6131bb7a_fk_users_user_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_employee
+    ADD CONSTRAINT users_employee_user_id_6131bb7a_fk_users_user_id FOREIGN KEY (user_id) REFERENCES public.users_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: users_owner users_owner_user_id_e6b855b1_fk_users_user_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_owner
+    ADD CONSTRAINT users_owner_user_id_e6b855b1_fk_users_user_id FOREIGN KEY (user_id) REFERENCES public.users_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: users_user_groups users_user_groups_group_id_9afc8d0e_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_user_groups
+    ADD CONSTRAINT users_user_groups_group_id_9afc8d0e_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: users_user_groups users_user_groups_user_id_5f6f5a90_fk_users_user_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_user_groups
+    ADD CONSTRAINT users_user_groups_user_id_5f6f5a90_fk_users_user_id FOREIGN KEY (user_id) REFERENCES public.users_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: users_user_user_permissions users_user_user_perm_permission_id_0b93982e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_user_user_permissions
+    ADD CONSTRAINT users_user_user_perm_permission_id_0b93982e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: users_user_user_permissions users_user_user_permissions_user_id_20aca447_fk_users_user_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.users_user_user_permissions
+    ADD CONSTRAINT users_user_user_permissions_user_id_20aca447_fk_users_user_id FOREIGN KEY (user_id) REFERENCES public.users_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
