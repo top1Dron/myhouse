@@ -279,7 +279,7 @@ class MeterReadingForm(forms.ModelForm):
 
 class ReceiptForm(forms.ModelForm):
     house = forms.ModelChoiceField(queryset=db_utils.get_houses(), empty_label='Выберите...')
-    section = forms.ModelChoiceField(queryset=Section.objects.none(), empty_label='Выберите...')
+    section = forms.ModelChoiceField(queryset=Section.objects.none(), empty_label='Выберите...', required=False)
     flat = forms.ModelChoiceField(queryset=Flat.objects.none(), empty_label='Выберите...')
     personal_account = forms.CharField(max_length=50, required=False)
 

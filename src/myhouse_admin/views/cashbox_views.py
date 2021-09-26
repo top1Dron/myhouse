@@ -12,7 +12,7 @@ from django.views.generic.list import ListView
 from myhouse_admin.forms.forms import CashboxRecordForm
 from myhouse_admin.models import CashboxRecord, PaymentType
 from myhouse_admin.utils import db_utils
-from myhouse_admin.utils.utils import PermissionRequiredMixin, permission_required
+from myhouse_admin.utils.utils import PermissionRequiredMixin, permission_required, get_dt_now_object
 
 
 logger = logging.getLogger(__name__)
@@ -31,6 +31,13 @@ class CashboxListView(PermissionRequiredMixin, ListView):
         context['cb_state'] = db_utils.get_cashbox_state()
         context['cb_indebtedness'] = db_utils.get_indebtedness()
         context['cb_balances'] = db_utils.get_flat_balances()
+        now = get_dt_now_object()
+        context['end_date'] = f'{now.day}.{now.month}.{now.year}'
+        context['start_date'] = f'{now.day}.{now.month}.{now.year}'
+        if 'start_date' in self.request.GET:
+            context['start_date'] = '.'.join(self.request.GET['start_date'].split('-')[-1::-1])
+        if 'end_date' in self.request.GET:
+            context['end_date'] = '.'.join(self.request.GET['end_date'].split('-')[-1::-1])
         return context
 
     def get_queryset(self):
@@ -39,6 +46,10 @@ class CashboxListView(PermissionRequiredMixin, ListView):
             queryset = queryset.filter(payment_type__type='0' if self.request.GET['type'] == 'in' else '1')
         if 'account_id' in self.request.GET:
             queryset = queryset.filter(personal_account=self.request.GET['account_id'])
+        if 'start_date' in self.request.GET:
+            queryset = queryset.filter(date__gte=self.request.GET['start_date'])
+        if 'end_date' in self.request.GET:
+            queryset = queryset.filter(date__lte=self.request.GET['end_date'])
         return queryset
 
 

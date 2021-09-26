@@ -250,6 +250,10 @@ def get_floor_flats(floor_id) -> Iterable[Flat]:
     return Flat.objects.filter(floor=floor_id)
 
 
+def get_house_flats(house_id) -> Iterable[Flat]:
+    return Flat.objects.filter(floor__section__house=house_id)
+
+
 def get_current_and_empty_flats(flat_id, section_id) -> Iterable[Flat]:
     return Flat.objects.filter(
         Q(pk=flat_id) |

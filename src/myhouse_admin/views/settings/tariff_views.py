@@ -106,7 +106,6 @@ class TariffUpdateView(PermissionRequiredMixin, UpdateView):
 
 @staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
 @require_http_methods(['GET'])
-@permission_required('13')
 def get_service_unit(request):
     try:
         unit = db_utils.get_service(pk=request.GET.get('service_pk')).unit
@@ -116,6 +115,18 @@ def get_service_unit(request):
         unit_pk = ''
         unit_name = 'Выберите...'
     return JsonResponse({'unit_name': unit_name, 'unit_id': unit_pk})
+
+
+@staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
+@require_http_methods(['GET'])
+def get_tariff_service_price(request):
+    try:
+        price = db_utils.get_tariff_service(
+            tariff=request.GET.get('tariff_pk'), 
+            service=request.GET.get('service_pk')).price
+    except:
+        price = ''
+    return JsonResponse({'service_price': price})
 
 
 @staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))

@@ -32,11 +32,8 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         {% if update %}
                             <a href="{% url 'myhouse_admin:receipt_create' %}?invoice_id={{form.instance.pk}}" class="dropdown-item">Копировать</a>
-                            {% comment %} <a class="dropdown-item" href="{% url 'myhouse_admin:receipt_delete' form.instance.pk %}">Удалить</a> {% endcomment %}
                             <button class="dropdown-item" type="button" delete-url="{% url 'myhouse_admin:receipt_delete' form.instance.pk %}">Удалить</button>
                         {% endif %}
-                        {% comment %} <a href="#" class="dropdown-item">Установить все услуги согласно тарифу</a>
-                        <a class="dropdown-item" href="#">Добавить показания счетчиков</a> {% endcomment %}
                         <button class="dropdown-item" type="button">Установить все услуги согласно тарифу</button>
                         <button class="dropdown-item" type="button">Добавить показания счетчиков</button>
                     </div>
@@ -62,7 +59,7 @@
                     <div class="col-md-6">
                         <div class="form-group g-3">
                             <label for="{{form.house.auto_id}}" class="form-label">Дом</label>
-                            {% render_field form.house class='form-control is-invalid' data-house-sections-url=load_house_sections_url data-empty-flats=load_empty_flats_url %}
+                            {% render_field form.house class='form-control is-invalid' data-house-sections-url=load_house_sections_url data-house-flats=load_house_flats_url %}
                         </div>
                         <div class="form-group g-3">
                             <label for="{{form.section.auto_id}}" class="form-label">Секция</label>
@@ -122,7 +119,7 @@
                             <strong>Телефон: </strong>
                             <span id="id_flat_owner_phone">
                                 {% if form.instance.pk is not None %}
-                                    <a href="tel:{{form.instance.flat.owner.user.phone_number}}" class="text-decoration-none">{{form.instance.flat.owner.user.phone_number}}</a>
+                                    <a href="tel:{{form.instance.flat.owner.user.phone_number}}">{{form.instance.flat.owner.user.phone_number}}</a>
                                 {% else %}
                                     не выбран
                                 {% endif %}
@@ -130,13 +127,14 @@
                         </p>
                         <p>
                             <strong>Тариф: </strong>
-                            <span id="id_flat_tariff">
+                            <span id="id_flat_tariff" data-price-url="{{get_tariff_service_price_url}}">
                                 {% if form.instance.pk is not None %}
-                                    <a href="myhouse_admin:tariff_detail {{form.instance.flat.tariff.pk}}" class="text-decoration-none">{{form.instance.flat.tariff}}</a>
+                                    <a href="{% url 'myhouse_admin:tariff_detail' form.instance.flat.tariff.pk %}" tariff_pk="{{form.instance.flat.tariff.pk}}">{{form.instance.flat.tariff}}</a>
                                 {% else %}
                                     не выбран
                                 {% endif %}
-                            </span>    
+                            </span>
+                            <input type="hidden" id="id_flat_tariff_pk"> 
                         </p>
                     </div>
                 </div>

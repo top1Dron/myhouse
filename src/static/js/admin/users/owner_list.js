@@ -15,7 +15,7 @@ $(document).ready(function(){
             'Пользователь отключен!')
     });
 
-    init_datatable('id_owner_table', [0, 1, 2, 3, 5, 6], [4], [7]);
+    init_datatable('id_owner_table', [0, 1, 2, 3, 5], [4, 6, 8], [7]);
 
     $('#id_owner_table_filter').hide();
 })

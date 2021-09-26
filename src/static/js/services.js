@@ -120,7 +120,7 @@ export function extractContent(s) {
     return span.textContent || span.innerText;
 }
 
-export function service_onchange_ajax(serviceId, unitId, select=false){
+export function service_onchange_ajax(serviceId, unitId, select=false, tariffId="", priceId=""){
     var url = $(`#${serviceId}`).attr("get-service-unit-url");
     var servicePk = $(`#${serviceId}`).val();
 
@@ -133,11 +133,26 @@ export function service_onchange_ajax(serviceId, unitId, select=false){
         success: function (data) {
             if(select){
                 $(`#${unitId}`).val(data['unit_id']);
+                if($(`#${tariffId} > a`).attr('tariff_pk')){
+                    url = $(`#${tariffId}`).attr('data-price-url');
+                    console.log(url);
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        data: {
+                            'service_pk': servicePk,
+                            'tariff_pk': $(`#${tariffId} > a`).attr('tariff_pk')
+                        },
+                        success: function (data) {
+                            $(`#${priceId}`).val(data['service_price']);
+                        }
+                    });
+                }
             }
             else{
                 $(`#${unitId}`).val(data['unit_name']);
             }
-        }
+        },
     });
 }
 

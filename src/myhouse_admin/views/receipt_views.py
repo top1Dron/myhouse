@@ -29,12 +29,28 @@ class ReceiptListView(utils.PermissionRequiredMixin, ListView):
         context['cb_state'] = db_utils.get_cashbox_state()
         context['cb_indebtedness'] = db_utils.get_indebtedness()
         context['cb_balances'] = db_utils.get_flat_balances()
+        now = utils.get_dt_now_object()
+        context['end_date'] = f'{now.day}.{now.month}.{now.year}'
+        context['start_date'] = f'{now.day}.{now.month}.{now.year}'
+        if 'start_date' in self.request.GET:
+            context['start_date'] = '.'.join(self.request.GET['start_date'].split('-')[-1::-1])
+        if 'end_date' in self.request.GET:
+            context['end_date'] = '.'.join(self.request.GET['end_date'].split('-')[-1::-1])
+        if 'month' in self.request.GET:
+            context['selected_month'] = self.request.GET['month']
         return context
 
     def get_queryset(self):
         queryset = Receipt.objects.all().order_by('-creation_date')
         if 'flat_id' in self.request.GET:
             queryset = queryset.filter(flat=self.request.GET['flat_id'])
+        if 'start_date' in self.request.GET:
+            queryset = queryset.filter(creation_date__gte=self.request.GET['start_date'])
+        if 'end_date' in self.request.GET:
+            queryset = queryset.filter(creation_date__lte=self.request.GET['end_date'])
+        if 'month' in self.request.GET:
+            start_date, end_date = utils.get_month_range(self.request.GET['month'])
+            queryset = queryset.filter(creation_date__gte=start_date, creation_date__lte=end_date)
         return queryset
 
 
@@ -82,8 +98,10 @@ def receipt_create_view(request):
         'form': form,
         'service_formset': service_formset,
         'get_service_unit_url': reverse_lazy('myhouse_admin:get_service_unit'),
+        'get_tariff_service_price_url': reverse_lazy('myhouse_admin:get_tariff_service_price'),
         'load_house_sections_url': reverse_lazy('myhouse_admin:load_house_sections'),
         'load_section_flats_url': reverse_lazy('myhouse_admin:load_section_flats'),
+        'load_house_flats_url': reverse_lazy('myhouse_admin:load_house_flats'),
         'load_empty_flats_url': reverse_lazy('myhouse_admin:load_empty_flats'),
         'load_flat_details': reverse_lazy('myhouse_admin:load_flat_details'),
         'meters': db_utils.get_all_meter_readings(),
@@ -121,9 +139,11 @@ def receipt_update_view(request, pk):
         'form': form,
         'service_formset': service_formset,
         'get_service_unit_url': reverse_lazy('myhouse_admin:get_service_unit'),
+        'get_tariff_service_price_url': reverse_lazy('myhouse_admin:get_tariff_service_price'),
         'load_house_sections_url': reverse_lazy('myhouse_admin:load_house_sections'),
         'load_section_flats_url': reverse_lazy('myhouse_admin:load_section_flats'),
         'load_empty_flats_url': reverse_lazy('myhouse_admin:load_empty_flats'),
+        'load_house_flats_url': reverse_lazy('myhouse_admin:load_house_flats'),
         'load_flat_details': reverse_lazy('myhouse_admin:load_flat_details'),
         'meters': db_utils.get_flat_meters(form.instance.flat.pk),
         'update': True

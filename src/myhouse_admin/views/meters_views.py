@@ -12,7 +12,7 @@ from django.views.generic.list import ListView
 from myhouse_admin.forms.forms import MeterReadingForm
 from myhouse_admin.models import MeterReading
 from myhouse_admin.utils import db_utils
-from myhouse_admin.utils.utils import PermissionRequiredMixin, permission_required
+from myhouse_admin.utils.utils import PermissionRequiredMixin, permission_required, get_dt_now_object
 
 
 logger = logging.getLogger(__name__)
@@ -39,6 +39,13 @@ class MeterReadingListView(MeterListView):
                 context['title'] += f', кв. {flat.number}'
             except:
                 pass
+        now = get_dt_now_object()
+        context['end_date'] = f'{now.day}.{now.month}.{now.year}'
+        context['start_date'] = f'{now.day}.{now.month}.{now.year}'
+        if 'start_date' in self.request.GET:
+            context['start_date'] = '.'.join(self.request.GET['start_date'].split('-')[-1::-1])
+        if 'end_date' in self.request.GET:
+            context['end_date'] = '.'.join(self.request.GET['end_date'].split('-')[-1::-1])
         return context
 
     def get_queryset(self):
@@ -47,6 +54,10 @@ class MeterReadingListView(MeterListView):
             queryset = queryset.filter(flat=self.request.GET.get('flat_id'))
         if 'service_id' in self.request.GET:
             queryset = queryset.filter(service=self.request.GET.get('service_id'))
+        if 'start_date' in self.request.GET:
+            queryset = queryset.filter(reading_date__gte=self.request.GET['start_date'])
+        if 'end_date' in self.request.GET:
+            queryset = queryset.filter(reading_date__lte=self.request.GET['end_date'])
         return queryset
 
 

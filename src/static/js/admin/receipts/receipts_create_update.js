@@ -32,8 +32,8 @@ $(document).ready(function(){
             success: function (data) {
                 $("#id_section").html(data);
                 $.ajax({
-                    url: $("#id_house").attr("data-empty-flats"),
-                    data: {},
+                    url: $("#id_house").attr("data-house-flats"),
+                    data: {'house': houseId},
                     success: function (data) {
                         $("#id_flat").html(data);
                     }
@@ -104,7 +104,9 @@ $(document).ready(function(){
         });
 
         $(`#id_service-${current_form}-service`).change(function(){
-            service_onchange_ajax(`id_service-${current_form}-service`, `id_service-${current_form}-unit`, true);
+            service_onchange_ajax(`id_service-${current_form}-service`, 
+                `id_service-${current_form}-unit`, true, `id_flat_tariff`,
+                `id_service-${current_form}-unit_price`);
         });
     });
 
@@ -133,7 +135,7 @@ function add_formset_functionality(total_forms_id){
 
 function generate_service_change_handler( j ) {
     return function() {
-        service_onchange_ajax(`id_service-${j}-service`, `id_service-${j}-unit`, true);
+        service_onchange_ajax(`id_service-${j}-service`, `id_service-${j}-unit`, true, `id_flat_tariff`);
     };
 }
 

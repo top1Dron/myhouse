@@ -6,6 +6,10 @@
 
 {% block meters %}bg-light{% endblock meters %}
 
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+{% endblock extra_css %}
+
 {% block main_content %}
 <section class="content-header d-flex justify-content-between">
     <h1>{{title}}</h1>
@@ -48,7 +52,7 @@
                     <tr>
                         <th></th>
                         <th></th>
-                        <th></th>
+                        <th><input type="text" value="{{start_date}} - {{end_date}}" class="form-control" id="reservation"></th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -103,6 +107,9 @@
 {% endblock main_content %}
 
 {% block extra_js %}
+    <script src="{% static 'plugins/moment/moment-with-locales.min.js' %}"></script>
+    <script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
+    <script src="{% static 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
     <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
     <script src="{% static 'js/admin/meters/meter_reading_list.js' %}" type="module"></script>
 {% endblock extra_js %}

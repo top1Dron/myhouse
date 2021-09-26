@@ -1,4 +1,5 @@
-from datetime import datetime as dt
+from datetime import datetime as dt, date
+import calendar
 
 from django.contrib.auth.decorators import user_passes_test
 from django.db.models import Model
@@ -101,3 +102,9 @@ def owner_flat_required(view):
         return view(request, *args, **kwargs)
     
     return inner
+
+def get_month_range(month:str):
+    _month, year = [int(i) for i in month.split('.')]
+    start_day, end_day = calendar.monthrange(year, _month)
+    return (date(year=year, month=_month, day=start_day), 
+        date(year=year, month=_month, day=end_day))

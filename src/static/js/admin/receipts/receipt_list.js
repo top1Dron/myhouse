@@ -1,4 +1,4 @@
-import { init_datatable, deleteObject, getCookie } from '../../services.js'
+import { init_datatable, deleteObject, getCookie, updateURLParameter } from '../../services.js'
 
 $(document).ready(function(){
 
@@ -6,11 +6,71 @@ $(document).ready(function(){
         e.stopPropagation();
     });
 
+    $('#reservation').daterangepicker({
+        autoclose: true,
+        locale: {
+            format: 'DD.MM.YYYY',
+            "applyLabel": "Ок",
+            "cancelLabel": "Отмена",
+            "fromLabel": "От",
+            "toLabel": "До",
+            "customRangeLabel": "Произвольный",
+            "daysOfWeek": [
+                "Вс",
+                "Пн",
+                "Вт",
+                "Ср",
+                "Чт",
+                "Пт",
+                "Сб"
+            ],
+            "monthNames": [
+                "Январь",
+                "Февраль",
+                "Март",
+                "Апрель",
+                "Май",
+                "Июнь",
+                "Июль",
+                "Август",
+                "Сентябрь",
+                "Октябрь",
+                "Ноябрь",
+                "Декабрь"
+            ],
+            firstDay: 1
+          }
+    });
+
+    $('#reservation').change(function(){
+        var search_url = updateURLParameter(
+            window.location.search, 
+            'start_date', 
+            $('#reservation').data('daterangepicker').startDate.format('YYYY-MM-DD'));
+        document.location.href = updateURLParameter(
+            search_url, 
+            'end_date', 
+            $('#reservation').data('daterangepicker').endDate.format('YYYY-MM-DD'));
+    });
+
+    $('#id_monthPicker').datetimepicker({
+        autoclose: true,
+        locale: 'ru',
+        format:'MM.YYYY',
+    });
+
+    $("#id_monthPicker").on("change.datetimepicker", function() {
+        document.location.href = updateURLParameter(
+            window.location.search, 
+            'month', 
+            $('#id_monthPicker_input').val());
+    });
+    
     $('tr[data-href]').on("click", function() {
         document.location = $(this).data('href');
     });
 
-    init_datatable('id_receipts_table', [1, 3, 4], [5, 6, 7], [2]);
+    init_datatable('id_receipts_table', [1], [5, 6, 7], [2]);
 
     $('#id_receipts_table_filter').hide();
 

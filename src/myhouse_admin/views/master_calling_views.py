@@ -24,6 +24,25 @@ class TicketListView(PermissionRequiredMixin, ListView):
     context_object_name = 'tickets'
     permission_required = '9'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        now = utils.get_dt_now_object()
+        context['end_date'] = f'{now.day}.{now.month}.{now.year}'
+        context['start_date'] = f'{now.day}.{now.month}.{now.year}'
+        if 'start_date' in self.request.GET:
+            context['start_date'] = '.'.join(self.request.GET['start_date'].split('-')[-1::-1])
+        if 'end_date' in self.request.GET:
+            context['end_date'] = '.'.join(self.request.GET['end_date'].split('-')[-1::-1])
+        return context
+
+    def get_queryset(self):
+        queryset = Ticket.objects.all().order_by('-convenient_time')
+        if 'start_date' in self.request.GET:
+            queryset = queryset.filter(convenient_time__gte=self.request.GET['start_date'])
+        if 'end_date' in self.request.GET:
+            queryset = queryset.filter(convenient_time__lte=self.request.GET['end_date'])
+        return queryset
+
 
 class TicketCreateView(PermissionRequiredMixin, CreateView):
     model = Ticket

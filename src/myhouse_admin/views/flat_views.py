@@ -122,7 +122,6 @@ class FlatUpdateView(PermissionRequiredMixin, UpdateView):
 
 @staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
 @require_http_methods(['GET'])
-@permission_required('5')
 def load_house_sections(request):
     sections = db_utils.get_house_sections(request.GET.get('house'))
     return render(request, 'flats/section_dropdown_list_options.html', {'sections': sections})
@@ -130,7 +129,6 @@ def load_house_sections(request):
 
 @staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
 @require_http_methods(['GET'])
-@permission_required('5')
 def load_section_floors(request):
     floors = db_utils.get_section_floors(request.GET.get('section'))
     return render(request, 'flats/floor_dropdown_list_options.html', {'floors': floors})
@@ -138,7 +136,6 @@ def load_section_floors(request):
 
 @staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
 @require_http_methods(['GET'])
-@permission_required('5')
 def load_section_flats_without_pa(request):
     flats = db_utils.get_section_flats_without_personal_account(request.GET.get('section'))
     return render(request, 'flats/flat_dropdown_list_options.html', {'flats': flats})
@@ -146,7 +143,6 @@ def load_section_flats_without_pa(request):
 
 @staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
 @require_http_methods(['GET'])
-@permission_required('5')
 def load_section_flats_on_update_pa(request):
     flats = db_utils.get_current_and_empty_flats(request.GET.get('flat'), request.GET.get('section'))
     return render(request, 'flats/flat_dropdown_list_options.html', {'flats': flats})
@@ -154,7 +150,6 @@ def load_section_flats_on_update_pa(request):
 
 @staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
 @require_http_methods(['GET'])
-@permission_required('5')
 def load_section_flats_on_update(request):
     flats = db_utils.get_current_and_selected_section_flats(request.GET.get('flat'), request.GET.get('section'))
     return render(request, 'flats/flat_dropdown_list_options.html', {'flats': flats})
@@ -162,7 +157,6 @@ def load_section_flats_on_update(request):
 
 @staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
 @require_http_methods(['GET'])
-@permission_required('5')
 def load_empty_flats(request):
     flats = Flat.objects.none()
     return render(request, 'flats/flat_dropdown_list_options.html', {'flats': flats})
@@ -170,7 +164,6 @@ def load_empty_flats(request):
 
 @staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
 @require_http_methods(['GET'])
-@permission_required('5')
 def load_owner_flats(request):
     flats = db_utils.get_owner_flats(request.GET.get('owner'))
     return render(request, 'flats/owner_flats_list.html', {'flats': flats})
@@ -178,7 +171,6 @@ def load_owner_flats(request):
 
 @staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
 @require_http_methods(['GET'])
-@permission_required('5')
 def load_flat_details(request):
     try:
         flat = db_utils.get_flat(pk=request.GET.get('flat'))
@@ -188,7 +180,7 @@ def load_flat_details(request):
         owner = f'<a href="{reverse_lazy("myhouse_admin:owner_detail", kwargs={"pk": flat.owner.pk})}">{flat.owner}</a>'
         owner_phone = f'<a href="tel:{flat.owner.user.phone_number}">{flat.owner.user.phone_number}</a>'
         try:
-            flat_tariff = f'<a href="{reverse_lazy("myhouse_admin:tariff_detail", kwargs={"pk": flat.tariff.pk})}">{flat.tariff}</a>'
+            flat_tariff = f'<a href="{reverse_lazy("myhouse_admin:tariff_detail", kwargs={"pk": flat.tariff.pk})}" tariff_pk="{flat.tariff.pk}">{flat.tariff}</a>'
         except:
             flat_tariff = 'не выбран'
     else:
@@ -198,7 +190,6 @@ def load_flat_details(request):
 
 @staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
 @require_http_methods(['GET'])
-@permission_required('5')
 def load_section_flats(request):
     flats = db_utils.get_section_flats(request.GET.get('section'))
     return render(request, 'flats/flat_dropdown_list_options.html', {'flats': flats})
@@ -217,7 +208,13 @@ def delete_flat(request, pk):
 
 @staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
 @require_http_methods(['GET'])
-@permission_required('5')
 def load_floor_flats(request):
     flats = db_utils.get_floor_flats(request.GET.get('floor'))
+    return render(request, 'flats/flat_dropdown_list_options.html', {'flats': flats})
+
+
+@staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
+@require_http_methods(['GET'])
+def load_house_flats(request):
+    flats = db_utils.get_house_flats(request.GET.get('house'))
     return render(request, 'flats/flat_dropdown_list_options.html', {'flats': flats})
