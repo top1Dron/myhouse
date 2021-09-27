@@ -64,6 +64,22 @@ class FlatListView(PermissionRequiredMixin, ListView):
     context_object_name = 'flats'
     permission_required = '5'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['has_debt'] = 0
+        if 'has_debt' in self.request.GET:
+            context['has_debt'] = self.request.GET['has_debt']
+        return context
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if 'has_debt' in self.request.GET:
+            if self.request.GET['has_debt'] == '1':
+                queryset = [flat for flat in db_utils.get_flats() if flat.actual_balance < 0]
+            elif self.request.GET['has_debt'] == '2':
+                queryset = [flat for flat in db_utils.get_flats() if flat.actual_balance >= 0]
+        return queryset
+
 
 class FlatUpdateView(PermissionRequiredMixin, UpdateView):
     model = Flat

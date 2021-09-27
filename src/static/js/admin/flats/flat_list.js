@@ -1,4 +1,4 @@
-import { deleteObject, getCookie, init_datatable } from '../../services.js'
+import { deleteObject, getCookie, init_datatable, updateURLParameter } from '../../services.js'
 
 $(document).ready(function(){
     $('.delete-flat-button').click(function(e){
@@ -17,5 +17,14 @@ $(document).ready(function(){
         deleteObject(this, getCookie('csrftoken'), 
             'Вы уверены, что хотите удалить данные этой квартиры из базы данных?',
             'Данные о квартире удалены успешно!')
-    })
+    });
+
+    $('#id_search_debtors').val($('#id_search_debtors').attr("current-val"));
+
+    $('#id_search_debtors').change(function(){
+        document.location.href = updateURLParameter(
+            window.location.search, 
+            'has_debt', 
+            $('#id_search_debtors').val());
+    });
 })

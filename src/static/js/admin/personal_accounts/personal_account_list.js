@@ -1,4 +1,4 @@
-import { init_datatable, deleteObject, getCookie } from '../../services.js'
+import { init_datatable, deleteObject, getCookie, updateURLParameter } from '../../services.js'
 
 $(document).ready(function(){
     $('.delete-personal_account-button').click(function(e){
@@ -17,5 +17,14 @@ $(document).ready(function(){
         deleteObject(this, getCookie('csrftoken'), 
             'Вы уверены, что хотите удалить данные этого лицевого счета из базы данных?',
             'Лицевой счёт удален успешно!')
+    });
+
+    $('#id_search_debtors').val($('#id_search_debtors').attr("current-val"));
+
+    $('#id_search_debtors').change(function(){
+        document.location.href = updateURLParameter(
+            window.location.search, 
+            'has_debt', 
+            $('#id_search_debtors').val());
     });
 })

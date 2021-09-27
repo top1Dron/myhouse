@@ -83,8 +83,8 @@
                         <td>{{meter.flat.floor.section}}</td>
                         <td>{{meter.flat.number}}</td>
                         <td>{{meter.service.name}}</td>
-                        <td>{{meter.testimony|stringformat:".1f"}}</td>
-                        <td>{{meter.service.unit.name}}</td>
+                        <td style="background-color: #DFD5; font-weight: normal">{{meter.testimony|stringformat:".1f"}}</td>
+                        <td style="background-color: #DFD5; font-weight: normal">{{meter.service.unit.name}}</td>
                         <td>
                             <div class="btn-group">
                                 <a href="{% url 'myhouse_admin:meter_reading_update' meter.pk %}" class="btn btn-default" title="Редактировать">
@@ -96,8 +96,6 @@
                             </div>
                         </td>
                     </tr>
-                {% empty %}
-                    <tr><td colspan="11">Показаний счетчиков не обнаружено</td></tr>
                 {% endfor %}
                 </tbody>
             </table>

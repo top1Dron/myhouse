@@ -76,9 +76,10 @@ export function deleteObject(button, csrf_token,
     // }
 
     Swal.fire({
-        title: delete_confirm_message,
+        title: `<p class="text-dark">${delete_confirm_message}</p>`,
         icon: 'warning',
         showCancelButton: true,
+        background:'#fff',
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Да, удалить!',
@@ -95,7 +96,7 @@ export function deleteObject(button, csrf_token,
                 },
                 success: function(resp){
                     Swal.fire(
-                        delete_success_message,
+                        `<p class="text-dark">${delete_success_message}</p>`,
                         'Удалено!',
                         'success'
                     )

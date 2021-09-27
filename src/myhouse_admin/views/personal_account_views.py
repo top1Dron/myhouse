@@ -62,7 +62,21 @@ class PersonalAccountListView(PermissionRequiredMixin, ListView):
         context['cb_state'] = db_utils.get_cashbox_state()
         context['cb_indebtedness'] = db_utils.get_indebtedness()
         context['cb_balances'] = db_utils.get_flat_balances()
+        context['has_debt'] = 0
+        if 'has_debt' in self.request.GET:
+            context['has_debt'] = self.request.GET['has_debt']
         return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if 'has_debt' in self.request.GET:
+            if self.request.GET['has_debt'] == '1':
+                queryset = [flat.personal_account for flat in db_utils.get_flats() if (flat.flat_personal_account is not None 
+                    and flat.actual_balance < 0)]
+            elif self.request.GET['has_debt'] == '2':
+                queryset = [flat.personal_account for flat in db_utils.get_flats() if (flat.flat_personal_account is not None 
+                    and flat.actual_balance >= 0)]
+        return queryset
 
 
 class PersonalAccountDetailView(PermissionRequiredMixin, DetailView):

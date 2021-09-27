@@ -11,7 +11,7 @@
                     <label for="{{form.name.auto_id}}">Ед. изм.</label>
                     <div class="input-group">
                         {% render_field form.name class="form-control" %}
-                        <button class="btn btn-default text-center align-self-end mb-2" delete-url="{% url 'myhouse_admin:unit_delete' form.instance.pk %}" type='button' onclick="deleteUnit(this, 'id_unit-TOTAL_FORMS', true)"><i class="fa fa-trash"></i></button>
+                        <button class="btn btn-default text-center align-self-end mb-2 {% if form.instance.in_tariff %}disabled{% endif %}" delete-url="{% url 'myhouse_admin:unit_delete' form.instance.pk %}" type='button' {% if form.instance.in_tariff %}onclick="Swal.fire({icon:'error', title:'<p class=\'text-dark\'>Эта ед.изм. используется в услуге. Удаление невозможно.</p>', background:'#fff'})"{% else %}onclick="deleteUnit(this, 'id_unit-TOTAL_FORMS', true)"{% endif %}><i class="fa fa-trash"></i></button>
                     </div>
                 </div>
             </div>

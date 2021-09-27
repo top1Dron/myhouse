@@ -983,3 +983,6 @@ INFO 2021-09-26 19:33:17,917 receipt_views 03.2021
 INFO 2021-09-26 19:46:24,664 receipt_views 23.09.2021
 INFO 2021-09-26 19:46:32,041 receipt_views 25.09.2021
 INFO 2021-09-26 19:46:40,363 receipt_views 25.09.2021
+INFO 2021-09-27 13:48:37,671 personal_account_views [<generator object PersonalAccountListView.get_queryset.<locals>.<genexpr> at 0x7fd6645bca50>]
+INFO 2021-09-27 13:50:49,955 personal_account_views [<PersonalAccount: 139202100002>]
+INFO 2021-09-27 13:52:37,872 personal_account_views [<PersonalAccount: 139202100002>]

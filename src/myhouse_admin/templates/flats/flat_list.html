@@ -46,7 +46,13 @@
                         <th></th>
                         <th></th>
                         <th></th>
-                        <th></th>
+                        <th>
+                            <select id="id_search_debtors" current-val="{{has_debt}}" class="form-control">
+                                <option value="0" selected></option>
+                                <option value="1">Есть долг</option>
+                                <option value="2">Нет долга</option>
+                            </select>
+                        </th>
                         <th></th>
                     </tr>
                 </thead>
@@ -60,12 +66,12 @@
                         <td>{{flat.owner}}</td>
                         <td>
                             {% if flat.flat_personal_account is not None %}
-                                {% if flat.balance > 0 %}
-                                    <span class="text-success">{{flat.balance|stringformat:".2f"}}</span>
-                                {% elif flat.balance < 0 %}
-                                    <span class="text-danger">{{flat.balance|stringformat:".2f"}}</span>
+                                {% if flat.actual_balance > 0 %}
+                                    <span class="text-success">{{flat.actual_balance|stringformat:".2f"}}</span>
+                                {% elif flat.actual_balance < 0 %}
+                                    <span class="text-danger">{{flat.actual_balance|stringformat:".2f"}}</span>
                                 {% else %}
-                                    <span>{{flat.balance|stringformat:".2f"}}</span>
+                                    <span>{{flat.actual_balance|stringformat:".2f"}}</span>
                                 {% endif %}
                             {% else %}
                                 <span>(нет счета)</span>
@@ -82,8 +88,6 @@
                             </div>
                         </td>
                     </tr>
-                {% empty %}
-                    <tr><td colspan="7">Домов не обнаружено</td></tr>
                 {% endfor %}
                 </tbody>
             </table>

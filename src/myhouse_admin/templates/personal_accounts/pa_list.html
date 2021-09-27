@@ -63,7 +63,13 @@
                         <th></th>
                         <th></th>
                         <th></th>
-                        <th></th>
+                        <th>
+                            <select id="id_search_debtors" current-val="{{has_debt}}" class="form-control">
+                                <option value="0" selected></option>
+                                <option value="1">Есть долг</option>
+                                <option value="2">Нет долга</option>
+                            </select>
+                        </th>
                         <th></th>
                     </tr>
                 </thead>
@@ -84,12 +90,12 @@
                         <td>{{personal_account.flat.owner}}</td>
                         <td>
                             {% if personal_account.flat is not None %}
-                                {% if personal_account.flat.balance > 0 %}
-                                    <span class="text-success">{{personal_account.flat.balance|stringformat:".2f"}}</span>
-                                {% elif personal_account.flat.balance < 0 %}
-                                    <span class="text-danger">{{personal_account.flat.balance|stringformat:".2f"}}</span>
+                                {% if personal_account.flat.actual_balance > 0 %}
+                                    <span class="text-success">{{personal_account.flat.actual_balance|stringformat:".2f"}}</span>
+                                {% elif personal_account.flat.actual_balance < 0 %}
+                                    <span class="text-danger">{{personal_account.flat.actual_balance|stringformat:".2f"}}</span>
                                 {% else %}
-                                    <span>{{personal_account.flat.balance|stringformat:".2f"}}</span>
+                                    <span>{{personal_account.flat.actual_balance|stringformat:".2f"}}</span>
                                 {% endif %}
                             {% else %}
                                 <span>0.00</span>
@@ -106,8 +112,6 @@
                             </div>
                         </td>
                     </tr>
-                {% empty %}
-                    <tr><td colspan="8">Лицевых счетов не обнаружено</td></tr>
                 {% endfor %}
                 </tbody>
             </table>

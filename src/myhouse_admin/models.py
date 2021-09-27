@@ -45,6 +45,10 @@ class Unit(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    @property
+    def in_tariff(self) -> float:
+        return True if ReceiptService.objects.filter(service__unit=self).count() > 0 else False
+
 
 class Service(models.Model):
     name = models.CharField(max_length=255)
@@ -53,6 +57,10 @@ class Service(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+    @property
+    def in_tariff(self) -> float:
+        return True if ReceiptService.objects.filter(service=self).count() > 0 else False
     
     class Meta:
         unique_together = ('name', )
