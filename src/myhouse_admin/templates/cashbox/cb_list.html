@@ -36,7 +36,7 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a href="{% url 'myhouse_admin:cashbox_record_create' %}?type=in" class="dropdown-item">Создать приход</a>
                     <a class="dropdown-item" href="{% url 'myhouse_admin:cashbox_record_create' %}?type=out">Создать расход</a>
-                    <a class="dropdown-item" href="#">Выгрузить в Excel</a>
+                    <a class="dropdown-item" href="{% url 'myhouse_admin:cashbox_record_export_to_excel' %}">Выгрузить в Excel</a>
                 </div>
             </div>
         </div>

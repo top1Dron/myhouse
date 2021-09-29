@@ -1,3 +1,4 @@
+import logging
 import os
 
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
@@ -9,6 +10,9 @@ from django.db.models.fields.files import ImageField
 from django.dispatch import receiver
 
 from users.models import User, Employee, Owner, Role, get_upload_path
+
+
+logger = logging.getLogger(__name__)
 
 
 class House(models.Model):
@@ -177,6 +181,19 @@ class PersonalAccount(models.Model):
     def __str__(self):
         return self.uid
 
+    @classmethod
+    def export_to_excel(cls) -> dict:
+        data = [['Лицевой счет', 'Статус', 'Дом', 'Секция', 'Квартира', 'Владелец', 'Остаток']]
+        for a in cls.objects.filter().all():
+            data.append([str(a.uid), str(a.get_status_display()), 
+                str(a.flat.floor.section.house),
+                str(a.flat.floor.section), str(a.flat),
+                str(a.flat.owner),
+                f'{a.flat.actual_balance:.2f}' if a.flat else "0.0"
+            ])
+        return data
+
+
 
 class PaymentType(models.Model):
     TYPES = (
@@ -246,6 +263,40 @@ class CashboxRecord(models.Model):
 
     class Meta:
         ordering = ('-date', )
+
+    @classmethod
+    def export_to_excel(cls) -> dict:
+        data = [['#', 'Дата', 'Приход/расход', 'Статус', 'Статья', 
+            'Квитанция', 'Услуга', 'Сумма', 'Валюта', 
+            'Владелец квартиры', 'Лицевой счет']]
+        for cbr in cls.objects.filter().all():
+            data.append([str(cbr.number), str(cbr.date), 
+                str(cbr.payment_type.get_type_display()),
+                "Проведен" if cbr.is_made else "Не проведен",
+                str(cbr.payment_type.name), 
+                f"{cbr.receipt.number} от {cbr.receipt.creation_date}" if cbr.receipt else '', 
+                '', f'{int(cbr.summary)}', 'UAH',
+                str(cbr.personal_account.flat.owner) if cbr.personal_account else '',
+                cbr.personal_account.uid if cbr.personal_account else ''
+            ])
+        return data
+
+    def export_to_excel(self) -> dict:
+        data = []
+        data.append(['Платеж', self.number])
+        data.append(['Дата', str(self.date)])
+        data.append(['Владелец квартиры', str(self.personal_account.flat.owner) if self.personal_account else ''])
+        data.append(['Лицевой счет', self.personal_account.uid if self.personal_account else ''])
+        data.append(['Приход/расход', str(self.payment_type.get_type_display())])
+        data.append(['Статус', "Проведен" if self.is_made else "Не проведен"])
+        data.append(['Статья', str(self.payment_type.name)])
+        data.append(['Квитанция', f"{self.receipt.number} от {self.receipt.creation_date}" if self.receipt else ''])
+        data.append(['Услуга', ''])
+        data.append(['Сумма', f'{int(self.summary)}'])
+        data.append(['Валюта', 'UAH'])
+        data.append(['Комментарий', self.comment])
+        data.append(['Менеджер', str(self.manager) if self.manager else ''])
+        return data
 
 
 class Ticket(models.Model):

@@ -234,3 +234,10 @@ def load_floor_flats(request):
 def load_house_flats(request):
     flats = db_utils.get_house_flats(request.GET.get('house'))
     return render(request, 'flats/flat_dropdown_list_options.html', {'flats': flats})
+
+
+@staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
+@require_http_methods(['GET'])
+def load_flat_meters(request):
+    meters = db_utils.get_flat_meters(request.GET.get('flat'))
+    return render(request, 'receipts/receipt_flat_meters.html', {'meters': meters})

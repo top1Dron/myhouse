@@ -1,7 +1,7 @@
 import logging
 
 from django.contrib.admin.views.decorators import staff_member_required
-from django.http.response import JsonResponse
+from django.http.response import FileResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls.base import reverse_lazy
 from django.views.decorators.http import require_http_methods
@@ -104,6 +104,7 @@ def receipt_create_view(request):
         'load_house_flats_url': reverse_lazy('myhouse_admin:load_house_flats'),
         'load_empty_flats_url': reverse_lazy('myhouse_admin:load_empty_flats'),
         'load_flat_details': reverse_lazy('myhouse_admin:load_flat_details'),
+        'load_flat_meters_url': reverse_lazy('myhouse_admin:load_flat_meters'),
         'meters': db_utils.get_all_meter_readings(),
     })
 
@@ -141,10 +142,11 @@ def receipt_update_view(request, pk):
         'get_service_unit_url': reverse_lazy('myhouse_admin:get_service_unit'),
         'get_tariff_service_price_url': reverse_lazy('myhouse_admin:get_tariff_service_price'),
         'load_house_sections_url': reverse_lazy('myhouse_admin:load_house_sections'),
-        'load_section_flats_url': reverse_lazy('myhouse_admin:load_section_flats'),
+        'load_section_flats_url': reverse_lazy('myhouse_admin:load_section_flats_on_update'),
         'load_empty_flats_url': reverse_lazy('myhouse_admin:load_empty_flats'),
         'load_house_flats_url': reverse_lazy('myhouse_admin:load_house_flats'),
         'load_flat_details': reverse_lazy('myhouse_admin:load_flat_details'),
+        'load_flat_meters_url': reverse_lazy('myhouse_admin:load_flat_meters'),
         'meters': db_utils.get_flat_meters(form.instance.flat.pk),
         'update': True
     })
@@ -165,3 +167,11 @@ def receipt_delete_many(request):
     for receipt_id in request.POST.getlist('ids[]', []):
         db_utils.get_receipt(pk=receipt_id).delete()
     return JsonResponse({})
+
+
+@staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
+@utils.permission_required('3')
+def export_receipt_to_excel(request, pk):
+    receipt = db_utils.get_receipt(pk=pk)
+    buffer, filename = utils.export_receipt_to_excel('invoice', receipt)
+    return FileResponse(buffer, as_attachment=True, filename=filename)

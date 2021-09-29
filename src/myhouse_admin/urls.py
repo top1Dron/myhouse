@@ -34,6 +34,7 @@ urlpatterns = [
     path('flat/load-floor-flats/', flat_views.load_floor_flats, name="load_floor_flats"),
     path('flat/load-section-flats-without-pa/', flat_views.load_section_flats_without_pa, name="load_section_flats_without_pa"),
     path('flat/load-flat-details/', flat_views.load_flat_details, name="load_flat_details"),
+    path('flat/load-flat-meters/', flat_views.load_flat_meters, name="load_flat_meters"),
     path('flat/load-owner-flats/', flat_views.load_owner_flats, name="load_owner_flats"),
     path('flat/load-section-flats-on-update/', flat_views.load_section_flats_on_update, name="load_section_flats_on_update"),
     path('flat/load-section-flats-without-pa-on-update/', flat_views.load_section_flats_on_update_pa, name="load_section_flats_on_update_pa"),
@@ -43,7 +44,8 @@ urlpatterns = [
 
     # personal_accounts block
     path('account/index/', staff_member_required(personal_account_views.PersonalAccountListView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name="personal_account_list"),
-    path('account/create', staff_member_required(personal_account_views.PersonalAccountCreateView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name='personal_account_create'),
+    path('account/create/', staff_member_required(personal_account_views.PersonalAccountCreateView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name='personal_account_create'),
+    path('account/export/', personal_account_views.export_to_excel, name="personal_account_export_to_excel"),
     path('account/delete/<int:pk>/', personal_account_views.delete_personal_account, name="personal_account_delete"),
     path('account/update/<int:pk>/', staff_member_required(personal_account_views.PersonalAccountUpdateView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name='personal_account_update'),
     path('account/<int:pk>/', staff_member_required(personal_account_views.PersonalAccountDetailView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name='personal_account_detail'),
@@ -51,8 +53,10 @@ urlpatterns = [
     # cashbox block
     path('account-transaction/index/', staff_member_required(cashbox_views.CashboxListView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name="cashbox_list"),
     path('account-transaction/create/', staff_member_required(cashbox_views.CashboxRecordCreateView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name="cashbox_record_create"),
+    path('account-transaction/export/', cashbox_views.export_to_excel, name="cashbox_record_export_to_excel"),
     path('account-transaction/load-owner-accounts/', cashbox_views.load_owner_accounts, name="load_owner_accounts"),
     path('account-transaction/delete/<int:pk>/', cashbox_views.delete_cashbox_record, name="cbr_delete"),
+    path('account-transaction/export-one/<int:pk>/', cashbox_views.export_one_to_excel, name="cbr_export_one"),
     path('account-transaction/update/<int:pk>/', staff_member_required(cashbox_views.CashboxRecordUpdateView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name="cashbox_record_update"),
     path('account-transaction/<int:pk>/', staff_member_required(cashbox_views.CashboxRecordDetailView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name="cashbox_record_detail"),
 
@@ -60,6 +64,7 @@ urlpatterns = [
     path('invoice/index/', staff_member_required(receipt_views.ReceiptListView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name="receipt_list"),
     path('invoice/create/', receipt_views.receipt_create_view, name="receipt_create"),
     path('invoice/ajax-delete-many/', receipt_views.receipt_delete_many, name="receipt_delete_many"),
+    path('invoice/print/<int:pk>/', receipt_views.export_receipt_to_excel, name="receipt_export"),
     path('invoice/update/<int:pk>/', receipt_views.receipt_update_view, name="receipt_update"),
     path('invoice/delete/<int:pk>/', receipt_views.delete_receipt_view, name="receipt_delete"),
     path('invoice/<int:pk>/', staff_member_required(receipt_views.ReceiptDetailView.as_view(), login_url=reverse_lazy('myhouse_admin:admin_login')), name="receipt_detail"),

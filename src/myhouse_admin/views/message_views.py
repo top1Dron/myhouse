@@ -42,6 +42,8 @@ class MessageCreateView(PermissionRequiredMixin, CreateView):
         context['load_section_floors_url'] = reverse_lazy('myhouse_admin:load_section_floors')
         context['load_empty_flats_url'] = reverse_lazy('myhouse_admin:load_empty_flats')
         context['load_floor_flats_url'] = reverse_lazy('myhouse_admin:load_floor_flats')
+        if 'has_debt' in self.request.GET:
+            context['form'].fields['for_debtors'].initial = True
         return context
 
     def post(self, request, *args, **kwargs) :

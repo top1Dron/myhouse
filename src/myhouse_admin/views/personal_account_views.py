@@ -12,7 +12,7 @@ from django.views.generic.list import ListView
 from myhouse_admin.forms.forms import PersonalAccountForm
 from myhouse_admin.models import PersonalAccount
 from myhouse_admin.utils import db_utils
-from myhouse_admin.utils.utils import PermissionRequiredMixin, permission_required
+from myhouse_admin.utils.utils import PermissionRequiredMixin, permission_required, export_models_to_excel
 
 
 logger = logging.getLogger(__name__)
@@ -134,3 +134,8 @@ class PersonalAccountUpdateView(PermissionRequiredMixin, UpdateView):
 def delete_personal_account(request, pk):
     db_utils.get_personal_account(pk=pk).delete()
     return JsonResponse({})
+
+
+@staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
+def export_to_excel(request):
+    return export_models_to_excel('accounts', PersonalAccount)

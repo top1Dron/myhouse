@@ -46,8 +46,8 @@
             <div class="card mr-3 ml-3">
                 <div class="card-header row d-flex justify-content-end">
                     {% csrf_token %}
-                    <a href="#" class="btn btn-default mr-1">Печать</a>
-                    <a href="#" class="btn btn-default mr-1">Отправить на e-mail</a>
+                    <a href="{% url 'myhouse_admin:receipt_export' receipt.pk %}" class="btn btn-default mr-1">Печать</a>
+                    <a href="{% url 'myhouse_admin:receipt_export' receipt.pk %}" class="btn btn-default mr-1">Отправить на e-mail</a>
                     <a href="{% url 'myhouse_admin:receipt_update' receipt.pk %}" class="btn btn-primary">Редактировать показание</a>
                 </div>
                 <div class="card-body">

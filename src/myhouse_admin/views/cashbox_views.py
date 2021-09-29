@@ -12,7 +12,7 @@ from django.views.generic.list import ListView
 from myhouse_admin.forms.forms import CashboxRecordForm
 from myhouse_admin.models import CashboxRecord, PaymentType
 from myhouse_admin.utils import db_utils
-from myhouse_admin.utils.utils import PermissionRequiredMixin, permission_required, get_dt_now_object
+from myhouse_admin.utils.utils import PermissionRequiredMixin, permission_required, get_dt_now_object, export_models_to_excel
 
 
 logger = logging.getLogger(__name__)
@@ -178,3 +178,14 @@ def delete_cashbox_record(request, pk):
     except:
         pass
     return JsonResponse({})
+
+
+@staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
+def export_to_excel(request):
+    return export_models_to_excel('account_transactions', CashboxRecord)
+
+
+@staff_member_required(login_url=reverse_lazy('myhouse_admin:admin_login'))
+def export_one_to_excel(request, pk):
+    cb_record = db_utils.get_cashbox_record(pk=pk)
+    return export_models_to_excel(f'account_transaction_{cb_record.number}', cb_record)

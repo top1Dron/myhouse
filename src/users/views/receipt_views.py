@@ -2,10 +2,12 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http.response import Http404, JsonResponse
+from django.http.response import Http404, HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
+from django.template.loader import get_template
 from django.urls.base import reverse_lazy
 from django.utils.http import urlencode
+from django.views.generic.base import View
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
@@ -102,3 +104,23 @@ def pay_for_receipt(request, pk):
     if request.GET.get('owner_ID') is not None:
         url_data['owner_ID'] = request.GET.get('owner_ID')
     return redirect(reverse_lazy('users:receipt_detail', kwargs={'pk': receipt.pk}) + '?' + urlencode(url_data))
+
+
+class GeneratePDF(View):
+    def get(self, request, *args, **kwargs):
+        template = get_template('cabinet_receipts/receipt_to_pdf.html')
+        context = {
+            "receipt": db_utils.get_receipt(pk=kwargs['pk']),
+            "payment_details": db_utils.get_payments_details(),
+        }
+        html = template.render(context)
+        pdf, filename = utils.render_to_pdf('cabinet_receipts/receipt_to_pdf.html', context)
+        if pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            content = "inline; filename='%s'" %(filename)
+            download = request.GET.get("download")
+            if download:
+                content = "attachment; filename='%s'" %(filename)
+            response['Content-Disposition'] = content
+            return response
+        return HttpResponse("Not found")

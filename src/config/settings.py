@@ -201,10 +201,16 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+# setting for remember me function
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
+# declare classes for messages
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.INFO: 'primary',
     messages.ERROR: 'danger',
 }
+
+#django-excel settings
+FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler",
+    "django_excel.TemporaryExcelFileUploadHandler")

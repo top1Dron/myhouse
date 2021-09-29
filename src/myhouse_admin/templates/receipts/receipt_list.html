@@ -115,7 +115,7 @@
                             <td><span class="badge badge-warning">{{ receipt.get_status_display }}</span></td>
                         {% endif %}
                         <td>{{receipt.creation_date|date:"d.m.Y"}}</td>
-                        <td>{{receipt.creation_date|date:"F Y"}}</td>
+                        <td>{{receipt.end_date|date:"F Y"}}</td>
                         <td>{{receipt.flat.to_string}}</td>
                         <td>{{receipt.flat.owner}}</td>
                         <td>

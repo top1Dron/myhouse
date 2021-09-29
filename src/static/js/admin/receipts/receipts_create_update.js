@@ -54,7 +54,7 @@ $(document).ready(function(){
             url =  $("#id_section").attr("data-section-flat-update-url");
             data = {
                 'section': sectionId,
-                'flat': $("#id_flat").val(),
+                'flat': $("#id_section").attr('cur-flat'),
             }
         }
         $.ajax({
@@ -67,11 +67,12 @@ $(document).ready(function(){
     });
 
     $('#id_flat').change(function(){
-        var url = $(this).attr("data-flat-details-url");
+        var detail_url = $(this).attr("data-flat-details-url");
+        var meters_url = $(this).attr("data-flat-meters-url");
         var flatId = $(this).val();
 
         $.ajax({
-            url: url,
+            url: detail_url,
             data: {
                 'flat': flatId
             },
@@ -79,6 +80,16 @@ $(document).ready(function(){
                 $(`#id_flat_owner`).html(data['flat_owner_name']);
                 $(`#id_flat_owner_phone`).html(data['flat_owner_phone']);
                 $(`#id_flat_tariff`).html(data['flat_tariff']);
+            }
+        });
+
+        $.ajax({
+            url: meters_url,
+            data: {
+                'flat': flatId
+            },
+            success: function (data) {
+                $(`#id_meters_body`).html(data);
             }
         });
     });

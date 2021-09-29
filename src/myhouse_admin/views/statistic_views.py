@@ -10,7 +10,7 @@ from myhouse_admin.utils.utils import permission_required
 def index(request):
     context = {}
     context['houses_count'] = db_utils.get_houses().count()
-    context['active_owners_count'] = db_utils.get_active_owners().count()
+    context['active_owners_count'] = db_utils.get_all_owners().filter(user__status='2').count()
     context['active_tickets_count'] = db_utils.get_tickets_in_progress().count()
     context['flats_count'] = db_utils.get_flats().count()
     context['pa_count'] = db_utils.get_personal_accounts().count()

@@ -26,7 +26,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a href="{% url 'myhouse_admin:owner_create' %}" class="dropdown-item">Добавить владельца квартиры</a>
-                    <a class="dropdown-item" href="#">Отправить сообщение должникам</a>
+                    <a class="dropdown-item" href="{% url 'myhouse_admin:message_create' %}?has_debt=1">Отправить сообщение должникам</a>
                     <a class="dropdown-item" href="#">Отправить приглашение</a>
                 </div>
             </div>

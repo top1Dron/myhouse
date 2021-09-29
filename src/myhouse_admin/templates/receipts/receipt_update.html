@@ -46,31 +46,7 @@
                     </tr>
                 </thead>
                 <tbody id="id_meters_body">
-                {% for meter in meters %}
-                    <tr>
-                        <td>{{meter.number}}</td>
-                        <td>
-                            {% if meter.status == '1' %}
-                                <span class="badge badge-warning">
-                            {% elif meter.status == '4' %}
-                                <span class="badge badge-primary">
-                            {% elif meter.status == '2' or meter.status == '3' %}
-                                <span class="badge badge-success">
-                            {% endif %}
-                            {{ meter.get_status_display }}</span>
-                        </td>
-                        <td>{{meter.reading_date|date:"d.m.Y"}}</td>
-                        <td>{{meter.reading_date|date:"F Y"}}</td>
-                        <td>{{meter.flat.floor.section.house}}</td>
-                        <td>{{meter.flat.floor.section}}</td>
-                        <td>{{meter.flat.number}}</td>
-                        <td>{{meter.service.name}}</td>
-                        <td>{{meter.testimony|stringformat:".1f"}}</td>
-                        <td>{{meter.service.unit.name}}</td>
-                    </tr>
-                {% empty %}
-                    <tr><td colspan="10">Показаний счетчиков не обнаружено</td></tr>
-                {% endfor %}
+                    {% include 'receipts/receipt_flat_meters.html' %}
                 </tbody>
             </table>
         </div>

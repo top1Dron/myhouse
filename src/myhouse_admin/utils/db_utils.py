@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.db.models.aggregates import Sum
 from django.shortcuts import get_object_or_404
 
-from myhouse_admin.models import Block, AboutUsPageImage, AboutUsPageAdditionalImage, CashboxRecord, Flat, Floor, House, Message, MeterReading, PaymentType, Receipt, ReceiptService, Section, PersonalAccount, Service, Tariff, TariffService, Ticket, Unit
+from myhouse_admin.models import Block, AboutUsPageImage, AboutUsPageAdditionalImage, CashboxRecord, Flat, Floor, House, Message, MeterReading, PaymentDetails, PaymentType, Receipt, ReceiptService, Section, PersonalAccount, Service, Tariff, TariffService, Ticket, Unit
 from users.models import Employee, Role, User, Owner 
 
 
@@ -251,7 +251,10 @@ def get_floor_flats(floor_id) -> Iterable[Flat]:
 
 
 def get_house_flats(house_id) -> Iterable[Flat]:
-    return Flat.objects.filter(floor__section__house=house_id)
+    try:
+        return Flat.objects.filter(floor__section__house=house_id)
+    except:
+        return Flat.objects.none()
 
 
 def get_current_and_empty_flats(flat_id, section_id) -> Iterable[Flat]:
@@ -353,7 +356,10 @@ def get_all_meter_readings() -> Iterable[MeterReading]:
 
 
 def get_flat_meters(flat_id) -> Iterable[MeterReading]:
-    return get_all_meter_readings().filter(flat=flat_id)
+    try:
+        return get_all_meter_readings().filter(flat=flat_id)
+    except:
+        return MeterReading.objects.none()
 
 
 def get_services_in_meter() -> Iterable[Service]:
@@ -442,3 +448,11 @@ def get_repaid_indebtedness_per_year(year: int) -> list[float]:
             status='3').aggregate(Sum('summary'))['summary__sum']
         result.append(0.0 if month_repaid_indebtedness is None else float(month_repaid_indebtedness))
     return result
+
+
+def get_payments_details() -> str:
+    try:
+        return PaymentDetails.objects.first().details
+    except:
+        return ''
+    

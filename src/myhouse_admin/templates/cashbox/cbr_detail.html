@@ -50,7 +50,7 @@
                     <a href="{% url 'myhouse_admin:cashbox_record_create' %}?cbr_id={{cashbox_record.pk}}" class="btn btn-default mr-1">Копировать</a>
                     <button type="button" class="btn btn-default mr-1 delete-cb_record-button" delete-url="{% url 'myhouse_admin:cbr_delete' cashbox_record.pk %}">Удалить</button>
                     <a href="{% url 'myhouse_admin:cashbox_record_update' cashbox_record.pk %}" class="btn btn-primary mr-1">Редактировать ведомость</a>
-                    <a href="#" class="btn btn-default justify-content-end">Выгрузить в Excel</a>
+                    <a href="{% url 'myhouse_admin:cbr_export_one' cashbox_record.pk %}" class="btn btn-default justify-content-end">Выгрузить в Excel</a>
                 </div>
                 <div class="card-body">
                     <div class="row">

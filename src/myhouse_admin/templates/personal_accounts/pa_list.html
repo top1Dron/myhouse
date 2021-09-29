@@ -31,7 +31,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a href="{% url 'myhouse_admin:personal_account_create' %}" class="dropdown-item">Добавить лицевой счёт</a>
-                    <a class="dropdown-item" href="#">Выгрузить в Excel</a>
+                    <a class="dropdown-item" href="{% url 'myhouse_admin:personal_account_export_to_excel' %}">Выгрузить в Excel</a>
                 </div>
             </div>
         </div>

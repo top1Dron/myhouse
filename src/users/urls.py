@@ -13,6 +13,7 @@ urlpatterns = [
 
     path('invoice/index/', receipt_views.ReceiptListView.as_view(), name="receipt_index"),
     path('invoice/pay/<int:pk>/', receipt_views.pay_for_receipt, name="receipt_pay"),
+    path('invoice/download/<int:pk>/', receipt_views.GeneratePDF.as_view(), name="receipt_download"),
     path('invoice/<int:pk>/', receipt_views.ReceiptDetailView.as_view(), name="receipt_detail"),
 
     path('tariff/index/', tariff_views.FlatTariffDetailView.as_view(), name="tariff_index"),

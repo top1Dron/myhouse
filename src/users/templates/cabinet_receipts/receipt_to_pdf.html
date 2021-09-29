@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+    <style type="text/css">
+    @page {
+    size: letter landscape;
+    border: 1px solid #999999;
+    margin: .4cm;
+    }
+
+    @font-face {
+    font-family: 'OpenSansRegular';
+    src: url("/static/fonts/OpenSans/OpenSans-Light.ttf");
+    }
+
+    body {
+    font-family: 'OpenSansRegular', sans-serif;
+    font-size: 16px;
+    }
+
+    .container {
+    padding: .4cm;
+    }
+    </style>
+
+    <title>Квитанция №{{receipt.number}}</title>
+</head>
+<body>
+    <table class="table table-responsive table-bordered" style="border: 3px solid black;">
+        <tbody>
+            <tr>
+                <td rowspan='2'>Отримувач/</br>Виконувач</td>
+                <td rowspan='2' colspan='6'>{{payment_details}}</td>
+                <td colspan='2'>№ О/рахунку</td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td rowspan='3'></td>
+                <td rowspan='3' colspan='6'></td>
+                <td colspan='2'></td>
+            </tr>
+            <tr>
+                <td colspan='2'></td>
+            </tr>
+            <tr>
+                <td colspan='2'></td>
+            </tr>
+            <tr>
+                <td>Платник</td>
+                <td colspan='6'><strong>{{receipt.flat.owner}} {{receipt.flat.floor.section.house.address}} квартира {{receipt.flat.number}}</strong></td>
+            </tr>
+            <tr>
+                <td>Нараховано</td>
+                <td>{{receipt.summary|stringformat:".2f"}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Баланс О/р</td>
+                <td>{{receipt.flat.actual_balance|stringformat:".2f"}}</td>
+                <td>на</td>
+                <td colspan='2'>{{receipt.creation_date|date:"d.m.Y"}}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td rowspan='2'>ДО</br>СПЛАТИ</td>
+                <td rowspan='2'>{{receipt.summary|stringformat:".2f"}}</td>
+                <td rowspan='2'>за</td>
+                <td rowspan='2' colspan='4'>{{receipt.end_date|date:"F Y"}}</td>
+                <td rowspan='5' colspan='2'>С условиями приема банком суммы</br>ознакомлен и согласен</br>________________</br>(пiдпис платника)</td>
+            </tr>
+            <tr></tr>
+            <tr><td></td></tr>
+            <tr><td></td></tr>
+            <tr><td></td></tr>
+            <tr>
+                <td rowspan='4'>Отримувач/</br>Виконувач</td>
+                <td rowspan='4' colspan='6'>{{payment_details}}</td>
+                <td colspan='2'>№ О/рахунку</td>
+            </tr>
+            <tr><td colspan='2'></td></tr>
+            <tr><td colspan='2'></td></tr>
+            <tr><td colspan='2'></td></tr>
+            <tr>
+                <td>Нараховано</td>
+                <td>{{receipt.summary|stringformat:".2f"}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Баланс О/р</td>
+                <td>{{receipt.flat.actual_balance|stringformat:".2f"}}</td>
+                <td>на</td>
+                <td colspan='2'>{{receipt.creation_date|date:"d.m.Y"}}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td rowspan='2'>ДО</br>СПЛАТИ</td>
+                <td rowspan='2'>{{receipt.summary|stringformat:".2f"}}</td>
+                <td rowspan='2'>за</td>
+                <td rowspan='2' colspan='4'>{{receipt.end_date|date:"F Y"}}</td>
+                <td rowspan='2' colspan='2'></td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td colspan='2'>Услуга</td>
+                <td colspan='3'>Тариф</td>
+                <td colspan='2'>Ед.изм</td>
+                <td colspan='2'>Расход</td>
+            </tr>
+            {% for rs in receipt.r_services.all %}
+                <tr>
+                    <td colspan='2'>{{rs.service.name}}</td>
+                    <td colspan='3'>{{rs.unit_price|stringformat:'.2f'}}</td>
+                    <td colspan='2'>{{rs.service.unit.name}}</td>
+                    <td colspan='2'>{{rs.consumption|stringformat:'.2f'}}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan='2'></td>
+                <td colspan='3'></td>
+                <td colspan='2'></td>
+                <td colspan='2'></td>
+            </tr>
+            <tr>
+                <td colspan='2'></td>
+                <td colspan='3'></td>
+                <td colspan='2'>РАЗОМ</td>
+                <td colspan='2'>{{receipt.summary|stringformat:'.2f'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

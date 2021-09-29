@@ -66,12 +66,12 @@
                             {% if not update %}
                                 {% render_field form.section class='form-control is-invalid' data-section-flat-url=load_section_flats_url %}
                             {% else %}
-                                {% render_field form.section class='form-control is-invalid' data-section-flat-update-url=load_section_flats_on_update_url %}
+                                {% render_field form.section class='form-control is-invalid' data-section-flat-update-url=load_section_flats_url cur-flat=form.instance.flat.pk %}
                             {% endif %}
                         </div>
                         <div class="form-group g-3">
                             <label for="{{form.flat.auto_id}}" class="form-label">Квартира</label>
-                            {% render_field form.flat class='form-control is-invalid' data-flat-details-url=load_flat_details %}
+                            {% render_field form.flat class='form-control is-invalid' data-flat-details-url=load_flat_details data-flat-meters-url=load_flat_meters_url %}
                         </div>
                         <div class="form-group g-3">
                             <label for="{{form.personal_account.auto_id}}" class="form-label mt-4">Лицевой счет</label>
