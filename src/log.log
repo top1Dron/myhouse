@@ -1155,3 +1155,4 @@ INFO 2021-09-29 18:01:52,032 utils uri - /static/dist/css/adminlte.min.css
 INFO 2021-09-29 18:01:52,033 utils /usr/projects/myhouse/src/static/dist/css/adminlte.min.css
 INFO 2021-09-29 18:01:52,717 utils uri - /static/fonts/OpenSans/OpenSans-Light.ttf
 INFO 2021-09-29 18:01:52,717 utils /usr/projects/myhouse/src/static/fonts/OpenSans/OpenSans-Light.ttf
+ERROR 2021-09-29 19:12:25,097 utils Export database to excel failed: export_to_excel() missing 1 required positional argument: 'self'

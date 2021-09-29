@@ -141,7 +141,11 @@ def export_models_to_excel(filename_start: str, Model):
         data = Model.export_to_excel()
         responce = excel.make_response_from_array(data, 'xlsx', file_name=EXCEL_FILE_NAME)
     except Exception as error:
-        logger.error(f"Export database to excel failed: {str(error)}")
+        try:
+            data = Model.export_to_excel_one()
+            responce = excel.make_response_from_array(data, 'xlsx', file_name=EXCEL_FILE_NAME)
+        except:
+            logger.error(f"Export database to excel failed: {str(error)}")
     return responce
 
 

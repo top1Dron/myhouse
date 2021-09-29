@@ -281,7 +281,7 @@ class CashboxRecord(models.Model):
             ])
         return data
 
-    def export_to_excel(self) -> dict:
+    def export_to_excel_one(self) -> dict:
         data = []
         data.append(['Платеж', self.number])
         data.append(['Дата', str(self.date)])
